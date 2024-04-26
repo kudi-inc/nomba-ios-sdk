@@ -1,0 +1,671 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF6A83D82BDBFFFC00B14867 /* Octance.docc in Sources */ = {isa = PBXBuildFile; fileRef = EF6A83D72BDBFFFC00B14867 /* Octance.docc */; };
+		EF6A83DE2BDBFFFC00B14867 /* Octance.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF6A83D32BDBFFFC00B14867 /* Octance.framework */; };
+		EF6A83E32BDBFFFC00B14867 /* OctanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A83E22BDBFFFC00B14867 /* OctanceTests.swift */; };
+		EF6A83E42BDBFFFC00B14867 /* Octance.h in Headers */ = {isa = PBXBuildFile; fileRef = EF6A83D62BDBFFFC00B14867 /* Octance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF6A83F42BDC005700B14867 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A83F32BDC005700B14867 /* AppDelegate.swift */; };
+		EF6A83F62BDC005700B14867 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A83F52BDC005700B14867 /* SceneDelegate.swift */; };
+		EF6A83F82BDC005700B14867 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A83F72BDC005700B14867 /* ViewController.swift */; };
+		EF6A83FB2BDC005700B14867 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = EF6A83FA2BDC005700B14867 /* Base */; };
+		EF6A83FE2BDC005700B14867 /* OctaneExamples.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF6A83FC2BDC005700B14867 /* OctaneExamples.xcdatamodeld */; };
+		EF6A84002BDC005A00B14867 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF6A83FF2BDC005A00B14867 /* Assets.xcassets */; };
+		EF6A84032BDC005A00B14867 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = EF6A84022BDC005A00B14867 /* Base */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EF6A83DF2BDBFFFC00B14867 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EF6A83CA2BDBFFFC00B14867 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EF6A83D22BDBFFFC00B14867;
+			remoteInfo = Octance;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EF6A83D32BDBFFFC00B14867 /* Octance.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Octance.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6A83D62BDBFFFC00B14867 /* Octance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Octance.h; sourceTree = "<group>"; };
+		EF6A83D72BDBFFFC00B14867 /* Octance.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Octance.docc; sourceTree = "<group>"; };
+		EF6A83DD2BDBFFFC00B14867 /* OctanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6A83E22BDBFFFC00B14867 /* OctanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctanceTests.swift; sourceTree = "<group>"; };
+		EF6A83F12BDC005700B14867 /* OctaneExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctaneExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6A83F32BDC005700B14867 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EF6A83F52BDC005700B14867 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		EF6A83F72BDC005700B14867 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EF6A83FA2BDC005700B14867 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EF6A83FD2BDC005700B14867 /* OctaneExamples.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OctaneExamples.xcdatamodel; sourceTree = "<group>"; };
+		EF6A83FF2BDC005A00B14867 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EF6A84022BDC005A00B14867 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF6A84042BDC005A00B14867 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF6A83D02BDBFFFC00B14867 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6A83DA2BDBFFFC00B14867 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF6A83DE2BDBFFFC00B14867 /* Octance.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6A83EE2BDC005700B14867 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF6A83C92BDBFFFC00B14867 = {
+			isa = PBXGroup;
+			children = (
+				EF6A83D52BDBFFFC00B14867 /* Octance */,
+				EF6A83E12BDBFFFC00B14867 /* OctanceTests */,
+				EF6A83F22BDC005700B14867 /* OctaneExamples */,
+				EF6A83D42BDBFFFC00B14867 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF6A83D42BDBFFFC00B14867 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF6A83D32BDBFFFC00B14867 /* Octance.framework */,
+				EF6A83DD2BDBFFFC00B14867 /* OctanceTests.xctest */,
+				EF6A83F12BDC005700B14867 /* OctaneExamples.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EF6A83D52BDBFFFC00B14867 /* Octance */ = {
+			isa = PBXGroup;
+			children = (
+				EF6A83D62BDBFFFC00B14867 /* Octance.h */,
+				EF6A83D72BDBFFFC00B14867 /* Octance.docc */,
+			);
+			path = Octance;
+			sourceTree = "<group>";
+		};
+		EF6A83E12BDBFFFC00B14867 /* OctanceTests */ = {
+			isa = PBXGroup;
+			children = (
+				EF6A83E22BDBFFFC00B14867 /* OctanceTests.swift */,
+			);
+			path = OctanceTests;
+			sourceTree = "<group>";
+		};
+		EF6A83F22BDC005700B14867 /* OctaneExamples */ = {
+			isa = PBXGroup;
+			children = (
+				EF6A83F32BDC005700B14867 /* AppDelegate.swift */,
+				EF6A83F52BDC005700B14867 /* SceneDelegate.swift */,
+				EF6A83F72BDC005700B14867 /* ViewController.swift */,
+				EF6A83F92BDC005700B14867 /* Main.storyboard */,
+				EF6A83FF2BDC005A00B14867 /* Assets.xcassets */,
+				EF6A84012BDC005A00B14867 /* LaunchScreen.storyboard */,
+				EF6A84042BDC005A00B14867 /* Info.plist */,
+				EF6A83FC2BDC005700B14867 /* OctaneExamples.xcdatamodeld */,
+			);
+			path = OctaneExamples;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EF6A83CE2BDBFFFC00B14867 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF6A83E42BDBFFFC00B14867 /* Octance.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EF6A83D22BDBFFFC00B14867 /* Octance */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6A83E72BDBFFFC00B14867 /* Build configuration list for PBXNativeTarget "Octance" */;
+			buildPhases = (
+				EF6A83CE2BDBFFFC00B14867 /* Headers */,
+				EF6A83CF2BDBFFFC00B14867 /* Sources */,
+				EF6A83D02BDBFFFC00B14867 /* Frameworks */,
+				EF6A83D12BDBFFFC00B14867 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Octance;
+			productName = Octance;
+			productReference = EF6A83D32BDBFFFC00B14867 /* Octance.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EF6A83DC2BDBFFFC00B14867 /* OctanceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6A83EA2BDBFFFC00B14867 /* Build configuration list for PBXNativeTarget "OctanceTests" */;
+			buildPhases = (
+				EF6A83D92BDBFFFC00B14867 /* Sources */,
+				EF6A83DA2BDBFFFC00B14867 /* Frameworks */,
+				EF6A83DB2BDBFFFC00B14867 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF6A83E02BDBFFFC00B14867 /* PBXTargetDependency */,
+			);
+			name = OctanceTests;
+			productName = OctanceTests;
+			productReference = EF6A83DD2BDBFFFC00B14867 /* OctanceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EF6A83F02BDC005700B14867 /* OctaneExamples */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF6A84052BDC005A00B14867 /* Build configuration list for PBXNativeTarget "OctaneExamples" */;
+			buildPhases = (
+				EF6A83ED2BDC005700B14867 /* Sources */,
+				EF6A83EE2BDC005700B14867 /* Frameworks */,
+				EF6A83EF2BDC005700B14867 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OctaneExamples;
+			productName = OctaneExamples;
+			productReference = EF6A83F12BDC005700B14867 /* OctaneExamples.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF6A83CA2BDBFFFC00B14867 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					EF6A83D22BDBFFFC00B14867 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					EF6A83DC2BDBFFFC00B14867 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					EF6A83F02BDC005700B14867 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = EF6A83CD2BDBFFFC00B14867 /* Build configuration list for PBXProject "Octance" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EF6A83C92BDBFFFC00B14867;
+			productRefGroup = EF6A83D42BDBFFFC00B14867 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF6A83D22BDBFFFC00B14867 /* Octance */,
+				EF6A83DC2BDBFFFC00B14867 /* OctanceTests */,
+				EF6A83F02BDC005700B14867 /* OctaneExamples */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF6A83D12BDBFFFC00B14867 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6A83DB2BDBFFFC00B14867 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6A83EF2BDC005700B14867 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF6A84002BDC005A00B14867 /* Assets.xcassets in Resources */,
+				EF6A84032BDC005A00B14867 /* Base in Resources */,
+				EF6A83FB2BDC005700B14867 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF6A83CF2BDBFFFC00B14867 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF6A83D82BDBFFFC00B14867 /* Octance.docc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6A83D92BDBFFFC00B14867 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF6A83E32BDBFFFC00B14867 /* OctanceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EF6A83ED2BDC005700B14867 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF6A83FE2BDC005700B14867 /* OctaneExamples.xcdatamodeld in Sources */,
+				EF6A83F82BDC005700B14867 /* ViewController.swift in Sources */,
+				EF6A83F42BDC005700B14867 /* AppDelegate.swift in Sources */,
+				EF6A83F62BDC005700B14867 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF6A83E02BDBFFFC00B14867 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EF6A83D22BDBFFFC00B14867 /* Octance */;
+			targetProxy = EF6A83DF2BDBFFFC00B14867 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EF6A83F92BDC005700B14867 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF6A83FA2BDC005700B14867 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EF6A84012BDC005A00B14867 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF6A84022BDC005A00B14867 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EF6A83E52BDBFFFC00B14867 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EF6A83E62BDBFFFC00B14867 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EF6A83E82BDBFFFC00B14867 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = KPGYDGPJU8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nomba.Octance;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EF6A83E92BDBFFFC00B14867 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = KPGYDGPJU8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nomba.Octance;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EF6A83EB2BDBFFFC00B14867 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KPGYDGPJU8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nomba.OctanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EF6A83EC2BDBFFFC00B14867 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KPGYDGPJU8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nomba.OctanceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EF6A84062BDC005A00B14867 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KPGYDGPJU8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OctaneExamples/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nomba.OctaneExamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EF6A84072BDC005A00B14867 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KPGYDGPJU8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OctaneExamples/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nomba.OctaneExamples;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF6A83CD2BDBFFFC00B14867 /* Build configuration list for PBXProject "Octance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6A83E52BDBFFFC00B14867 /* Debug */,
+				EF6A83E62BDBFFFC00B14867 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF6A83E72BDBFFFC00B14867 /* Build configuration list for PBXNativeTarget "Octance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6A83E82BDBFFFC00B14867 /* Debug */,
+				EF6A83E92BDBFFFC00B14867 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF6A83EA2BDBFFFC00B14867 /* Build configuration list for PBXNativeTarget "OctanceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6A83EB2BDBFFFC00B14867 /* Debug */,
+				EF6A83EC2BDBFFFC00B14867 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF6A84052BDC005A00B14867 /* Build configuration list for PBXNativeTarget "OctaneExamples" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF6A84062BDC005A00B14867 /* Debug */,
+				EF6A84072BDC005A00B14867 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EF6A83FC2BDC005700B14867 /* OctaneExamples.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EF6A83FD2BDC005700B14867 /* OctaneExamples.xcdatamodel */,
+			);
+			currentVersion = EF6A83FD2BDC005700B14867 /* OctaneExamples.xcdatamodel */;
+			path = OctaneExamples.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = EF6A83CA2BDBFFFC00B14867 /* Project object */;
+}

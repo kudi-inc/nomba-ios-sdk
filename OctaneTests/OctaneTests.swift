@@ -1,14 +1,14 @@
 //
-//  OctanceTests.swift
-//  OctanceTests
+//  OctaneTests.swift
+//  OctaneTests
 //
 //  Created by Bezaleel Ashefor on 26/04/2024.
 //
 
 import XCTest
-@testable import Octance
+@testable import Octane
 
-final class OctanceTests: XCTestCase {
+final class OctaneTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF0B1C782BFB4B7D008696EE /* NombaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B1C772BFB4B7D008696EE /* NombaManager.swift */; };
+		EF0B1C7C2BFB5452008696EE /* DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B1C7B2BFB5452008696EE /* DisplayState.swift */; };
+		EF0B1C7F2BFB5548008696EE /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0B1C7E2BFB5548008696EE /* PaymentView.swift */; };
 		EF81089E2BDC01CD0044C01F /* Octane.docc in Sources */ = {isa = PBXBuildFile; fileRef = EF81089D2BDC01CD0044C01F /* Octane.docc */; };
 		EF8108A42BDC01CD0044C01F /* Octane.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF8108992BDC01CD0044C01F /* Octane.framework */; };
 		EF8108A92BDC01CD0044C01F /* OctaneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8108A82BDC01CD0044C01F /* OctaneTests.swift */; };
@@ -31,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EF0B1C772BFB4B7D008696EE /* NombaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NombaManager.swift; sourceTree = "<group>"; };
+		EF0B1C7B2BFB5452008696EE /* DisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayState.swift; sourceTree = "<group>"; };
+		EF0B1C7E2BFB5548008696EE /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
 		EF8108992BDC01CD0044C01F /* Octane.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Octane.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF81089C2BDC01CD0044C01F /* Octane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Octane.h; sourceTree = "<group>"; };
 		EF81089D2BDC01CD0044C01F /* Octane.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Octane.docc; sourceTree = "<group>"; };
@@ -73,6 +79,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF0B1C792BFB5424008696EE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B1C7A2BFB543A008696EE /* Enums */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EF0B1C7A2BFB543A008696EE /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B1C7B2BFB5452008696EE /* DisplayState.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		EF0B1C7D2BFB553D008696EE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EF0B1C7E2BFB5548008696EE /* PaymentView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		EF81088F2BDC01CD0044C01F = {
 			isa = PBXGroup;
 			children = (
@@ -96,8 +126,11 @@
 		EF81089B2BDC01CD0044C01F /* Octane */ = {
 			isa = PBXGroup;
 			children = (
+				EF0B1C7D2BFB553D008696EE /* UI */,
+				EF0B1C792BFB5424008696EE /* Core */,
 				EF81089C2BDC01CD0044C01F /* Octane.h */,
 				EF81089D2BDC01CD0044C01F /* Octane.docc */,
+				EF0B1C772BFB4B7D008696EE /* NombaManager.swift */,
 			);
 			path = Octane;
 			sourceTree = "<group>";
@@ -266,6 +299,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF81089E2BDC01CD0044C01F /* Octane.docc in Sources */,
+				EF0B1C7F2BFB5548008696EE /* PaymentView.swift in Sources */,
+				EF0B1C7C2BFB5452008696EE /* DisplayState.swift in Sources */,
+				EF0B1C782BFB4B7D008696EE /* NombaManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +550,7 @@
 		EF8108B12BDC01CD0044C01F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KPGYDGPJU8;
@@ -531,6 +568,7 @@
 		EF8108B22BDC01CD0044C01F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KPGYDGPJU8;
@@ -555,6 +593,7 @@
 				DEVELOPMENT_TEAM = KPGYDGPJU8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OctaneExamples/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Nomba Payment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -584,6 +623,7 @@
 				DEVELOPMENT_TEAM = KPGYDGPJU8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OctaneExamples/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Nomba Payment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

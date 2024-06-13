@@ -31,7 +31,7 @@ public class Octane{
         Octane.clientId = clientId
         Octane.accountId = accountId
         Octane.clientKey = clientKey
-        //registerAllFonts()
+        registerAllFonts()
     }
     
     public func setPaymentDetails(email: String, amount: Double){

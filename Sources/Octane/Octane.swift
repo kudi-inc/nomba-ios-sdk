@@ -43,6 +43,10 @@ public class Octane{
         return String(format: "%.02f", Octane.amount)
     }
     
+    func getAmountFormatedWithCurrency() -> String {
+        return String(format: "₦ %.02f", Octane.amount)
+    }
+    
     /// (SwiftUI) The Changelog view.
     public var view: some View {
         return PaymentsOptionsView(accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey)

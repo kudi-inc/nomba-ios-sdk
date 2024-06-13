@@ -12,10 +12,10 @@ import CoreText
 
 class FontsManager {
     
-    static var fontRegular : String = "inter_regular"
-    static var fontMedium : String = "inter_medium"
-    static var fontBold : String = "inter_bold"
-    static var fontBlack : String = "inter_black"
+    static var fontRegular : String = "Inter-Regular"
+    static var fontMedium : String = "Inter-Medium"
+    static var fontBold : String = "Inter-Bold"
+    static var fontBlack : String = "Inter-Black"
     
     
     public enum FontError: Swift.Error {

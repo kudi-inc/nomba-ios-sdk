@@ -14,11 +14,18 @@ let package = Package(
             name: "Octane",
             targets: ["Octane"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/omaralbeik/Drops.git", from: "1.7.0")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Octane"),
+            name: "Octane",
+            dependencies: [
+                .product(name: "Drops", package: "Drops")
+            ]
+        ),
         .testTarget(
             name: "OctaneTests",
             dependencies: ["Octane"]),

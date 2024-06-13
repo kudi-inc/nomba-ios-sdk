@@ -17,12 +17,12 @@ struct BorderButton: View {
         }){
             HStack{
                 Text(buttonText)
-            }.overlay{
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color("Neutral Two", bundle: .module), lineWidth: 2)
+            }.padding(.vertical, 14).frame(maxWidth: .infinity).overlay{
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color("Neutral Two", bundle: .module), lineWidth: 1)
             }
             .foregroundStyle(Color("Text Primary", bundle: .module))
-        }
+        }.font(.custom(FontsManager.fontRegular, size: 14))
     }
 }
 

@@ -41,14 +41,14 @@ public class Octane{
     
     /// (SwiftUI) The Changelog view.
     public var view: some View {
-        return PaymentsOptionsView(email: Octane.email, amount: "\(Octane.amount)")
+        return PaymentsOptionsView(accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey, email: Octane.email, amount: "\(Octane.amount)")
             .preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark)
     }
     
     #if canImport(UIKit) && !os(visionOS)
     /// (UIKit) The Changelog viewcontroller.
     public var viewController: UIViewController {
-        UIHostingController(rootView: PaymentsOptionsView(email: Octane.email, amount: "\(Octane.amount)").preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
+        UIHostingController(rootView: PaymentsOptionsView(accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey, email: Octane.email, amount: "\(Octane.amount)").preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
     }
     #endif
     

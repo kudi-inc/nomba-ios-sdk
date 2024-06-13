@@ -41,7 +41,7 @@ class PaymentOptionsViewModel : ObservableObject {
     }
     
     
-    func fetchBankForTransfer(){
+    func fetchBankForTransfer(completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
         
     }
     

@@ -9,28 +9,71 @@ import SwiftUI
 
 struct PaymentsOptionsView: View {
     @State var logo : Image?
-    var roundPadding : CGFloat = 10
+    var roundPadding : CGFloat = 15
     @State var email : String
     @State var amount : String
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack{
-            HStack{
-                logo
+            HStack(alignment: .center){
+                if let logo = logo {
+                    logo.resizable().frame(width: 42, height: 42)
+                } else {
+                    RoundedRectangle(cornerRadius: 4).frame(width: 42, height: 42)
+                }
                 Spacer()
-                VStack(alignment: .trailing){
-                    Text("Pay \(amount)")
-                    Text(email)
+                VStack(alignment: .trailing, spacing: 4){
+                    Text("Pay ") + Text("\(amount)").font(.custom(FontsManager.fontBold, size: 12))
+                    Text(email).opacity(0.6)
                 }.font(.custom(FontsManager.fontRegular, size: 12))
             }
+            Spacer().frame(height: 15)
             Divider()
-            VStack{
-                Text("Choose any of the payment methods\nbelow to pay")
-            }.padding(.vertical).padding(.horizontal, 18).frame(maxWidth: .infinity, alignment: .leading).background(Color("Neutral One", bundle: Bundle.module))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+            Spacer().frame(height: 20)
+            VStack(spacing: 0){
+                VStack{
+                    Text("Choose any of the payment methods\nbelow to pay").lineSpacing(2)
+                }
+                .padding(.vertical, 20)
+                .padding(.horizontal, 18)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color("Neutral Two", bundle: Bundle.module))
+                Button(action: {
+                    
+                }){
+                    HStack{
+                        Image("transfer", bundle: Bundle.module)
+                        Text("Pay by Transfer")
+                        Spacer()
+                        Image("chevron-right", bundle: .module)
+                    }.padding(.vertical, 15)
+                        .padding(.horizontal, 18)
+                }
+                Divider()
+                Button(action: {
+                    
+                }){
+                    HStack{
+                        Image("card", bundle: Bundle.module)
+                        Text("Pay by Card")
+                        Spacer()
+                        Image("chevron-right", bundle: .module)
+                    }.padding(.vertical, 15)
+                        .padding(.horizontal, 18)
+                }
+            }.frame(maxWidth: .infinity, alignment: .leading).background(Color("Neutral One", bundle: Bundle.module))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+            Spacer().frame(height: 20)
+            BorderButton(buttonText: "Cancel Payment", action: {
+                presentationMode.wrappedValue.dismiss()
+            })
+            Spacer()
+            FooterView()
         }
         .padding(roundPadding)
         .font(.custom(FontsManager.fontRegular, size: 14))
+        .foregroundStyle(Color("Text Primary", bundle: .module))
     }
 }
 

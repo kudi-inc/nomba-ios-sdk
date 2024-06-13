@@ -20,7 +20,8 @@ struct TopView: View {
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4){
-                    Text("Pay ") + Text("\(Octane.shared.getAmountFormatedWithCurrency())")
+                    Text("Pay ") +
+                    Text("\(Octane.shared.getAmountFormatedWithCurrency())").font(.custom(FontsManager.fontBold, size: 14))
                     Text(Octane.email).opacity(0.6).font(.custom(FontsManager.fontRegular, size: 12))
                 }
             }

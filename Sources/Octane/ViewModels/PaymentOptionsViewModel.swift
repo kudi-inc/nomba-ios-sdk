@@ -14,6 +14,10 @@ class PaymentOptionsViewModel : ObservableObject {
     var networkManager = NetworkManager.shared
     var orderReference : String = UUID().uuidString
     
+    var accountNumber : String = "98762371891"
+    var bankName : String = "Amucha MFB"
+    var accountName : String = "Abdullahi Abodunrin"
+    
     func showTransferView(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
         networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientId, selectedPaymentOption: selectedPaymentOption, completion: { result in
             completion(result)
@@ -29,7 +33,9 @@ class PaymentOptionsViewModel : ObservableObject {
                     // successfully created a new Order or the order already exists, move on
                     if (selectedPaymentOption == .TRANSFER){
                         //fetch banks
-                        
+                        fetchBankForTransfer(completion: { result in
+                            completion(.success(true))
+                        })
                     } else if(selectedPaymentOption == .CARD){
                         completion(.success(true))
                     }
@@ -41,8 +47,18 @@ class PaymentOptionsViewModel : ObservableObject {
     }
     
     
-    func fetchBankForTransfer(completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
-        
+    func fetchBankForTransfer(completion: @escaping (Result<Bool, Error>) -> Void){
+        networkManager.getFlashAccount(orderReference: orderReference, completion: { [self] result in
+            switch result {
+            case .success(let data):
+                accountName = data.data.accountName
+                bankName = data.data.bankName
+                accountNumber = data.data.accountNumber
+                completion(.success(true))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
     }
     
     

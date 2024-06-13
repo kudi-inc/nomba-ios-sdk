@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import Drops
 
 struct TransferView: View {
     @State var logo : Image?
     var roundPadding : CGFloat = 15
     @Environment(\.presentationMode) var presentationMode
     @State var isLoading = false
-    @State var accountNumber : String = "98762371891"
-    @State var bankName : String = "Amucha MFB"
-    @State var accountName : String = "Abdullahi Abodunrin"
+    @State var accountNumber : String
+    @State var bankName : String
+    @State var accountName : String
     
     var body: some View {
         ZStack{
@@ -46,7 +47,9 @@ struct TransferView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(Color("Blue Two", bundle: .module), lineWidth: 1)
                         }.onTapGesture {
-                            
+                            let pasteboard = UIPasteboard.general
+                            pasteboard.string = accountNumber
+                            Drops.show("Account number copied")
                         }
                     Spacer().frame(height: 16)
                     HStack{
@@ -104,5 +107,5 @@ struct TransferView: View {
 }
 
 #Preview {
-    TransferView()
+    TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin")
 }

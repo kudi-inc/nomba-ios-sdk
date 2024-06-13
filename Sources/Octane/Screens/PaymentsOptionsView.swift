@@ -21,6 +21,10 @@ struct PaymentsOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     var paymentOptionsViewModel = PaymentOptionsViewModel()
     
+    @State var accountNumber : String = "98762371891"
+    @State var bankName : String = "Amucha MFB"
+    @State var accountName : String = "Abdullahi Abodunrin"
+    
     var body: some View {
         ZStack{
             VStack{
@@ -72,6 +76,8 @@ struct PaymentsOptionsView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isShowingTransfer){
+            TransferView(accountNumber: accountNumber, bankName: bankName, accountName: accountName)
+        }.sheet(isPresented: $isShowingCard) {
             
         }
     }
@@ -87,6 +93,9 @@ struct PaymentsOptionsView: View {
                         case .success(let data):
                             if (data){
                                 isLoading = false
+                                accountName = paymentOptionsViewModel.accountName
+                                accountNumber = paymentOptionsViewModel.accountNumber
+                                bankName = paymentOptionsViewModel.bankName
                                 isShowingTransfer = true
                             } else {
                                 Drops.show("Something went wrong. Try again")

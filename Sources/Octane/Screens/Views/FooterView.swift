@@ -11,7 +11,7 @@ struct FooterView: View {
     var body: some View {
         HStack(spacing: 6){
             Text("Secured by")
-            Image("logo", bundle: Bundle.module).offset(y: 1)
+            Image("Logo", bundle: Bundle.module).offset(y: 1)
         }.font(.custom(FontsManager.fontRegular, size: 14))
     }
 }

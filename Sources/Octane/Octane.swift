@@ -14,7 +14,7 @@ public class Octane{
     static var clientKey = "my-fancy-widget-key"
     static var email = "me@nomba.com"
     static var amount : Double = 10.00
-    static var colorTheme = ColorTheme.AUTO
+    static var colorTheme = ColorTheme.LIGHT
     
     public static let shared = Octane()
     
@@ -31,7 +31,7 @@ public class Octane{
         Octane.clientId = clientId
         Octane.accountId = accountId
         Octane.clientKey = clientKey
-        registerAllFonts()
+        //registerAllFonts()
     }
     
     public func setPaymentDetails(email: String, amount: Double){

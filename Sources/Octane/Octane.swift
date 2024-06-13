@@ -12,6 +12,8 @@ public class Octane{
     static var clientId = "my-fancy-public-key"
     static var accountId = "my-fancy-widget-key"
     static var clientKey = "my-fancy-widget-key"
+    static var email = "me@nomba.com"
+    static var amount : Double = 10.00
     static var colorTheme = ColorTheme.AUTO
     
     public static let shared = Octane()
@@ -32,16 +34,21 @@ public class Octane{
         registerAllFonts()
     }
     
+    public func setPaymentDetails(email: String, amount: Double){
+        Octane.email = email
+        Octane.amount = amount
+    }
+    
     /// (SwiftUI) The Changelog view.
     public var view: some View {
-        return PaymentsOptionsView()
+        return PaymentsOptionsView(email: Octane.email, amount: "\(Octane.amount)")
             .preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark)
     }
     
     #if canImport(UIKit) && !os(visionOS)
     /// (UIKit) The Changelog viewcontroller.
     public var viewController: UIViewController {
-        UIHostingController(rootView: PaymentsOptionsView().preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
+        UIHostingController(rootView: PaymentsOptionsView(email: Octane.email, amount: "\(Octane.amount)").preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
     }
     #endif
     

@@ -116,12 +116,14 @@ class NetworkManager{
             request.httpBody = bodyJson
         }
         
+        print("start")
         print(request)
         print(url)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print(error)
+                
                 completion(.failure(error))
                 return
             }
@@ -132,8 +134,11 @@ class NetworkManager{
                 return
             }
             
+            print(data)
             completion(.success(data))
         }
+        
+        print("end")
         
         task.resume()
     }

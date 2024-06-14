@@ -84,7 +84,7 @@ struct PaymentsOptionsView: View {
     
     private func showTransferView(){
         isLoading = true
-        paymentOptionsViewModel.showTransferView(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: .TRANSFER, completion: { result in
+        paymentOptionsViewModel.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: .TRANSFER, completion: { result in
             switch result {
             case .success(let data):
                 if (data){
@@ -133,6 +133,51 @@ struct PaymentsOptionsView: View {
     
     private func showCardView(){
         isLoading = true
+        paymentOptionsViewModel.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: .CARD, completion: { result in
+            switch result {
+            case .success(let data):
+                if (data){
+                    paymentOptionsViewModel.createOrder(accountId: accountId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .CARD, completion: { result in
+                        switch result {
+                        case .success(let data):
+                            if (data){
+                                isLoading = false
+                                accountName = paymentOptionsViewModel.accountName
+                                accountNumber = paymentOptionsViewModel.accountNumber
+                                bankName = paymentOptionsViewModel.bankName
+                                isShowingCard = true
+                            } else {
+                                Drops.show("Something went wrong. Try again")
+                                isLoading = false
+                            }
+                        case .failure(let error):
+                            let errorString : String = error.localizedDescription
+                            let drop = Drop(
+                                title: errorString,
+                                action: .init {
+                                    Drops.hideCurrent()
+                                }
+                            )
+                            Drops.show(drop)
+                            isLoading = false
+                        }
+                    })
+                } else {
+                    Drops.show("Something went wrong. Try again")
+                    isLoading = false
+                }
+            case .failure(let error):
+                let errorString : String = error.localizedDescription
+                let drop = Drop(
+                    title: errorString,
+                    action: .init {
+                        Drops.hideCurrent()
+                    }
+                )
+                Drops.show(drop)
+                isLoading = false
+            }
+        })
     }
 }
 

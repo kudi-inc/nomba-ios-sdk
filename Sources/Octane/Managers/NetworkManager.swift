@@ -109,18 +109,25 @@ class NetworkManager{
         request.httpMethod = httpMethod
         request.allHTTPHeaderFields = headerDict
         
+        
+        
         if let body = bodyValues {
             let bodyJson = body.data(using: .utf8)
             request.httpBody = bodyJson
         }
         
+        print(request)
+        print(url)
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
+                print(error)
                 completion(.failure(error))
                 return
             }
             
             guard let data = data else {
+                print(error)
                 completion(.failure(error!))
                 return
             }

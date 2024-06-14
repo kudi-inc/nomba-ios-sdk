@@ -18,7 +18,7 @@ class PaymentOptionsViewModel : ObservableObject {
     var bankName : String = "Amucha MFB"
     var accountName : String = "Abdullahi Abodunrin"
     
-    func showTransferView(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
+    func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
         networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientId, selectedPaymentOption: selectedPaymentOption, completion: { result in
             completion(result)
         })

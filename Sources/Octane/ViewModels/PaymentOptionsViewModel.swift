@@ -19,7 +19,7 @@ class PaymentOptionsViewModel : ObservableObject {
     var accountName : String = "Abdullahi Abodunrin"
     
     func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
-        networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientId, selectedPaymentOption: selectedPaymentOption, completion: { result in
+        networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: selectedPaymentOption, completion: { result in
             completion(result)
         })
     }

@@ -21,7 +21,7 @@ struct YellowButton: View {
                 .background(Color("Button Primary", bundle: .module))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             .foregroundStyle(Color("Text Primary", bundle: .module))
-        }.font(.custom(FontsManager.fontRegular, size: 14))
+        }.font(.custom(FontsManager.fontRegular, size: 16))
     }
 }
 

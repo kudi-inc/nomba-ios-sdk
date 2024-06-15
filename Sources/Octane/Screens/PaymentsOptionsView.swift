@@ -18,6 +18,7 @@ struct PaymentsOptionsView: View {
     @State var isLoading = false
     @State var isShowingTransfer = false
     @State var isShowingCard = false
+    @State var isShowingCancelDialog = false
     @Environment(\.presentationMode) var presentationMode
     var paymentOptionsViewModel = PaymentOptionsViewModel()
     
@@ -64,7 +65,8 @@ struct PaymentsOptionsView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                 Spacer().frame(height: 50)
                 BorderButton(buttonText: "Cancel Payment", action: {
-                    presentationMode.wrappedValue.dismiss()
+                    isShowingCancelDialog = true
+                    // presentationMode.wrappedValue.dismiss()
                 })
                 Spacer()
                 FooterView()
@@ -78,7 +80,17 @@ struct PaymentsOptionsView: View {
         }.sheet(isPresented: $isShowingTransfer){
             TransferView(accountNumber: accountNumber, bankName: bankName, accountName: accountName)
         }.sheet(isPresented: $isShowingCard) {
-            
+            CardView()
+        }.sheet(isPresented: $isShowingCancelDialog){
+            if #available(iOS 16.4, *) {
+                CancelPaymentConfirmationView().presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+                    .presentationCornerRadius(21)
+            } else {
+                CancelPaymentConfirmationView().presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+                // Fallback on earlier versions
+            }
         }
     }
     

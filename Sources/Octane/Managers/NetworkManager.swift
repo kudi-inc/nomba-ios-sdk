@@ -121,25 +121,35 @@ class NetworkManager{
         print(url)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print(error)
-                
-                completion(.failure(error))
-                return
-            }
+//            if let error = error {
+//                print(error)
+//                completion(.failure(error))
+//                return
+//            }
+//            
+//            guard let data = data else {
+//                print(error)
+//                completion(.failure(error!))
+//                return
+//            }
+//            
+//            print(data)
+//            completion(.success(data))
             
-            guard let data = data else {
-                print(error)
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
                 completion(.failure(error!))
                 return
             }
             
-            print(data)
-            completion(.success(data))
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+                completion(.success(data))
+            }
         }
         
         print("end")
-        
         task.resume()
     }
     

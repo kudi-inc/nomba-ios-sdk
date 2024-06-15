@@ -32,13 +32,13 @@ class NetworkManager{
                         refreshToken = accessTokenResult.data.refreshToken
                         completion(.success(true))
                     } catch {
-                        refreshToken = ""
-                        accessToken = ""
+//                        refreshToken = ""
+//                        accessToken = ""
                         completion(.success(false))
                     }
                 case .failure(let error):
-                    refreshToken = ""
-                    accessToken = ""
+//                    refreshToken = ""
+//                    accessToken = ""
                     completion(.failure(error))
                 }
             })

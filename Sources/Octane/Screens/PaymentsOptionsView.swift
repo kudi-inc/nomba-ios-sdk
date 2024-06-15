@@ -98,23 +98,27 @@ struct PaymentsOptionsView: View {
                                 bankName = paymentOptionsViewModel.bankName
                                 isShowingTransfer = true
                             } else {
-                                Drops.show("Something went wrong. Try again")
+                                if (Octane.errorString.isEmpty) {
+                                    Drops.show("Something went wrong. Try again")
+                                } else {
+                                    let errorString = Octane.errorString
+                                    Drops.show(Util.getDrop(message: errorString))
+                                }
                                 isLoading = false
                             }
                         case .failure(let error):
                             let errorString : String = error.localizedDescription
-                            let drop = Drop(
-                                title: errorString,
-                                action: .init {
-                                    Drops.hideCurrent()
-                                }
-                            )
-                            Drops.show(drop)
+                            Drops.show(Util.getDrop(message: errorString))
                             isLoading = false
                         }
                     })
                 } else {
-                    Drops.show("Something went wrong. Try again")
+                    if (Octane.errorString.isEmpty) {
+                        Drops.show("Something went wrong. Try again")
+                    } else {
+                        let errorString = Octane.errorString
+                        Drops.show(Util.getDrop(message: errorString))
+                    }
                     isLoading = false
                 }
             case .failure(let error):

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CancelPaymentConfirmationView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var parentPresentationMode : PresentationMode?
+    @Binding var parentPresentationMode : PresentationMode
     
     var body: some View {
         VStack{
@@ -30,7 +30,8 @@ struct CancelPaymentConfirmationView: View {
             Spacer()
             HStack{
                 YellowButton(buttonText: "Confirm", action: {
-                    
+                    presentationMode.wrappedValue.dismiss()
+                    parentPresentationMode.dismiss()
                 })
                 BorderButton(buttonText: "Cancel", action: {
                     presentationMode.wrappedValue.dismiss()
@@ -41,5 +42,6 @@ struct CancelPaymentConfirmationView: View {
 }
 
 #Preview {
-    CancelPaymentConfirmationView()
+    @Environment(\.presentationMode) var presentationMode
+    return CancelPaymentConfirmationView(parentPresentationMode: .constant(presentationMode.wrappedValue))
 }

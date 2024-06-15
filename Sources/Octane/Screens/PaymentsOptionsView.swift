@@ -83,13 +83,13 @@ struct PaymentsOptionsView: View {
             CardView()
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
-                CancelPaymentConfirmationView().presentationDetents([.height(340)])
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
                     .presentationDragIndicator(.hidden)
                     .presentationCornerRadius(21)
             } else {
-                CancelPaymentConfirmationView().presentationDetents([.height(340)])
-                    .presentationDragIndicator(.hidden)
                 // Fallback on earlier versions
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
             }
         }
     }

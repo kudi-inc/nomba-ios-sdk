@@ -22,8 +22,6 @@ class NetworkManager{
             completion(.success(true))
         } else {
             let url = URL(string:  "\(Constants.base_url)/auth/token/issue")!
-            print("\(clientId)")
-            print("\(clientKey)")
             let body = "{\"grant_type\": \"client_credentials\", \"client_id\": \"\(clientId)\", \"client_secret\": \"\(clientKey)\"}"
             pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId], bodyValues: body, completion: { [self] result in
                 switch result {
@@ -148,6 +146,7 @@ class NetworkManager{
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
                 print(responseJSON)
+                Octane.errorString = responseJSON["description"] as? String ?? ""
                 completion(.success(data))
             }
         }

@@ -15,6 +15,7 @@ public class Octane{
     static var email = "me@nomba.com"
     static var amount : Double = 10.00
     static var colorTheme = ColorTheme.LIGHT
+    static var errorString = ""
     
     public static let shared = Octane()
     

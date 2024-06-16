@@ -26,14 +26,16 @@ class NetworkManager{
                 switch result {
                 case .success(let data):
                     do {
+                        print(data)
                         let accessTokenResult = try JSONDecoder().decode(AccessTokenResponse.self, from: data)
                         accessToken = accessTokenResult.data.accessToken
                         refreshToken = accessTokenResult.data.refreshToken
                         print("Token True")
                         completion(.success(true))
-                    } catch {
+                    } catch (let error) {
 //                        refreshToken = ""
 //                        accessToken = ""
+                        print(error.localizedDescription)
                         print("Token False")
                         completion(.success(false))
                     }

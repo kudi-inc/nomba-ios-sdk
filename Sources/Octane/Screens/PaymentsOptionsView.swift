@@ -127,6 +127,7 @@ struct PaymentsOptionsView: View {
                         }
                     })
                 } else {
+                    print("Token Gotten False \(data)")
                     if (Octane.errorString.isEmpty) {
                         Drops.show("Something went wrong. Try again")
                     } else {

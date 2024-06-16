@@ -26,7 +26,8 @@ class NetworkManager{
                 switch result {
                 case .success(let data):
                     do {
-                        print(data)
+                        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                        print(responseJSON)
                         let accessTokenResult = try JSONDecoder().decode(AccessTokenResponse.self, from: data)
                         accessToken = accessTokenResult.data.accessToken
                         refreshToken = accessTokenResult.data.refreshToken

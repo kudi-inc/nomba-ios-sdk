@@ -29,10 +29,12 @@ class NetworkManager{
                         let accessTokenResult = try JSONDecoder().decode(AccessTokenResponse.self, from: data)
                         accessToken = accessTokenResult.data.accessToken
                         refreshToken = accessTokenResult.data.refreshToken
+                        print("Token True")
                         completion(.success(true))
                     } catch {
 //                        refreshToken = ""
 //                        accessToken = ""
+                        print("Token False")
                         completion(.success(false))
                     }
                 case .failure(let error):

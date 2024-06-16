@@ -26,23 +26,20 @@ class NetworkManager{
                 switch result {
                 case .success(let data):
                     do {
-                        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                        print(responseJSON)
                         let accessTokenResult = try JSONDecoder().decode(AccessTokenResponse.self, from: data)
                         accessToken = accessTokenResult.data.accessToken
                         refreshToken = accessTokenResult.data.refreshToken
-                        print("Token True")
                         completion(.success(true))
                     } catch (let error) {
 //                        refreshToken = ""
 //                        accessToken = ""
                         print(String(describing: error))
-                        print("Token False")
                         completion(.success(false))
                     }
                 case .failure(let error):
 //                    refreshToken = ""
 //                    accessToken = ""
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             })
@@ -74,10 +71,12 @@ class NetworkManager{
                     // Parse the JSON data
                     let createOrderResponse = try JSONDecoder().decode(CreateOrderResponse.self, from: data)
                     completion(.success(createOrderResponse))
-                } catch {
+                } catch ((let error)) {
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(String(describing: error))
                 completion(.failure(error))
             }
         })
@@ -103,7 +102,7 @@ class NetworkManager{
     }
     
     private func pingPonger(url: URL, httpMethod: String = "GET", headers: [String: String], bodyValues : String? = nil, completion: @escaping (Result<Data, Error>) -> Void){
-        var defaultDict : Dictionary = [
+        let defaultDict : Dictionary = [
             "Content-Type": "application/json"
         ]
         

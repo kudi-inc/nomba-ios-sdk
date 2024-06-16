@@ -14,7 +14,6 @@ class NetworkManager{
     var accessToken : String?
     var refreshToken : String?
     
-    
     private init() {}
     
     func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){

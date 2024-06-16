@@ -22,7 +22,7 @@ struct BorderButton: View {
                     .stroke(Color("Neutral Two", bundle: .module), lineWidth: 1)
             }
             .foregroundStyle(Color("Text Primary", bundle: .module))
-        }.font(.custom(FontsManager.fontRegular, size: 14))
+        }.font(.custom(FontsManager.fontRegular, size: 16))
     }
 }
 

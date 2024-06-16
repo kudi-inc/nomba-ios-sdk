@@ -100,10 +100,12 @@ struct PaymentsOptionsView: View {
             switch result {
             case .success(let data):
                 if (data){
+                    print("Token Gotten")
                     paymentOptionsViewModel.createOrder(accountId: accountId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .TRANSFER, completion: { result in
                         switch result {
                         case .success(let data):
                             if (data){
+                                print("Order Fetched")
                                 isLoading = false
                                 accountName = paymentOptionsViewModel.accountName
                                 accountNumber = paymentOptionsViewModel.accountNumber

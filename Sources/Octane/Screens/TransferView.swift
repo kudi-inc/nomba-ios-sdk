@@ -82,6 +82,15 @@ struct TransferView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                     
                 }.frame(maxWidth: .infinity, alignment: .leading)
+                Spacer().frame(height: 20)
+                VStack(spacing: 10){
+                    Text("Use this account only for this transaction")
+                        .font(.custom(FontsManager.fontRegular, size: 12))
+                    HStack{
+                        Text("Use this account only for this transaction")
+                            .font(.custom(FontsManager.fontRegular, size: 12))
+                    }
+                }
                 Spacer().frame(height: 50)
                 YellowButton(buttonText: "I have sent the money", action: {
                     

@@ -66,7 +66,7 @@ class NetworkManager{
         
         let order = "{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
         let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
-        pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], completion: { result in
+        pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: body, completion: { result in
             switch result {
             case .success(let data):
                 do {

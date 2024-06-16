@@ -10,6 +10,12 @@ import Foundation
 struct AccessTokenResponse: Codable {
     let code, description: String
     let data: DataClass
+    
+    enum CodingKeys: String, CodingKey {
+        case data = "data"
+        case code
+        case description
+    }
 }
 
 // MARK: - DataClass

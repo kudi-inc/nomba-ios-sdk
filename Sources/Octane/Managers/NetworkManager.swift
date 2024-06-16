@@ -36,7 +36,7 @@ class NetworkManager{
                     } catch (let error) {
 //                        refreshToken = ""
 //                        accessToken = ""
-                        print(error.localizedDescription)
+                        print(String(describing: error))
                         print("Token False")
                         completion(.success(false))
                     }

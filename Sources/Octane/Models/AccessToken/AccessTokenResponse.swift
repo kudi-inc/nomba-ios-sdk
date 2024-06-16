@@ -21,7 +21,7 @@ struct AccessTokenResponse: Codable {
 // MARK: - DataClass
 struct DataClass: Codable {
     let businessID, accessToken, refreshToken: String
-    let expiresAt: Date
+    let expiresAt: String
 
     enum CodingKeys: String, CodingKey {
         case businessID = "businessId"

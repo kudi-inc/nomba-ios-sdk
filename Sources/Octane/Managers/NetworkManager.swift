@@ -49,21 +49,10 @@ class NetworkManager{
     
     func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
-        
-//        {
-//          "order": {
-//            "orderReference": "90e81e8a-bc14-4ebf-89c0-57da752cca58",
-//            "customerId": "762878332454",
-//            "callbackUrl": "https://ip:port/merchant.com/callback",
-//            "customerEmail": "abcde@gmail.com",
-//            "amount": "10000.00",
-//            "currency": "NGN"
-//          },
-//          "tokenizeCard": "true"
-//        }
-        
+    
         let order = "{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
         let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
+        
         pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: body, completion: { result in
             switch result {
             case .success(let data):
@@ -141,6 +130,7 @@ class NetworkManager{
 //            completion(.success(data))
             
             guard let data = data, error == nil else {
+                print("Error")
                 print(error?.localizedDescription ?? "No data")
                 completion(.failure(error!))
                 return
@@ -148,6 +138,7 @@ class NetworkManager{
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
+                print("Error")
                 print(responseJSON)
                 Octane.errorString = responseJSON["description"] as? String ?? ""
                 completion(.success(data))

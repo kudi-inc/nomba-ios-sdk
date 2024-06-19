@@ -21,7 +21,7 @@ class NetworkManager{
             completion(.success(true))
         } else {
             let url = URL(string:  "\(Constants.base_url)/auth/token/issue")!
-            let body = "{\"grant_type\": \"client_credentials\", \"client_id\": \"\(clientId)\", \"client_secret\": \"\(clientKey)\"}"
+            let body : [String : Any] = ["grant_type": "client_credentials", "client_id": "\(clientId)", "client_secret": "\(clientKey)"]
             pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId], bodyValues: body, completion: { [self] result in
                 switch result {
                 case .success(let data):
@@ -50,10 +50,12 @@ class NetworkManager{
     func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
     
-        let order = "{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
-        let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
+        let order : [String: Any] = ["tokenizeCard": "true", "order": ["orderReference": "\(orderReference)", "customerId": "\(customerId)", "callbackUrl": "\(callbackURL)", "customerEmail": "\(customerEmail)", "amount": "\(amount)", "currency": "\(currency)"]]
         
-        pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: body, completion: { result in
+        //"{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
+        //let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
+        
+        pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: order, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -90,7 +92,7 @@ class NetworkManager{
         })
     }
     
-    private func pingPonger(url: URL, httpMethod: String = "GET", headers: [String: String], bodyValues : String? = nil, completion: @escaping (Result<Data, Error>) -> Void){
+    private func pingPonger(url: URL, httpMethod: String = "GET", headers: [String: String], bodyValues : Dictionary<String, Any>? = nil, completion: @escaping (Result<Data, Error>) -> Void){
         let defaultDict : Dictionary = [
             "Content-Type": "application/json"
         ]
@@ -107,8 +109,7 @@ class NetworkManager{
         
         
         if let body = bodyValues {
-            let bodyJson = body.data(using: .utf8)
-            let requestBody = try! JSONEncoder().encode(bodyJson)
+            let requestBody = try! JSONSerialization.data(withJSONObject: body)
             request.httpBody = requestBody
         }
         
@@ -144,7 +145,7 @@ class NetworkManager{
             print("start")
             print(url)
             if let httpResponse = response as? HTTPURLResponse {
-                   print(httpResponse.statusCode)
+                print(httpResponse.statusCode)
                 print(httpResponse)
             }
             print(request.httpBody)

@@ -50,8 +50,8 @@ class NetworkManager{
     func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
     
-        let order = "{'orderReference': '\(orderReference)', 'customerId': '\(customerId)', 'callbackUrl': '\(callbackURL)'}, 'customerEmail': '\(customerEmail)', 'amount': '\(amount)', 'currency': '\(currency)'}"
-        let body = "{'tokenizeCard': 'true', 'order': '\(order)'}"
+        let order = "{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
+        let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
         
         pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: body, completion: { result in
             switch result {
@@ -104,14 +104,10 @@ class NetworkManager{
         if let body = bodyValues {
             let bodyJson = body.data(using: .utf8)
             request.httpBody = bodyJson
-            print(request.httpBody)
+            
         }
         
-        print("start")
-        print(request.httpMethod)
-        print(request.allHTTPHeaderFields)
-        print(bodyValues)
-        print(url)
+        
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
 //            if let error = error {
@@ -129,6 +125,8 @@ class NetworkManager{
 //            print(data)
 //            completion(.success(data))
             
+            
+            
             print("Ran")
             
             guard let data = data, error == nil else {
@@ -137,6 +135,21 @@ class NetworkManager{
                 completion(.failure(error!))
                 return
             }
+            
+            print("")
+            print("start")
+            print(url)
+            if let httpResponse = response as? HTTPURLResponse {
+                   print(httpResponse.statusCode)
+                print(httpResponse)
+            }
+            print(request.httpBody)
+            print(request.httpMethod)
+            print(request.allHTTPHeaderFields)
+            print(bodyValues)
+            
+            
+            print("")
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
@@ -151,6 +164,7 @@ class NetworkManager{
             }
         }
         
+
         task.resume()
     }
     

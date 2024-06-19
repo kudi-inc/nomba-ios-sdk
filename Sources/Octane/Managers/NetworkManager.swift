@@ -129,6 +129,8 @@ class NetworkManager{
 //            print(data)
 //            completion(.success(data))
             
+            print("Ran")
+            
             guard let data = data, error == nil else {
                 print("Error")
                 print(error?.localizedDescription ?? "No data")
@@ -142,6 +144,8 @@ class NetworkManager{
                 print(responseJSON)
                 Octane.errorString = responseJSON["description"] as? String ?? ""
                 completion(.success(data))
+            } else {
+                print("What's wrong")
             }
         }
         

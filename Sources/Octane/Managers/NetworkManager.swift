@@ -31,14 +31,10 @@ class NetworkManager{
                         refreshToken = accessTokenResult.data.refreshToken
                         completion(.success(true))
                     } catch (let error) {
-//                        refreshToken = ""
-//                        accessToken = ""
                         print(String(describing: error))
                         completion(.success(false))
                     }
                 case .failure(let error):
-//                    refreshToken = ""
-//                    accessToken = ""
                     print(String(describing: error))
                     completion(.failure(error))
                 }
@@ -51,9 +47,6 @@ class NetworkManager{
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
     
         let order : [String: Any] = ["tokenizeCard": "true", "order": ["orderReference": "\(orderReference)", "customerId": "\(customerId)", "callbackUrl": "\(callbackURL)", "customerEmail": "\(customerEmail)", "amount": "\(amount)", "currency": "\(currency)"]]
-        
-        //"{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
-        //let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
         
         pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: order, completion: { result in
             switch result {
@@ -105,9 +98,6 @@ class NetworkManager{
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        // request.allHTTPHeaderFields = headerDict
-        
-        
         if let body = bodyValues {
             let requestBody = try! JSONSerialization.data(withJSONObject: body)
             request.httpBody = requestBody
@@ -135,37 +125,31 @@ class NetworkManager{
             print("Ran")
             
             guard let data = data, error == nil else {
-                print("Error")
-                print(error?.localizedDescription ?? "No data")
+                let errorString = error?.localizedDescription ?? "No data"
+                Octane.errorString = errorString
+                print(errorString)
                 completion(.failure(error!))
                 return
             }
             
             print("")
-            print("start")
             print(url)
             if let httpResponse = response as? HTTPURLResponse {
                 print(httpResponse.statusCode)
-                print(httpResponse)
             }
             print(request.httpBody)
-            
             print(request.httpMethod)
             print(request.allHTTPHeaderFields)
             print(bodyValues)
-            
             
             print("")
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                print("Error")
                 print(responseJSON)
                 Octane.errorString = responseJSON["description"] as? String ?? ""
                 completion(.success(data))
             } else {
-                print("What's wrong")
-                print(responseJSON)
                 completion(.success(data))
             }
         }

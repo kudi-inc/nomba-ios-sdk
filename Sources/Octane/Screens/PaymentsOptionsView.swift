@@ -104,11 +104,11 @@ struct PaymentsOptionsView: View {
                         switch result {
                         case .success(let data):
                             if (data){
-                                //isLoading = false
+                                isLoading = false
                                 accountName = paymentOptionsViewModel.accountName
                                 accountNumber = paymentOptionsViewModel.accountNumber
                                 bankName = paymentOptionsViewModel.bankName
-                                //isShowingTransfer = true
+                                isShowingTransfer = true
                             } else {
                                 if (Octane.errorString.isEmpty) {
                                     Drops.show("Something went wrong. Try again")

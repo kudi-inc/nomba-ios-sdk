@@ -146,6 +146,7 @@ class NetworkManager{
                 completion(.success(data))
             } else {
                 print("What's wrong")
+                print(responseJSON as Any)
             }
         }
         

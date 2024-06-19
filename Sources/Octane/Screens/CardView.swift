@@ -34,7 +34,7 @@ struct CardView: View {
                             TextField("", text: $creditCardNumber, prompt: Text("0000 0000 0000 0000").foregroundColor(Color("Neutral Four", bundle: .module)))
                         }
                         Spacer()
-                        Image("Payment Icon", bundle: .module)
+                        Image("PaymentIcon", bundle: .module)
                     }.padding(.vertical, 12).padding(.horizontal, 16)
                         .background(Color("Neutral One", bundle: .module))
                         .clipShape(RoundedRectangle(cornerRadius: 8))

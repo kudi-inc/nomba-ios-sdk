@@ -22,7 +22,7 @@ class NetworkManager{
         } else {
             let url = URL(string:  "\(Constants.base_url)/auth/token/issue")!
             let body : [String : Any] = ["grant_type": "client_credentials", "client_id": "\(clientId)", "client_secret": "\(clientKey)"]
-            pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId], bodyValues: body, completion: { [self] result in
+            pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId], bodyValues: body, completion: { [self] result in
                 switch result {
                 case .success(let data):
                     do {
@@ -48,7 +48,7 @@ class NetworkManager{
     
         let order : [String: Any] = ["tokenizeCard": "true", "order": ["orderReference": "\(orderReference)", "customerId": "\(customerId)", "callbackUrl": "\(callbackURL)", "customerEmail": "\(customerEmail)", "amount": "\(amount)", "currency": "\(currency)"]]
         
-        pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: order, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: order, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -69,7 +69,7 @@ class NetworkManager{
     
     func getFlashAccount(orderReference: String, completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/get-checkout-kta/\(orderReference)")!
-        pingPonger(url: url, httpMethod: "POST", headers: ["Authorization": accessToken!], completion: { result in
+        pingPonger(url: url, headers: ["Authorization": accessToken!], completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -85,7 +85,7 @@ class NetworkManager{
         })
     }
     
-    private func pingPonger(url: URL, httpMethod: String = "GET", headers: [String: String], bodyValues : Dictionary<String, Any>? = nil, completion: @escaping (Result<Data, Error>) -> Void){
+    private func pingPonger(url: URL, httpMethod: HttpMethodAction = .GET, headers: [String: String], bodyValues : Dictionary<String, Any>? = nil, completion: @escaping (Result<Data, Error>) -> Void){
         let defaultDict : Dictionary = [
             "Content-Type": "application/json"
         ]
@@ -93,7 +93,7 @@ class NetworkManager{
         let headerDict =  defaultDict.merging(headers) { $1 }
         
         var request = URLRequest(url: url)
-        request.httpMethod = httpMethod
+        request.httpMethod = httpMethod.rawValue
         for  (key, value) in headerDict {
             request.setValue(value, forHTTPHeaderField: key)
         }
@@ -120,9 +120,6 @@ class NetworkManager{
 //            print(data)
 //            completion(.success(data))
             
-            
-            
-            print("Ran")
             
             guard let data = data, error == nil else {
                 let errorString = error?.localizedDescription ?? "No data"

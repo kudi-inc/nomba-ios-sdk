@@ -16,6 +16,8 @@ struct TransferView: View {
     @State var accountNumber : String
     @State var bankName : String
     @State var accountName : String
+    @State private var progessAmount = 30.0
+    @State private var progessTotal = 50.0
     
     var body: some View {
         ZStack{
@@ -86,12 +88,16 @@ struct TransferView: View {
                 VStack(spacing: 10){
                     Text("Use this account only for this transaction")
                         .font(.custom(FontsManager.fontRegular, size: 12))
-                    HStack{
-                        Text("Use this account only for this transaction")
+                    HStack(alignment: .center, spacing: 5){
+                        Text("Expires in")
                             .font(.custom(FontsManager.fontRegular, size: 12))
+                        Text("29:09")
+                            .font(.custom(FontsManager.fontBold, size: 12))
+                        Image("clock", bundle: .module)
+                        ProgressView(value: progessAmount, total: progessTotal).frame(width: 80).tint(Color("Button Primary", bundle: .module))
                     }
                 }
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 24)
                 YellowButton(buttonText: "I have sent the money", action: {
                     
                 })

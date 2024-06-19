@@ -16,8 +16,12 @@ struct TransferView: View {
     @State var accountNumber : String
     @State var bankName : String
     @State var accountName : String
-    @State private var progessAmount = 30.0
-    @State private var progessTotal = 50.0
+    @State private var progessAmount = 0.0
+    @State private var progessTotal : Double = 1800
+    @State private var timeRemaining = 1800
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @Environment(\.scenePhase) var scenePhase
+    @State private var isActive = true
     
     var body: some View {
         ZStack{
@@ -91,8 +95,8 @@ struct TransferView: View {
                     HStack(alignment: .center, spacing: 5){
                         Text("Expires in")
                             .font(.custom(FontsManager.fontRegular, size: 12))
-                        Text("29:09")
-                            .font(.custom(FontsManager.fontBold, size: 12))
+                        Text(printSecondsToHoursMinutesSeconds(timeRemaining))
+                            .font(.custom(FontsManager.fontBold, size: 12)).foregroundStyle(Color("0E9C00", bundle: .module))
                         Image("clock", bundle: .module)
                         ProgressView(value: progessAmount, total: progessTotal).frame(width: 80).tint(Color("Button Primary", bundle: .module))
                     }
@@ -117,7 +121,33 @@ struct TransferView: View {
             if (isLoading){
                 LoaderView()
             }
-        }
+        }.onReceive(timer) { time in
+            guard isActive else { return }
+
+               if timeRemaining > 0 {
+                   timeRemaining -= 1
+                   progessAmount += 1
+               } else {
+                   // it's ended
+               }
+        }.onChange(of: scenePhase){ value in
+            if value == .active {
+                isActive = true
+            } else {
+                isActive = false
+            }
+        }.onAppear(perform: {
+            progessTotal = Double(timeRemaining)
+        })
+    }
+    
+    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
+    func printSecondsToHoursMinutesSeconds(_ seconds: Int) -> String {
+        let (_, m, s) = secondsToHoursMinutesSeconds(seconds)
+        return String(format: "%02d", m) + ":" + String(format: "%02d", s)
     }
 }
 

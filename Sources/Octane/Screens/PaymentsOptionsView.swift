@@ -78,9 +78,9 @@ struct PaymentsOptionsView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isShowingTransfer){
-            TransferView(accountNumber: accountNumber, bankName: bankName, accountName: accountName).interactiveDismissDisabled(true)
+            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCard) {
-            CardView().interactiveDismissDisabled(true)
+            CardView(logo: logo).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])

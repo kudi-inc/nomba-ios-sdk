@@ -99,14 +99,18 @@ class NetworkManager{
         
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
-        request.allHTTPHeaderFields = headerDict
+        for  (key, value) in headerDict {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        // request.allHTTPHeaderFields = headerDict
+        
         
         if let body = bodyValues {
             let bodyJson = body.data(using: .utf8)
-            request.httpBody = bodyJson
-            
+            let requestBody = try! JSONEncoder().encode(bodyJson)
+            request.httpBody = requestBody
         }
-        
         
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -144,6 +148,7 @@ class NetworkManager{
                 print(httpResponse)
             }
             print(request.httpBody)
+            
             print(request.httpMethod)
             print(request.allHTTPHeaderFields)
             print(bodyValues)

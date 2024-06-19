@@ -50,8 +50,8 @@ class NetworkManager{
     func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
     
-        let order = "{\"orderReference\": \"\(orderReference)\", \"customerId\": \"\(customerId)\", \"callbackUrl\": \"\(callbackURL)\"}, \"customerEmail\": \"\(customerEmail)\", \"amount\": \"\(amount)\", \"currency\": \"\(currency)\"}"
-        let body = "{\"tokenizeCard\": \"true\", \"order\": \"\(order)\"}"
+        let order = "{'orderReference': '\(orderReference)', 'customerId': '\(customerId)', 'callbackUrl': '\(callbackURL)'}, 'customerEmail': '\(customerEmail)', 'amount': '\(amount)', 'currency': '\(currency)'}"
+        let body = "{'tokenizeCard': 'true', 'order': '\(order)'}"
         
         pingPonger(url: url, httpMethod: "POST", headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: body, completion: { result in
             switch result {
@@ -151,7 +151,6 @@ class NetworkManager{
             }
         }
         
-        print("end")
         task.resume()
     }
     

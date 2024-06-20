@@ -17,7 +17,7 @@ struct TransferView: View {
     @State var bankName : String
     @State var accountName : String
     @State var transferPaymentStatus : TransferPaymentStatus = .DETAILS
-   
+    @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
     
     var body: some View {
         ZStack{
@@ -27,7 +27,7 @@ struct TransferView: View {
                 case .DETAILS:
                     TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished)
                 case .ACCOUNT_EXPIRED:
-                    TransferExpiredView()
+                    TransferExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: {})
                 case .CONFIRMATION_WAITING:
                     TransferConfirmationView()
                 }
@@ -48,13 +48,48 @@ struct TransferView: View {
         transferPaymentStatus = .ACCOUNT_EXPIRED
     }
     
+    func onFetchTransferAgain(){
+        isLoading = true
+        paymentOptionsViewModel.fetchBankForTransfer(completion: { result in
+            switch result {
+            case .success(let data):
+                if (data) {
+                    accountName = paymentOptionsViewModel.accountName
+                    accountNumber = paymentOptionsViewModel.accountNumber
+                    bankName = paymentOptionsViewModel.bankName
+                    transferPaymentStatus = .DETAILS
+                    isLoading = false
+                } else {
+                    if (Octane.errorString.isEmpty) {
+                        Drops.show("Something went wrong. Try again")
+                    } else {
+                        let errorString = Octane.errorString
+                        Drops.show(Util.getDrop(message: errorString))
+                    }
+                }
+            case .failure(let error):
+                isLoading = false
+                if (Octane.errorString.isEmpty) {
+                    let errorString = "Something went wrong. Try again" + error.localizedDescription
+                    Drops.show(Util.getDrop(message: errorString))
+                } else {
+                    let errorString = Octane.errorString
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            }
+        })
+        
+    }
+    
     func onTransferSent(){
         transferPaymentStatus = .CONFIRMATION_WAITING
     }
+    
+    
     
    
 }
 
 #Preview {
-    TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin")
+    TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin", paymentOptionsViewModel: .constant(PaymentOptionsViewModel()))
 }

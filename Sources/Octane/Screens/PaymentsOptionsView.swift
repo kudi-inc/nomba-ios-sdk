@@ -20,7 +20,7 @@ struct PaymentsOptionsView: View {
     @State var isShowingCard = false
     @State var isShowingCancelDialog = false
     @Environment(\.presentationMode) var presentationMode
-    var paymentOptionsViewModel = PaymentOptionsViewModel()
+    @State var paymentOptionsViewModel = PaymentOptionsViewModel()
     
     @State var accountNumber : String = "98762371891"
     @State var bankName : String = "Amucha MFB"
@@ -78,7 +78,7 @@ struct PaymentsOptionsView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isShowingTransfer){
-            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName).interactiveDismissDisabled(true)
+            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, paymentOptionsViewModel: $paymentOptionsViewModel).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCard) {
             CardView(logo: logo).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){

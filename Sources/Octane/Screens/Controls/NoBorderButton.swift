@@ -19,6 +19,7 @@ struct NoBorderButton: View {
             HStack{
                 Text(buttonText)
             }.padding(.vertical, 14).frame(maxWidth: .infinity)
+            
             .foregroundStyle(color ?? Color("Text Primary", bundle: .module))
         }.font(.custom(FontsManager.fontRegular, size: 14))
     }

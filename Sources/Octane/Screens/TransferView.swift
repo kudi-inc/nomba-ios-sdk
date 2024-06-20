@@ -25,9 +25,9 @@ struct TransferView: View {
                 TopView(logo: logo)
                 switch transferPaymentStatus {
                 case .DETAILS:
-                    TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished)
+                    TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent)
                 case .ACCOUNT_EXPIRED:
-                    TransferExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: {})
+                    TransferExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
                 case .CONFIRMATION_WAITING:
                     TransferConfirmationView()
                 }

@@ -21,6 +21,7 @@ struct TransferDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     var onTimerFinished : () -> () = {}
     let pasteboard = UIPasteboard.general
+    var sentMoneyAction : () -> () = {}
     
     var body: some View {
         VStack{
@@ -104,7 +105,7 @@ struct TransferDetailsView: View {
             }
             Spacer().frame(height: 24)
             YellowButton(buttonText: "I have sent the money", action: {
-                
+                sentMoneyAction()
             })
             Spacer().frame(height: 24)
             BorderButton(buttonText: "Change payment method", action: {

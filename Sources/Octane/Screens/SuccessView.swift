@@ -25,7 +25,7 @@ struct SuccessView: View {
                     Text("Your Payment has been \nconfirmed successfully")
                         .lineSpacing(5)
                         .fixedSize()
-                        .font(.custom(FontsManager.fontRegular, size: 22))
+                        .font(.custom(FontsManager.fontMedium, size: 22))
                         .multilineTextAlignment(.center)
                         .padding(.vertical, 10)
                     Spacer().frame(height: 15)

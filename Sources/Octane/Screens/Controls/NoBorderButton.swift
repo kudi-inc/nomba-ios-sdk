@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NoBorderButton: View {
     @State var buttonText : String
+    @State var color : Color?
     var action : () -> () = {}
     
     var body: some View {
@@ -18,7 +19,7 @@ struct NoBorderButton: View {
             HStack{
                 Text(buttonText)
             }.padding(.vertical, 14).frame(maxWidth: .infinity)
-            .foregroundStyle(Color("Text Primary", bundle: .module))
+            .foregroundStyle(color ?? Color("Text Primary", bundle: .module))
         }.font(.custom(FontsManager.fontRegular, size: 14))
     }
 }

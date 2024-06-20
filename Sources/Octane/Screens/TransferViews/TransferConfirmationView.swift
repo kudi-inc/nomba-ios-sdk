@@ -12,8 +12,8 @@ struct TransferConfirmationView: View {
     @Environment(\.scenePhase) var scenePhase
     @State private var isActive = true
     @State private var progessAmount = 0.0
-    @State private var progessTotal : Double = 1800
-    @State private var timeRemaining = 1800
+    @State private var progessTotal : Double = 600
+    @State private var timeRemaining = 600
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -45,7 +45,7 @@ struct TransferConfirmationView: View {
             
             Spacer().frame(height: 6)
             NoBorderButton(buttonText: "Need help with this transaction?", color: Color("AA8800", bundle: .module), action: {
-                presentationMode.wrappedValue.dismiss()
+                // presentationMode.wrappedValue.dismiss()
             })
         }.onReceive(timer) { time in
             guard isActive else { return }

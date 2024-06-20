@@ -26,6 +26,8 @@ struct TransferView: View {
                 switch transferPaymentStatus {
                 case .DETAILS:
                     TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished)
+                case .ACCOUNT_EXPIRED:
+                    TransferExpiredView()
                 case .CONFIRMATION_WAITING:
                     TransferConfirmationView()
                 }
@@ -42,6 +44,11 @@ struct TransferView: View {
     }
     
     func onDetailsTimerFinished() {
+        //show expired account
+        transferPaymentStatus = .ACCOUNT_EXPIRED
+    }
+    
+    func onTransferSent(){
         transferPaymentStatus = .CONFIRMATION_WAITING
     }
     

@@ -20,6 +20,7 @@ struct TransferDetailsView: View {
     @State private var isActive = true
     @Environment(\.presentationMode) var presentationMode
     var onTimerFinished : () -> () = {}
+    let pasteboard = UIPasteboard.general
     
     var body: some View {
         VStack{
@@ -36,7 +37,11 @@ struct TransferDetailsView: View {
                         Text(accountNumber)
                     }
                     Spacer()
-                    Button(action: {}){
+                    Button(action: {
+                        
+                        pasteboard.string = accountNumber
+                        Drops.show("Account number copied")
+                    }){
                         Text("COPY").font(.custom(FontsManager.fontRegular, size: 10))
                             .padding(.vertical, 7)
                             .padding(.horizontal, 10)
@@ -49,7 +54,7 @@ struct TransferDetailsView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color("Blue Two", bundle: .module), lineWidth: 1)
                     }.onTapGesture {
-                        let pasteboard = UIPasteboard.general
+                        
                         pasteboard.string = accountNumber
                         Drops.show("Account number copied")
                     }

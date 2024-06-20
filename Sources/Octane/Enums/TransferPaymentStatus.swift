@@ -9,5 +9,7 @@ import Foundation
 
 enum TransferPaymentStatus: Int {
     case DETAILS = 0
-    case CONFIRMATION_WAITING = 1
+    case ACCOUNT_EXPIRED = 1
+    case CONFIRMATION_WAITING = 2
+    
 }

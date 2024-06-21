@@ -15,6 +15,7 @@ struct TransferConfirmationView: View {
     @State private var progessTotal : Double = 600
     @State private var timeRemaining = 600
     @Environment(\.presentationMode) var presentationMode
+    var onTimerEndedAction : () -> () = {}
     
     var body: some View {
         VStack(spacing: 20){
@@ -54,6 +55,7 @@ struct TransferConfirmationView: View {
                 timeRemaining -= 1
                 progessAmount += 1
             } else {
+                onTimerEndedAction()
                 // it's ended
             }
         }.onChange(of: scenePhase){ value in

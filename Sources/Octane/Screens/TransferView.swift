@@ -29,7 +29,9 @@ struct TransferView: View {
                 case .ACCOUNT_EXPIRED:
                     TransferExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
                 case .CONFIRMATION_WAITING:
-                    TransferConfirmationView()
+                    TransferConfirmationView(onTimerEndedAction: onTransferConfirmationFailed)
+                case .CONFIRMATION_WAITING_FAILED:
+                    TransferConfirmationFailedView()
                 }
                 Spacer()
                 FooterView()
@@ -83,6 +85,10 @@ struct TransferView: View {
     
     func onTransferSent(){
         transferPaymentStatus = .CONFIRMATION_WAITING
+    }
+    
+    func onTransferConfirmationFailed(){
+        transferPaymentStatus = .CONFIRMATION_WAITING_FAILED
     }
     
     

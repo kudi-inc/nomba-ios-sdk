@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TransferConfirmationFailedView: View {
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Environment(\.scenePhase) var scenePhase
     @State private var isActive = true
     @State private var progessAmount = 0.0

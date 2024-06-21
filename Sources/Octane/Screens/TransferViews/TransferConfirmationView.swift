@@ -16,6 +16,7 @@ struct TransferConfirmationView: View {
     @State private var timeRemaining = 600
     @Environment(\.presentationMode) var presentationMode
     var onTimerEndedAction : () -> () = {}
+    var onHelpAction : () -> () = {}
     
     var body: some View {
         VStack(spacing: 20){
@@ -46,7 +47,7 @@ struct TransferConfirmationView: View {
             
             Spacer().frame(height: 6)
             NoBorderButton(buttonText: "Need help with this transaction?", color: Color("AA8800", bundle: .module), action: {
-                // presentationMode.wrappedValue.dismiss()
+                onHelpAction()
             })
         }.onReceive(timer) { time in
             guard isActive else { return }

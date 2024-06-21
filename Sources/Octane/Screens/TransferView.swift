@@ -27,11 +27,13 @@ struct TransferView: View {
                 case .DETAILS:
                     TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent)
                 case .ACCOUNT_EXPIRED:
-                    TransferExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
+                    TransferDetailsExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
                 case .CONFIRMATION_WAITING:
-                    TransferConfirmationView(onTimerEndedAction: onTransferConfirmationFailed)
+                    TransferConfirmationView(onTimerEndedAction: onTransferConfirmationFailed, onHelpAction: onHelpAction)
                 case .CONFIRMATION_WAITING_FAILED:
                     TransferConfirmationFailedView()
+                case .GET_HELP:
+                    GetHelpView()
                 }
                 Spacer()
                 FooterView()
@@ -89,6 +91,11 @@ struct TransferView: View {
     
     func onTransferConfirmationFailed(){
         transferPaymentStatus = .CONFIRMATION_WAITING_FAILED
+    }
+    
+    
+    func onHelpAction() {
+        transferPaymentStatus = .GET_HELP
     }
     
     

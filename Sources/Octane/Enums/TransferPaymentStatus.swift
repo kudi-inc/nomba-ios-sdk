@@ -12,5 +12,6 @@ enum TransferPaymentStatus: Int {
     case ACCOUNT_EXPIRED = 1
     case CONFIRMATION_WAITING = 2
     case CONFIRMATION_WAITING_FAILED = 3
+    case GET_HELP = 4
     
 }

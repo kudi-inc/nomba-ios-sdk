@@ -56,7 +56,7 @@ struct TransferView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isSuccessViewShowing){
-            SuccessView().interactiveDismissDisabled(true)
+            TransferSuccessView().interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])

@@ -8,7 +8,7 @@
 import SwiftUI
 import Drops
 
-struct SuccessView: View {
+struct TransferSuccessView: View {
     @State var logo : Image?
     var roundPadding : CGFloat = 15
     @Environment(\.presentationMode) var presentationMode
@@ -55,5 +55,5 @@ struct SuccessView: View {
 }
 
 #Preview {
-    SuccessView()
+    TransferSuccessView()
 }

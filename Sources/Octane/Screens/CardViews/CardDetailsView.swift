@@ -107,7 +107,8 @@ struct CardDetailsView: View {
         }.frame(maxWidth: .infinity, alignment: .leading)
         Spacer().frame(height: 30)
         YellowButton(buttonText: "Pay \(Octane.shared.getAmountFormatedWithCurrency())", action: {
-        }).opacity(0.3)
+            print("check")
+        }).opacity(isCVVValid && isDateValid && isCardValid ? 1.0 : 0.3).disabled(isCVVValid && isDateValid && isCardValid ? false : true)
         Spacer().frame(height: 24)
         Divider()
         Spacer().frame(height: 24)

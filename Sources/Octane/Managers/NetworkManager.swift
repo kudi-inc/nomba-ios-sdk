@@ -64,8 +64,28 @@ class NetworkManager{
                 completion(.failure(error))
             }
         })
-        
     }
+    
+    
+    func checkTransactionOrderStatus(orderReference: String, completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/confirm-transaction-receipt/")!
+        let paramaters : [String: Any] = ["orderReference": orderReference]
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let response = try JSONDecoder().decode(CheckTransactionStatusResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+    }
+    
     
     func getFlashAccount(orderReference: String, completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/get-checkout-kta/\(orderReference)")!

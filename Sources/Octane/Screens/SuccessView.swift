@@ -30,7 +30,7 @@ struct SuccessView: View {
                         .padding(.vertical, 10)
                     Spacer().frame(height: 15)
                     HStack{
-                        Text("Your payment of ₦ 80,400 to Kurukuru sweets has been confirmed. You will now be redirected to your merchant’s site. Thank you")
+                        Text("Your payment of \(Octane.shared.getAmountFormatedWithCurrency()) to \(Octane.customer) has been confirmed. You will now be redirected to your merchant’s site. Thank you")
                             .lineSpacing(3)
                             .multilineTextAlignment(.center)
                             

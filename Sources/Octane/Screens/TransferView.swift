@@ -19,6 +19,7 @@ struct TransferView: View {
     @State var transferPaymentStatus : TransferPaymentStatus = .DETAILS
     @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
     @Binding var parentPresentationMode : PresentationMode
+    @State var isSuccessViewShowing = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -31,7 +32,9 @@ struct TransferView: View {
                 case .ACCOUNT_EXPIRED:
                     TransferDetailsExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
                 case .CONFIRMATION_WAITING:
-                    TransferConfirmationView(onTimerEndedAction: onTransferConfirmationFailed, onHelpAction: onHelpAction)
+                    TransferConfirmationView(onTimerEndedAction: onTransferConfirmationFailed,
+                                             onHelpAction: onHelpAction,
+                                             onCheckTransactionStatus: checkTransactionStatus)
                 case .CONFIRMATION_WAITING_FAILED:
                     TransferConfirmationFailedView()
                 case .GET_HELP:
@@ -49,6 +52,8 @@ struct TransferView: View {
             if (isLoading){
                 LoaderView()
             }
+        }.sheet(isPresented: $isSuccessViewShowing){
+            SuccessView().interactiveDismissDisabled(true)
         }
     }
     
@@ -98,9 +103,23 @@ struct TransferView: View {
         transferPaymentStatus = .CONFIRMATION_WAITING_FAILED
     }
     
-    
     func onHelpAction() {
         transferPaymentStatus = .GET_HELP
+    }
+    
+    func checkTransactionStatus() {
+        print("Checking Shit")
+        paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
+            switch result {
+            case .success(let data):
+                if (data.code == "00" && data.data.status == "true"){
+                    //show success
+                    isSuccessViewShowing = true
+                }
+            case .failure(_): 
+                break
+            }
+        })
     }
     
     

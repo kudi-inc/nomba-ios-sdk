@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Bezaleel Ashefor on 20/06/2024.
 //
@@ -17,6 +17,8 @@ struct TransferConfirmationView: View {
     @Environment(\.presentationMode) var presentationMode
     var onTimerEndedAction : () -> () = {}
     var onHelpAction : () -> () = {}
+    var onCheckTransactionStatus : () -> () = {}
+    var secondsToCheck = [540, 480, 420, 360, 300, 240, 180, 120, 60]
     
     var body: some View {
         VStack(spacing: 20){
@@ -54,6 +56,10 @@ struct TransferConfirmationView: View {
             if timeRemaining > 0 {
                 timeRemaining -= 1
                 progessAmount += 1
+                
+                if (secondsToCheck.contains(timeRemaining)){
+                    onCheckTransactionStatus()
+                }
             } else {
                 onTimerEndedAction()
                 // it's ended
@@ -69,14 +75,17 @@ struct TransferConfirmationView: View {
         })
     }
     
-    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
+    private func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
-    func printSecondsToHoursMinutesSeconds(_ seconds: Int) -> String {
+    private func printSecondsToHoursMinutesSeconds(_ seconds: Int) -> String {
         let (_, m, s) = secondsToHoursMinutesSeconds(seconds)
         return String(format: "%02d", m) + ":" + String(format: "%02d", s)
     }
+    
+    
+    
 }
 
 #Preview {

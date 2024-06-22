@@ -18,6 +18,7 @@ class PaymentOptionsViewModel : ObservableObject {
     var bankName : String = "Amucha MFB"
     var accountName : String = "Abdullahi Abodunrin"
     
+    
     func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
         networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: selectedPaymentOption, completion: { result in
             completion(result)
@@ -43,6 +44,13 @@ class PaymentOptionsViewModel : ObservableObject {
             case .failure(let error):
                 completion(.failure(error))
             }
+        })
+    }
+    
+    
+    func checkTransactionOrderStatus(completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
+        networkManager.checkTransactionOrderStatus(orderReference: orderReference, completion: { result in
+            completion(result)
         })
     }
     

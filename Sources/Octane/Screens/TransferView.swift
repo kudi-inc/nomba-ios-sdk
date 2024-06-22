@@ -36,10 +36,12 @@ struct TransferView: View {
                                              onHelpAction: onHelpAction,
                                              onCheckTransactionStatus: checkTransactionStatus)
                 case .CONFIRMATION_WAITING_FAILED:
-                    TransferConfirmationFailedView()
+                    TransferConfirmationFailedView(onHelpAction: onHelpAction, onTryAgainAction: showConfirmationTryAgainView)
+                case .CONFIRMATION_TRY_AGAIN:
+                    TransferConfirmationTryAgainView(onHelpAction: onHelpAction, onTryAgainAction: checkTransactionStatus)
                 case .GET_HELP:
                     GetHelpView(keepWaitingAction: onTransferSent, closeCheckoutAction: {
-                        presentationMode.wrappedValue.dismiss()
+                        // presentationMode.wrappedValue.dismiss()
                         parentPresentationMode.dismiss()
                     })
                 }
@@ -107,8 +109,11 @@ struct TransferView: View {
         transferPaymentStatus = .GET_HELP
     }
     
+    func showConfirmationTryAgainView(){
+        transferPaymentStatus = .CONFIRMATION_TRY_AGAIN
+    }
+    
     func checkTransactionStatus() {
-        print("Checking Shit")
         paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
             switch result {
             case .success(let data):

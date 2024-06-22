@@ -14,6 +14,8 @@ struct TransferConfirmationFailedView: View {
     @State private var progessTotal : Double = 600
     @State private var timeRemaining = 600
     @Environment(\.presentationMode) var presentationMode
+    var onHelpAction : () -> () = {}
+    var onTryAgainAction : () -> () = {}
     
     var body: some View {
         VStack(spacing: 20){
@@ -42,11 +44,11 @@ struct TransferConfirmationFailedView: View {
             Spacer().frame(height: 6)
             HStack(alignment: .center, spacing: 15){
                 YellowButton(buttonText: "Try again", icon: Image("refresh", bundle: .module), action: {
-                    // tryAgainAction()
+                    onTryAgainAction()
                 })
                 BorderButton(buttonText: "Get help", icon: Image("refresh", bundle: .module),
                              action: {
-                    // sentMoneyAction()
+                    onHelpAction()
                 })
             }
         }

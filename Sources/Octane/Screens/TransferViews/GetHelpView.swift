@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct GetHelpView: View {
-    var tryAgainAction : () -> () = {}
-    var sentMoneyAction : () -> () = {}
+    var keepWaitingAction : () -> () = {}
+    var closeCheckoutAction : () -> () = {}
     
     var body: some View {
         VStack{
@@ -32,10 +32,10 @@ struct GetHelpView: View {
                 }.foregroundStyle(Color("Neutral Eight", bundle: .module))
                 HStack(alignment: .center, spacing: 15){
                     YellowButton(buttonText: "Keep waiting", action: {
-                        tryAgainAction()
+                        keepWaitingAction()
                     })
                     BorderButton(buttonText: "Close checkout", action: {
-                        sentMoneyAction()
+                        closeCheckoutAction()
                     })
                 }
                 

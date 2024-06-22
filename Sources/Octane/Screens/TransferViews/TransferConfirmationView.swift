@@ -25,13 +25,13 @@ struct TransferConfirmationView: View {
                     .lineSpacing(2)
                     .multilineTextAlignment(.leading)
                     .font(.custom(FontsManager.fontRegular, size: 14))
-                    
+                Spacer()
+                ProgressView().tint(Color("Neutral Four", bundle: .module)).scaleEffect(CGSize(width: 1.5, height: 1.5))
             }.padding(.vertical, 18).padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color("FFFAE6", bundle: .module))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .foregroundStyle(Color("Neutral Eight", bundle: .module))
-            
             HStack(alignment: .center, spacing: 5){
                 Text("Wait time")
                     .font(.custom(FontsManager.fontRegular, size: 12))

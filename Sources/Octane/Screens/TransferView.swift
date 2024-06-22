@@ -18,6 +18,8 @@ struct TransferView: View {
     @State var accountName : String
     @State var transferPaymentStatus : TransferPaymentStatus = .DETAILS
     @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
+    @Binding var parentPresentationMode : PresentationMode
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack{
@@ -33,7 +35,10 @@ struct TransferView: View {
                 case .CONFIRMATION_WAITING_FAILED:
                     TransferConfirmationFailedView()
                 case .GET_HELP:
-                    GetHelpView()
+                    GetHelpView(keepWaitingAction: onTransferSent, closeCheckoutAction: {
+                        presentationMode.wrappedValue.dismiss()
+                        parentPresentationMode.dismiss()
+                    })
                 }
                 Spacer()
                 FooterView()
@@ -104,5 +109,6 @@ struct TransferView: View {
 }
 
 #Preview {
-    TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin", paymentOptionsViewModel: .constant(PaymentOptionsViewModel()))
+    @Environment(\.presentationMode) var presentationMode
+    return TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin", paymentOptionsViewModel: .constant(PaymentOptionsViewModel()), parentPresentationMode: presentationMode)
 }

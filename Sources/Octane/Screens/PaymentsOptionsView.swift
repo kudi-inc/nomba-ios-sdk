@@ -66,7 +66,6 @@ struct PaymentsOptionsView: View {
                 Spacer().frame(height: 50)
                 BorderButton(buttonText: "Cancel Payment", action: {
                     isShowingCancelDialog = true
-                    // presentationMode.wrappedValue.dismiss()
                 })
                 Spacer()
                 FooterView()
@@ -78,7 +77,8 @@ struct PaymentsOptionsView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isShowingTransfer){
-            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, paymentOptionsViewModel: $paymentOptionsViewModel).interactiveDismissDisabled(true)
+            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, paymentOptionsViewModel: $paymentOptionsViewModel, parentPresentationMode: presentationMode)
+                .interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCard) {
             CardView(logo: logo).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){

@@ -9,12 +9,13 @@ import SwiftUI
 import CardValidationTF
 
 struct CardDetailsView: View {
-    @State var creditCardNumber : String = ""
-    @State var creditCardExpDate : String = ""
-    @State var creditCardCCV : String = ""
+    @Binding var creditCardNumber : String
+    @Binding var creditCardExpDate : String
+    @Binding var creditCardCCV : String
     @Binding var saveCard : Bool
     @Environment(\.presentationMode) var presentationMode
     var cancelPayment : () -> () = {}
+    var onPayButtonAction : () -> () = {}
     
     @State private var isCardValid = false
     @State private var isDateValid = false
@@ -107,7 +108,7 @@ struct CardDetailsView: View {
         }.frame(maxWidth: .infinity, alignment: .leading)
         Spacer().frame(height: 30)
         YellowButton(buttonText: "Pay \(Octane.shared.getAmountFormatedWithCurrency())", action: {
-            print("check")
+            showCardPinView()
         }).opacity(isCVVValid && isDateValid && isCardValid ? 1.0 : 0.3).disabled(isCVVValid && isDateValid && isCardValid ? false : true)
         Spacer().frame(height: 24)
         Divider()
@@ -119,8 +120,15 @@ struct CardDetailsView: View {
             cancelPayment()
         })
     }
+    
+    func showCardPinView(){
+        if (isCVVValid && isDateValid && isCardValid){
+            onPayButtonAction()
+            print("check")
+        }
+    }
 }
 
 #Preview {
-    CardDetailsView(saveCard: .constant(false))
+    CardDetailsView(creditCardNumber: .constant(""), creditCardExpDate: .constant(""), creditCardCCV: .constant(""), saveCard: .constant(false))
 }

@@ -15,6 +15,9 @@ struct CardView: View {
     @State var cardPaymentStatus : CardPaymentStatus = .DETAILS
     @State var isSuccessViewShowing = false
     @State var isShowingCancelDialog = false
+    @State var creditCardNumber : String = ""
+    @State var creditCardExpDate : String = ""
+    @State var creditCardCCV : String = ""
     @State var saveCard = false
     
     var body: some View {
@@ -23,7 +26,7 @@ struct CardView: View {
                 TopView(logo: logo)
                 switch (cardPaymentStatus) {
                 case .DETAILS:
-                    CardDetailsView(saveCard: $saveCard, cancelPayment: cancelPayment)
+                    CardDetailsView(creditCardNumber: $creditCardNumber, creditCardExpDate: $creditCardExpDate, creditCardCCV: $creditCardCCV, saveCard: $saveCard, cancelPayment: cancelPayment)
                 case .CARD_LOADING:
                     CardLoadingView()
                 case .CARD_PIN:
@@ -57,6 +60,10 @@ struct CardView: View {
     
     func cancelPayment(){
         isShowingCancelDialog = true
+    }
+    
+    func onPayButtonAction(){
+        cardPaymentStatus = .CARD_PIN
     }
 }
 

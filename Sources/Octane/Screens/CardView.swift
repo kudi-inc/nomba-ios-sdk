@@ -15,7 +15,7 @@ struct CardView: View {
     @State var cardPaymentStatus : CardPaymentStatus = .DETAILS
     @State var isSuccessViewShowing = false
     @State var isShowingCancelDialog = false
-   
+    @State var saveCard = false
     
     var body: some View {
         ZStack{
@@ -23,9 +23,13 @@ struct CardView: View {
                 TopView(logo: logo)
                 switch (cardPaymentStatus) {
                 case .DETAILS:
-                    CardDetailsView(cancelPayment: cancelPayment)
+                    CardDetailsView(saveCard: $saveCard, cancelPayment: cancelPayment)
                 case .CARD_LOADING:
                     CardLoadingView()
+                case .CARD_PIN:
+                    CardPinView()
+                case .CARD_OTP:
+                    CardOTPView()
                 }
                 Spacer()
                 FooterView()

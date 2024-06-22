@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
+import CardValidationTF
 
 struct CardDetailsView: View {
     @State var creditCardNumber : String = ""
-    @State var bankName : String = "Amucha MFB"
-    @State var accountName : String = "Abdullahi Abodunrin"
-    @State private var saveCard = false
+    @State var creditCardExpDate : String = ""
+    @State var creditCardCCV : String = ""
+    @Binding var saveCard : Bool
     @Environment(\.presentationMode) var presentationMode
     var cancelPayment : () -> () = {}
+    
+    @State private var isCardValid = false
+    @State private var isDateValid = false
+    @State private var isCVVValid = false
+    @State private var cardType = CardBankType.nonIdentified
     
     var body: some View {
         VStack(spacing: 0){
@@ -26,7 +32,15 @@ struct CardDetailsView: View {
                 VStack(alignment: .leading, spacing: 4){
                     Text("Card number").font(.custom(FontsManager.fontRegular, size: 12))
                         .foregroundStyle(Color("Neutral Eight", bundle: .module))
-                    TextField("", text: $creditCardNumber, prompt: Text("0000 0000 0000 0000").foregroundColor(Color("Neutral Four", bundle: .module)))
+                    CardValidationTF(
+                              text: $creditCardNumber,
+                              isValid: $isCardValid,
+                              bankCardType: $cardType,
+                              tfType: .cardNumber,
+                              tfFont: .custom(FontsManager.fontRegular, size: 18),
+                              tfColor: Color("Text Primary", bundle: .module),
+                              prompt: Text("0000 0000 0000 0000").foregroundColor(Color("Neutral Four", bundle: .module))
+                              )
                 }
                 Spacer()
                 Image("PaymentIcon", bundle: .module)
@@ -44,7 +58,15 @@ struct CardDetailsView: View {
                         Text("Expiry date")
                             .font(.custom(FontsManager.fontRegular, size: 12))
                             .foregroundStyle(Color("Neutral Eight", bundle: .module))
-                        TextField("", text: $creditCardNumber, prompt: Text("MM/YY").foregroundColor(Color("Neutral Four", bundle: .module)))
+                        CardValidationTF(
+                                  text: $creditCardExpDate,
+                                  isValid: $isDateValid,
+                                  bankCardType: $cardType,
+                                  tfType: .dateExpiration,
+                                  tfFont: .custom(FontsManager.fontRegular, size: 18),
+                                  tfColor: Color("Text Primary", bundle: .module),
+                                  prompt: Text("MM/YY").foregroundColor(Color("Neutral Four", bundle: .module))
+                                  )
                     }
                     Spacer()
                 }.padding(.vertical, 12).padding(.horizontal, 16)
@@ -59,7 +81,15 @@ struct CardDetailsView: View {
                     VStack(alignment: .leading, spacing: 4){
                         Text("CVV").font(.custom(FontsManager.fontRegular, size: 12))
                             .foregroundStyle(Color("Neutral Eight", bundle: .module))
-                        TextField("", text: $creditCardNumber, prompt: Text("None").foregroundColor(Color("Neutral Four", bundle: .module)))
+                        CardValidationTF(
+                                  text: $creditCardCCV,
+                                  isValid: $isCVVValid,
+                                  bankCardType: $cardType,
+                                  tfType: .cvv,
+                                  tfFont: .custom(FontsManager.fontRegular, size: 18),
+                                  tfColor: Color("Text Primary", bundle: .module),
+                                  prompt: Text("None").foregroundColor(Color("Neutral Four", bundle: .module))
+                                  )
                     }
                     Spacer()
                 }.padding(.vertical, 12).padding(.horizontal, 16)
@@ -91,5 +121,5 @@ struct CardDetailsView: View {
 }
 
 #Preview {
-    CardDetailsView()
+    CardDetailsView(saveCard: .constant(false))
 }

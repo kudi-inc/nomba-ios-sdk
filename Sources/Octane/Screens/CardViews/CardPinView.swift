@@ -16,11 +16,14 @@ struct CardPinView: View {
     @State var pinFour: String = ""
     
     var body: some View {
-        VStack{
+        VStack(spacing: 30){
             Image("lock", bundle: .module)
+            Text("Please enter your 4-digit card PIN to\n complete transaction")
+                .multilineTextAlignment(.center)
+                .font(.custom(FontsManager.fontRegular, size: 16))
             HStack(spacing:15, content: {
                 TextField("", text: $pinOne)
-                    .modifier(OtpModifer(pin:$pinOne))
+                    .modifier(OtpModifer(pin:$pinOne, onChanged: {_ in }))
                     .onChange(of:pinOne){newVal in
                         if (newVal.count == 1) {
                             pinFocusState = .pinTwo
@@ -29,7 +32,7 @@ struct CardPinView: View {
                     .focused($pinFocusState, equals: .pinOne)
                 
                 TextField("", text:  $pinTwo)
-                    .modifier(OtpModifer(pin:$pinTwo))
+                    .modifier(OtpModifer(pin:$pinTwo, onChanged: {_ in }))
                     .onChange(of:pinTwo){newVal in
                         if (newVal.count == 1) {
                             pinFocusState = .pinThree
@@ -43,7 +46,7 @@ struct CardPinView: View {
                 
                 
                 TextField("", text:$pinThree)
-                    .modifier(OtpModifer(pin:$pinThree))
+                    .modifier(OtpModifer(pin:$pinThree, onChanged: {_ in }))
                     .onChange(of:pinThree){newVal in
                         if (newVal.count == 1) {
                             pinFocusState = .pinFour
@@ -57,18 +60,18 @@ struct CardPinView: View {
                 
                 
                 TextField("", text:$pinFour)
-                    .modifier(OtpModifer(pin:$pinFour))
+                    .modifier(OtpModifer(pin:$pinFour, onChanged: {_ in }))
                     .onChange(of:pinFour){newVal in
                         if (newVal.count == 0) {
                             pinFocusState = .pinThree
                         }
                     }
                     .focused($pinFocusState, equals: .pinFour)
-                
-                
             })
-            .padding(.vertical)
-        }.padding(.vertical, 60).frame(maxWidth: .infinity).overlay{
+        }.foregroundStyle(Color("Text Primary", bundle: .module))
+            .padding(.vertical, 60)
+            .frame(maxWidth: .infinity)
+            .overlay{
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color("Neutral Two", bundle: .module), lineWidth: 1)
         }

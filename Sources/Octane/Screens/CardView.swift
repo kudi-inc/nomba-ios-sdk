@@ -41,7 +41,7 @@ struct CardView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isSuccessViewShowing){
-            CardSuccessView().interactiveDismissDisabled(true)
+            CardSuccessView(saveCard: $saveCard).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])

@@ -44,8 +44,7 @@ struct TransferConfirmationView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color("Neutral Two", bundle: .module), lineWidth: 1)
             }
-            
-            Spacer().frame(height: 6)
+            Spacer().frame(height: 1)
             NoBorderButton(buttonText: "Need help with this transaction?", color: Color("AA8800", bundle: .module), action: {
                 onHelpAction()
             })

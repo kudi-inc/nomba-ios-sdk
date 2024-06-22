@@ -13,7 +13,7 @@ struct GetHelpView: View {
     
     var body: some View {
         VStack{
-            VStack(spacing: 20){
+            VStack(spacing: 40){
                 VStack(alignment: .center, spacing: 25){
                     Image("get_help", bundle: .module)
                     VStack(spacing: 10){

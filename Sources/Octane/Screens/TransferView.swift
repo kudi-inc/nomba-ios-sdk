@@ -21,6 +21,7 @@ struct TransferView: View {
     @Binding var parentPresentationMode : PresentationMode
     @State var isSuccessViewShowing = false
     @Environment(\.presentationMode) var presentationMode
+    @State var isShowingCancelDialog = false
     
     var body: some View {
         ZStack{
@@ -28,7 +29,7 @@ struct TransferView: View {
                 TopView(logo: logo)
                 switch transferPaymentStatus {
                 case .DETAILS:
-                    TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent)
+                    TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent, cancelPayment: cancelPayment)
                 case .ACCOUNT_EXPIRED:
                     TransferDetailsExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
                 case .CONFIRMATION_WAITING:
@@ -56,12 +57,26 @@ struct TransferView: View {
             }
         }.sheet(isPresented: $isSuccessViewShowing){
             SuccessView().interactiveDismissDisabled(true)
+        }.sheet(isPresented: $isShowingCancelDialog){
+            if #available(iOS 16.4, *) {
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+                    .presentationCornerRadius(21)
+            } else {
+                // Fallback on earlier versions
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+            }
         }
     }
     
     func onDetailsTimerFinished() {
         //show expired account
         transferPaymentStatus = .ACCOUNT_EXPIRED
+    }
+    
+    func cancelPayment(){
+        isShowingCancelDialog = true
     }
     
     func onFetchTransferAgain(){

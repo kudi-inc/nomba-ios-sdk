@@ -22,6 +22,7 @@ struct TransferDetailsView: View {
     var onTimerFinished : () -> () = {}
     let pasteboard = UIPasteboard.general
     var sentMoneyAction : () -> () = {}
+    var cancelPayment : () -> () = {}
     
     var body: some View {
         VStack{
@@ -112,7 +113,8 @@ struct TransferDetailsView: View {
                 presentationMode.wrappedValue.dismiss()
             })
             NoBorderButton(buttonText: "Cancel payment", action: {
-                presentationMode.wrappedValue.dismiss()
+                cancelPayment()
+                // presentationMode.wrappedValue.dismiss()
             })
         }.onReceive(timer) { time in
             guard isActive else { return }

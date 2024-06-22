@@ -13,6 +13,8 @@ struct CardView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var isLoading = false
     @State var cardPaymentStatus : CardPaymentStatus = .DETAILS
+    @State var isSuccessViewShowing = false
+    @State var isShowingCancelDialog = false
    
     
     var body: some View {
@@ -21,7 +23,9 @@ struct CardView: View {
                 TopView(logo: logo)
                 switch (cardPaymentStatus) {
                 case .DETAILS:
-                    CardDetailsView()
+                    CardDetailsView(cancelPayment: cancelPayment)
+                case .CARD_LOADING:
+                    CardLoadingView()
                 }
                 Spacer()
                 FooterView()
@@ -32,7 +36,23 @@ struct CardView: View {
             if (isLoading){
                 LoaderView()
             }
+        }.sheet(isPresented: $isSuccessViewShowing){
+            SuccessView().interactiveDismissDisabled(true)
+        }.sheet(isPresented: $isShowingCancelDialog){
+            if #available(iOS 16.4, *) {
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+                    .presentationCornerRadius(21)
+            } else {
+                // Fallback on earlier versions
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+            }
         }
+    }
+    
+    func cancelPayment(){
+        isShowingCancelDialog = true
     }
 }
 

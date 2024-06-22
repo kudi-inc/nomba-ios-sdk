@@ -13,6 +13,7 @@ struct CardDetailsView: View {
     @State var accountName : String = "Abdullahi Abodunrin"
     @State private var saveCard = false
     @Environment(\.presentationMode) var presentationMode
+    var cancelPayment : () -> () = {}
     
     var body: some View {
         VStack(spacing: 0){
@@ -84,7 +85,7 @@ struct CardDetailsView: View {
             presentationMode.wrappedValue.dismiss()
         })
         NoBorderButton(buttonText: "Cancel payment", action: {
-            presentationMode.wrappedValue.dismiss()
+            cancelPayment()
         })
     }
 }

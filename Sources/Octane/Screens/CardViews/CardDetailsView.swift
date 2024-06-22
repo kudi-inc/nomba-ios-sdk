@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CardValidationTF
 
 struct CardDetailsView: View {
     @Binding var creditCardNumber : String

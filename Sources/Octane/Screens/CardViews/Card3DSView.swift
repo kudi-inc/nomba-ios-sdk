@@ -16,9 +16,12 @@ struct Card3DSView: View {
     @Binding var termUrl : String
     var callback : String = "https://checkout.nomba.com/callback/"
     var on3DSSuccessAction : () -> () = {}
+    @State var isLoading = true
     
     var body: some View {
-        WebView(link: acsUrl, on3DSSuccessAction: on3DSSuccessAction, jwtToken: jwtToken, md: md, callbackUrl: callback).ignoresSafeArea().frame(maxWidth: .infinity)
+        ZStack{
+            WebView(link: acsUrl, on3DSSuccessAction: on3DSSuccessAction, jwtToken: jwtToken, md: md, callbackUrl: callback, isLoading: $isLoading).ignoresSafeArea().frame(maxWidth: .infinity)
+        }
     }
     
 }
@@ -35,14 +38,16 @@ struct WebView: UIViewRepresentable {
     var jwtToken : String
     var md : String
     var callbackUrl : String
+    var isLoading: Binding<Bool>
     
-    init(link: String, on3DSSuccessAction : @escaping () -> (), jwtToken: String, md: String, callbackUrl : String) {
+    init(link: String, on3DSSuccessAction : @escaping () -> (), jwtToken: String, md: String, callbackUrl : String, isLoading : Binding<Bool>) {
         webView = WKWebView(frame: .zero)
         self.link = link
         self.on3DSSuccessAction = on3DSSuccessAction
         self.jwtToken = jwtToken
         self.md = md
         self.callbackUrl = callbackUrl
+        self.isLoading = isLoading
     }
     
     func makeUIView(context: Context) -> WKWebView {
@@ -54,6 +59,7 @@ struct WebView: UIViewRepresentable {
     }
     func updateUIView(_ uiView: WKWebView, context: Context) {
         var urlRequest = URLRequest(url: URL(string: link)!)
+        urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpBody = "JWT=\(jwtToken)&MD=\(md)".data(using: .utf8)
         print(urlRequest.httpBody)
         print(urlRequest)
@@ -77,6 +83,7 @@ struct WebView: UIViewRepresentable {
             func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 webView.evaluateJavaScript("javascript:document.body.style.margin='8%'; void 0")
                     webView.evaluateJavaScript("(function(){ document.addEventListener('DOMContentLoaded', function() { var iframe = document.getElementsByTagName('iframe')[0]; var innerFrame = iframe.contentWindow.document; var element = innerFrame.getElementById('ExitLink');element.style.display = 'none';});})();")
+                parent.isLoading.wrappedValue = false
             }
             
             func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

@@ -69,14 +69,14 @@ struct WebView: UIViewRepresentable {
             
             func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 webView.evaluateJavaScript("javascript:document.body.style.margin='8%'; void 0")
-//                webView.evaluateJavaScript("(function(){" +
-//                                           "document.addEventListener('DOMContentLoaded', function() { " +
-//                                           "var iframe = document.getElementsByTagName('iframe')[0];" +
-//                                           "var innerFrame = iframe.contentWindow.document;" +
-//                                           "var element = innerFrame.getElementById('ExitLink');" +
-//                                           "element.style.display = 'none';" +
-//                                           "});" +
-//                                           "})();")
+                webView.evaluateJavaScript("(function(){" +
+                                           "document.addEventListener('DOMContentLoaded', function() { " +
+                                           "var iframe = document.getElementsByTagName('iframe')[0];" +
+                                           "var innerFrame = iframe.contentWindow.document;" +
+                                           "var element = innerFrame.getElementById('ExitLink');" +
+                                           "element.style.display = 'none';" +
+                                           "});" +
+                                           "})();")
             }
             
             func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

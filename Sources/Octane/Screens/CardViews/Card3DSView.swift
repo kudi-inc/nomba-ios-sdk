@@ -63,18 +63,11 @@ struct WebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         return webView
-//        let wKWebView = WKWebView()
-//        //wKWebView.navigationDelegate = context.coordinator
-//        return wKWebView
     }
     func updateUIView(_ uiView: WKWebView, context: Context) {
         var urlRequest = URLRequest(url: URL(string: link)!)
         urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpBody = "JWT=\(jwtToken)&MD=\(md)".data(using: .utf8)
-        print(urlRequest.httpBody)
-        print(urlRequest)
-        print(jwtToken)
-        print(md)
         urlRequest.httpMethod = "POST"
         webView.load(urlRequest)
     }
@@ -91,14 +84,13 @@ struct WebView: UIViewRepresentable {
             }
             
             func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-                webView.evaluateJavaScript("javascript:document.body.style.margin='8%'; void 0")
+                webView.evaluateJavaScript("javascript:document.body.style.margin='8%';void 0")
                     webView.evaluateJavaScript("(function(){ document.addEventListener('DOMContentLoaded', function() { var iframe = document.getElementsByTagName('iframe')[0]; var innerFrame = iframe.contentWindow.document; var element = innerFrame.getElementById('ExitLink');element.style.display = 'none';});})();")
                 parent.isLoading.wrappedValue = false
             }
             
             func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-                print(navigationAction.request.url?.absoluteString)
-                if let urlStr = navigationAction.request.url?.absoluteString, urlStr == parent.callbackUrl {
+                if let urlStr = navigationAction.request.url?.absoluteString, urlStr.contains(parent.callbackUrl) {
                     parent.on3DSSuccessAction()
                 }
                 decisionHandler(.allow)

@@ -94,6 +94,7 @@ struct CardView: View {
             case .success(let data):
                 if (data.code == "00" && data.data.status == "true"){
                     //show success
+                    cardPaymentStatus = .DETAILS
                     isSuccessViewShowing = true
                 }
             case .failure(_):

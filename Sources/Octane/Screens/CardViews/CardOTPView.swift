@@ -16,12 +16,15 @@ struct CardOTPView: View {
     @State var pinFive: String = ""
     @State var pinSix: String = ""
     @Binding var otpMessage : String
+    @Binding var otpPin : String
+    var onOtpEnteredAction : () -> () = {}
     
     var body: some View {
         ScrollView (showsIndicators: false) {
             VStack(spacing: 30){
                 Image("digits", bundle: .module)
                 Text(otpMessage)
+                    .padding(.horizontal)
                     .lineSpacing(2)
                     .multilineTextAlignment(.center)
                     .font(.custom(FontsManager.fontRegular, size: 16))
@@ -94,6 +97,9 @@ struct CardOTPView: View {
                         .onChange(of:pinSix){newVal in
                             if (newVal.count == 0) {
                                 pinFocusState = .pinFive
+                            } else {
+                                otpPin = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)\(pinFive)\(pinSix)"
+                                onOtpEnteredAction()
                             }
                         }
                         .focused($pinFocusState, equals: .pinSix)
@@ -110,5 +116,5 @@ struct CardOTPView: View {
 }
 
 #Preview {
-    CardOTPView(otpMessage: .constant("Enter the One Time Password (OTP)\n sent to **** *** **87 to verify it"))
+    CardOTPView(otpMessage: .constant("Enter the One Time Password (OTP)\n sent to **** *** **87 to verify it"), otpPin: .constant(""))
 }

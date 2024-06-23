@@ -22,6 +22,7 @@ struct CardView: View {
     @State var creditCardExpDate : String = ""
     @State var creditCardCCV : String = ""
     @State var cardPin : String = ""
+    @State var otpPin : String = ""
     @State var saveCard = false
     @State var otpMessage : String = "Enter the One Time Password (OTP)\n sent to **** *** **87 to verify it"
     
@@ -43,7 +44,7 @@ struct CardView: View {
                 case .CARD_PIN:
                     CardPinView(cardPin: $cardPin, onPinEnteredAction: onPinEnteredAction)
                 case .CARD_OTP:
-                    CardOTPView(otpMessage: $otpMessage)
+                    CardOTPView(otpMessage: $otpMessage, otpPin: $otpPin)
                 case .CARD_3DS:
                     Card3DSView(acsUrl: $acsUrl, jwtToken: $jwtToken, md: $md, termUrl: $termUrl, on3DSSuccessAction: on3DSSuccessAction)
                 }
@@ -104,7 +105,7 @@ struct CardView: View {
         cardPaymentStatus = .CARD_LOADING
         let year = Util.getDateComponents(isoDate: creditCardExpDate).year ?? 2024
         let month = Util.getDateComponents(isoDate: creditCardExpDate).month ?? 12
-        paymentOptionsViewModel.submitcardDetails(cardNumber: creditCardNumber.trimmingCharacters(in: CharacterSet.whitespaces).replacingOccurrences(of: " ", with: ""),
+        paymentOptionsViewModel.submitCardDetails(cardNumber: creditCardNumber.trimmingCharacters(in: CharacterSet.whitespaces).replacingOccurrences(of: " ", with: ""),
                                                   cardExpMonth: String(describing: month),
                                                   cardExpYear: String(describing: year),
                                                   cvv: creditCardCCV,
@@ -137,6 +138,42 @@ struct CardView: View {
             }
         })
         
+    }
+    
+    func onOTPEnteredAction(){
+        hideKeyboard()
+        cardPaymentStatus = .CARD_LOADING
+        paymentOptionsViewModel.submitOTP(otpText: otpPin, transactionID: transactionID, completion: { result in
+            switch result {
+            case .success(let data):
+                if (data.code == "00"){
+                    if (data.data.message == "Token Authorization Not Successful. Incorrect Token Supplied") {
+                        let errorString = data.data.message + "Try again"
+                        Drops.show(Util.getDrop(message: errorString))
+                        cardPaymentStatus = .CARD_PIN
+                    } else if (data.data.status == "true") {
+                        isSuccessViewShowing = true
+                    } else {
+                        cardPaymentStatus = .CARD_OTP
+                        let errorString = data.data.message + "Try again"
+                        Drops.show(Util.getDrop(message: errorString))
+                    }
+                } else if (data.code == "400") {
+                    if (data.data.message.contains("already completed.")){
+                        isSuccessViewShowing = true
+                    }
+                }
+            case .failure(let error):
+                cardPaymentStatus = .DETAILS
+                if (Octane.errorString.isEmpty) {
+                    let errorString = "Something went wrong. Try again" + error.localizedDescription
+                    Drops.show(Util.getDrop(message: errorString))
+                } else {
+                    let errorString = Octane.errorString
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            }
+        })
     }
 }
 

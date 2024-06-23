@@ -47,8 +47,14 @@ class PaymentOptionsViewModel : ObservableObject {
         })
     }
     
-    func submitcardDetails(cardNumber: String, cardExpMonth: String, cardExpYear : String, cvv: String, cardPin: String, saveCard : Bool, completion: @escaping (Result<SubmitCardDetailsResponse, Error>) -> Void){
+    func submitCardDetails(cardNumber: String, cardExpMonth: String, cardExpYear : String, cvv: String, cardPin: String, saveCard : Bool, completion: @escaping (Result<SubmitCardDetailsResponse, Error>) -> Void){
         networkManager.submitCardDetails(cardNumber: cardNumber, cardExpMonth: cardExpMonth, cardExpYear: cardExpYear, cvv: cvv, cardPin: cardPin, orderReference: orderReference, saveCard: saveCard, completion: { result in
+            completion(result)
+        })
+    }
+    
+    func submitOTP(otpText : String, transactionID : String, completion: @escaping (Result<SubmitOTPResponse, Error>) -> Void){
+        networkManager.submitOTPDetails(orderReference: orderReference, otpText: otpText, transactionID: transactionID, completion:{ result in
             completion(result)
         })
     }

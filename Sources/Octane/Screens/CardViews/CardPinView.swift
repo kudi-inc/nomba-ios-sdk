@@ -24,7 +24,7 @@ struct CardPinView: View {
                 Image("lock", bundle: .module)
                 Text("Please enter your 4-digit card PIN to\n complete transaction")
                     .lineSpacing(2)
-                    .multilineTextAlignment(.center)
+                    .multilineTextAlignment(.center).padding(.horizontal)
                     .font(.custom(FontsManager.fontRegular, size: 16))
                 HStack(spacing:15, content: {
                     TextField("", text: $pinOne)

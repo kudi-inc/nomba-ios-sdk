@@ -132,7 +132,7 @@ struct TransferView: View {
         paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
             switch result {
             case .success(let data):
-                if (data.code == "00" && data.data.status == "true"){
+                if (data.code == "00" && data.data.status == true){
                     //show success
                     isSuccessViewShowing = true
                 }

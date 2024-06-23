@@ -108,16 +108,6 @@ struct CardDetailsView: View {
                     Toggle(isOn: $saveCard) {
                         Text("Save card for future use")
                     }.padding(.horizontal, 5)
-                }.toolbar {
-                    ToolbarItem(placement: .keyboard) {
-                        Button(action: {
-                            hideKeyboard()
-                        }) {
-                            HStack{
-                                Text("Done").padding().foregroundStyle(Color("Text Primary", bundle: .module))
-                            }.frame(maxWidth: .infinity).background(Color("Button Primary", bundle: .module))
-                        }
-                    }
                 }.frame(maxWidth: .infinity, alignment: .leading)
                 Spacer().frame(height: 30)
                 YellowButton(buttonText: "Pay \(Octane.shared.getAmountFormatedWithCurrency())", action: {

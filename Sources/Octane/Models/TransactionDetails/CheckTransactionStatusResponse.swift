@@ -17,8 +17,9 @@ struct CheckTransactionStatusResponse: Codable {
 
 // MARK: - DataClass
 struct CheckTransactionDataClass: Codable {
-    let status, message: String
+    let message: String
     let order: Order
+    let status: Bool
 }
 
 // MARK: - Order

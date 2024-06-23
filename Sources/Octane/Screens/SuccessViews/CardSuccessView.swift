@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Drops
 
 struct CardSuccessView: View {
     @State var logo : Image?
@@ -15,50 +16,23 @@ struct CardSuccessView: View {
     @State private var progessAmount = 30.0
     @State private var progessTotal = 50.0
     @Binding var saveCard : Bool
-    @Binding var otpPhoneNumber : String
+    @State var otpPhoneNumber : String = ""
+    @State var OTP : String = ""
+    @State var cardSucessStatus : CardSuccessStatus = .SUCCESS
+    @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
     
     var body: some View {
         ZStack{
             VStack{
                 TopView(logo: logo)
-                VStack(spacing: 0){
-                    Image("success", bundle: .module)
-                    Text("Your Payment has been \nconfirmed successfully")
-                        .lineSpacing(5)
-                        .fixedSize()
-                        .font(.custom(FontsManager.fontMedium, size: 22))
-                        .multilineTextAlignment(.center)
-                        .padding(.vertical, 10)
-                    Spacer().frame(height: 15)
-                    HStack{
-                        Text("Your payment of \(Octane.shared.getAmountFormatedWithCurrency()) to \(Octane.customer) has been confirmed. You will now be redirected to your merchant’s site. Thank you")
-                            .lineSpacing(2)
-                            .multilineTextAlignment(.center)
-                            
-                    }.padding(.vertical, 24).padding(.horizontal, 20)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color("F2F2F2", bundle: .module))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .foregroundStyle(Color("Neutral Eight", bundle: .module))
-                    
-                }.frame(maxWidth: .infinity, alignment: .leading)
-                if (saveCard){
-                    VStack(alignment: .center){
-                        Text("Enter phone number to save your\n card for future use")
-                            .fixedSize(horizontal: false, vertical: true)
-                            .lineSpacing(2)
-                            .multilineTextAlignment(.center).padding(.horizontal, 20)
-                        TextField("", text: $otpPhoneNumber, prompt: Text("08012345678"))
-                    }.padding(.vertical, 20)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(Color("F2F2F2", bundle: .module))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .foregroundStyle(Color("Neutral Eight", bundle: .module))
+                switch (cardSucessStatus){
+                case .SUCCESS:
+                    CardSuccessMainView(saveCard: $saveCard, otpPhoneNumber: $otpPhoneNumber, parentPresentationMode: $parentPresentationMode, sendOTPAction: requestOTPForCardSaving)
+                case .SUCCESS_OTP:
+                    CardSuccessOTPView(otpPhoneNumber: $otpPhoneNumber, OTP: $OTP, onChangePhoneNumber: onChangePhoneNumber, onOTPEnteredAction: submitOTPForCardSaving, sendOTPAction: requestOTPForCardSaving)
+                case .SUCCESS_OTP_SUCCESS:
+                    CardSuccessOTPSuccess(parentPresentationMode: $parentPresentationMode)
                 }
-                Spacer().frame(height: 10)
-                BorderButton(buttonText: "Close checkout", action: {
-                    parentPresentationMode.dismiss()
-                })
                 Spacer()
                 FooterView()
             }
@@ -70,9 +44,63 @@ struct CardSuccessView: View {
             }
         }
     }
+    
+    func onChangePhoneNumber(){
+        cardSucessStatus = .SUCCESS
+    }
+    
+    func requestOTPForCardSaving(){
+        isLoading = true
+        paymentOptionsViewModel.requestOTPForCardSaving(phoneNumber: otpPhoneNumber, completion: { result in
+            switch result {
+            case .success(let data):
+                isLoading = false
+                if (data.code == "00"){
+                    cardSucessStatus = .SUCCESS_OTP
+                } else {
+                    let errorString = data.data.message
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            case .failure(let error):
+                isLoading = false
+                if (Octane.errorString.isEmpty) {
+                    let errorString = "Something went wrong. Try again" + error.localizedDescription
+                    Drops.show(Util.getDrop(message: errorString))
+                } else {
+                    let errorString = Octane.errorString
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            }
+        })
+    }
+    
+    func submitOTPForCardSaving(){
+        isLoading = true
+        paymentOptionsViewModel.submitOTPForCardSaving(phoneNumber: otpPhoneNumber, otp: OTP, completion: { result in
+            switch result {
+            case .success(let data):
+                isLoading = false
+                if (data.code == "00"){
+                    cardSucessStatus = .SUCCESS_OTP_SUCCESS
+                } else {
+                    let errorString = data.data.message
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            case .failure(let error):
+                isLoading = false
+                if (Octane.errorString.isEmpty) {
+                    let errorString = "Something went wrong. Try again" + error.localizedDescription
+                    Drops.show(Util.getDrop(message: errorString))
+                } else {
+                    let errorString = Octane.errorString
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            }
+        })
+    }
 }
 
 #Preview {
     @Environment(\.presentationMode) var presentationMode
-    return CardSuccessView(parentPresentationMode: presentationMode, saveCard: .constant(true), otpPhoneNumber: .constant(""))
+    return CardSuccessView(parentPresentationMode: presentationMode, saveCard: .constant(true), paymentOptionsViewModel: .constant(PaymentOptionsViewModel()))
 }

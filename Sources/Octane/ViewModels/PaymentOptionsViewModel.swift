@@ -65,6 +65,17 @@ class PaymentOptionsViewModel : ObservableObject {
         })
     }
     
+    func requestOTPForCardSaving(phoneNumber: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        networkManager.requestOTPForCardSaving(orderReference: orderReference, phoneNumber: phoneNumber, completion: { result in
+            completion(result)
+        })
+    }
+    
+    func submitOTPForCardSaving(phoneNumber: String, otp: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        networkManager.submitOTPForCardSaving(orderReference: orderReference, phoneNumber: phoneNumber, otp: otp, completion: { result in
+            completion(result)
+        })
+    }
     
     func fetchBankForTransfer(completion: @escaping (Result<Bool, Error>) -> Void){
         networkManager.getFlashAccount(orderReference: orderReference, completion: { [self] result in

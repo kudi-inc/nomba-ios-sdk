@@ -152,6 +152,46 @@ class NetworkManager{
     }
     
     
+    func requestOTPForCardSaving(orderReference: String, phoneNumber: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/user-card/auth/")!
+        let paramaters : [String: Any] = ["orderReference": orderReference, "phoneNumber": phoneNumber]
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let response = try JSONDecoder().decode(RequestCardOTPResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    
+    func submitOTPForCardSaving(orderReference: String, phoneNumber: String, otp: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/user-card/auth/")!
+        let paramaters : [String: Any] = ["orderReference": orderReference, "phoneNumber": phoneNumber, "otp" : otp]
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let response = try JSONDecoder().decode(RequestCardOTPResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+        
+    }
+    
+    
     func getFlashAccount(orderReference: String, completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/get-checkout-kta/\(orderReference)")!
         pingPonger(url: url, headers: ["Authorization": accessToken!], completion: { result in

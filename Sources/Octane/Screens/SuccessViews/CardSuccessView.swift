@@ -15,6 +15,7 @@ struct CardSuccessView: View {
     @State private var progessAmount = 30.0
     @State private var progessTotal = 50.0
     @Binding var saveCard : Bool
+    @Binding var otpPhoneNumber : String
     
     var body: some View {
         ZStack{
@@ -46,9 +47,9 @@ struct CardSuccessView: View {
                         Text("Enter phone number to save your\n card for future use")
                             .fixedSize(horizontal: false, vertical: true)
                             .lineSpacing(2)
-                            .multilineTextAlignment(.center)
-                            
-                    }.padding(.vertical, 20).padding(.horizontal, 20)
+                            .multilineTextAlignment(.center).padding(.horizontal, 20)
+                        TextField("", text: $otpPhoneNumber, prompt: Text("08012345678"))
+                    }.padding(.vertical, 20)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .background(Color("F2F2F2", bundle: .module))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -73,5 +74,5 @@ struct CardSuccessView: View {
 
 #Preview {
     @Environment(\.presentationMode) var presentationMode
-    return CardSuccessView(parentPresentationMode: presentationMode, saveCard: .constant(true))
+    return CardSuccessView(parentPresentationMode: presentationMode, saveCard: .constant(true), otpPhoneNumber: .constant(""))
 }

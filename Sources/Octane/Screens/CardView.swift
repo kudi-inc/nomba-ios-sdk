@@ -32,6 +32,8 @@ struct CardView: View {
     @State var md : String = ""
     @State var termUrl : String = ""
     
+    @State var otpPhoneNumber : String = ""
+    
     var body: some View {
         ZStack{
             VStack{
@@ -58,7 +60,7 @@ struct CardView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isSuccessViewShowing){
-            CardSuccessView(parentPresentationMode: $parentPresentationMode, saveCard: $saveCard).interactiveDismissDisabled(true)
+            CardSuccessView(parentPresentationMode: $parentPresentationMode, saveCard: $saveCard, otpPhoneNumber: $otpPhoneNumber).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
@@ -154,7 +156,7 @@ struct CardView: View {
                     } else if (data.data.status == true) {
                         isSuccessViewShowing = true
                     } else {
-                        cardPaymentStatus = .CARD_OTP
+                        cardPaymentStatus = .DETAILS
                         let errorString = data.data.message + ". Try again"
                         Drops.show(Util.getDrop(message: errorString))
                     }

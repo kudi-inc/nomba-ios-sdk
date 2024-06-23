@@ -55,6 +55,10 @@ struct WebView: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: Context) {
         var urlRequest = URLRequest(url: URL(string: link)!)
         urlRequest.httpBody = "JWT=\(jwtToken)&MD=\(md)".data(using: .utf8)
+        print(urlRequest.httpBody)
+        print(urlRequest)
+        print(jwtToken)
+        print(md)
         urlRequest.httpMethod = "POST"
         webView.load(urlRequest)
     }
@@ -76,6 +80,7 @@ struct WebView: UIViewRepresentable {
             }
             
             func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+                print(navigationAction.request.url?.absoluteString)
                 if let urlStr = navigationAction.request.url?.absoluteString, urlStr == parent.callbackUrl {
                     parent.on3DSSuccessAction()
                 }

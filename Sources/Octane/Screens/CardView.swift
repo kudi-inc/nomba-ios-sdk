@@ -89,18 +89,28 @@ struct CardView: View {
     }
     
     func checkTransactionStatus() {
-        isLoading = true
+        //isLoading = true
         paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
             switch result {
             case .success(let data):
+                print(data.code)
+                print(data)
+                print(data.data.status)
                 if (data.code == "00" && data.data.status == true){
                     //show success
-                    isLoading = false
+                    //isLoading = false
                     cardPaymentStatus = .DETAILS
                     isSuccessViewShowing = true
                 }
-            case .failure(_):
-                break
+            case .failure(let error):
+                cardPaymentStatus = .DETAILS
+                if (Octane.errorString.isEmpty) {
+                    let errorString = "Something went wrong. Try again" + error.localizedDescription
+                    Drops.show(Util.getDrop(message: errorString))
+                } else {
+                    let errorString = Octane.errorString
+                    Drops.show(Util.getDrop(message: errorString))
+                }
             }
         })
     }

@@ -21,6 +21,8 @@ struct CardDetailsView: View {
     @State private var isCVVValid = false
     @State private var cardType = CardBankType.nonIdentified
     
+    
+    
     var body: some View {
         VStack(spacing: 0){
             Text("Enter your card information for payment")
@@ -104,6 +106,13 @@ struct CardDetailsView: View {
             Toggle(isOn: $saveCard) {
                 Text("Save card for future use")
             }.padding(.horizontal, 5)
+        }
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                   Button("Done") {
+                      hideKeyboard()
+                   }
+            }
         }.frame(maxWidth: .infinity, alignment: .leading)
         Spacer().frame(height: 30)
         YellowButton(buttonText: "Pay \(Octane.shared.getAmountFormatedWithCurrency())", action: {

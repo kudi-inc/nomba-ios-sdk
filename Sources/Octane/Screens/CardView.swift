@@ -29,13 +29,15 @@ struct CardView: View {
                 TopView(logo: logo)
                 switch (cardPaymentStatus) {
                 case .DETAILS:
-                    CardDetailsView(creditCardNumber: $creditCardNumber, creditCardExpDate: $creditCardExpDate, creditCardCCV: $creditCardCCV, saveCard: $saveCard, cancelPayment: cancelPayment)
+                    CardDetailsView(creditCardNumber: $creditCardNumber, creditCardExpDate: $creditCardExpDate, creditCardCCV: $creditCardCCV, saveCard: $saveCard, cancelPayment: cancelPayment, onPayButtonAction: onPayButtonAction)
                 case .CARD_LOADING:
                     CardLoadingView()
                 case .CARD_PIN:
                     CardPinView()
                 case .CARD_OTP:
                     CardOTPView(otpMessage: $otpMessage)
+                case .CARD_3DS:
+                    Card3DSView()
                 }
                 Spacer()
                 FooterView()
@@ -55,7 +57,8 @@ struct CardView: View {
                     .presentationCornerRadius(21)
             } else {
                 // Fallback on earlier versions
-                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode)
+                    .presentationDetents([.height(340)])
                     .presentationDragIndicator(.hidden)
             }
         }

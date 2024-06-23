@@ -55,6 +55,7 @@ public struct CardValidationTF: View {
     TextField(subtitle, text: $text, prompt: prompt)
       .font(tfFont)
       .foregroundColor(tfColor)
+      .keyboardType(.numberPad)
       .valueChanged(value: text) { number in
         self.text = number.formattedCreditCard
         withAnimation(.linear) {
@@ -69,6 +70,7 @@ public struct CardValidationTF: View {
     TextField(subtitle, text: $text, prompt: prompt)
       .font(tfFont)
       .foregroundColor(tfColor)
+      .keyboardType(.numberPad)
       .valueChanged(value: text) { cvv in
         self.text = cvv.formattedCvv
         withAnimation(.linear) {
@@ -82,6 +84,7 @@ public struct CardValidationTF: View {
     TextField(subtitle, text: $text, prompt: prompt)
       .font(tfFont)
       .foregroundColor(tfColor)
+      .keyboardType(.numberPad)
       .valueChanged(value: text) { date in
         self.text = date.formattedExpiredDate
         withAnimation(.linear) {
@@ -95,6 +98,7 @@ public struct CardValidationTF: View {
     TextField(subtitle, text: $text, prompt: prompt)
       .font(tfFont)
       .foregroundColor(tfColor)
+      .keyboardType(.numberPad)
       .valueChanged(value: text) { name in
         withAnimation(.linear) {
           self.isValid = name != "" ? true : false

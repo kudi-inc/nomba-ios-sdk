@@ -10,20 +10,22 @@ import WebKit
 
 struct Card3DSView: View {
     @Environment(\.presentationMode) var presentationMode
-    var cancelPayment : () -> () = {}
-    var onPayButtonAction : () -> () = {}
+    var on3DSSuccessAction : () -> () = {}
     
     @State var urlToVisit = "https://knightbenax.dev"
     
     var body: some View {
         WebView(link: urlToVisit).ignoresSafeArea().frame(maxWidth: .infinity)
     }
+    
+    
 }
 
 struct WebView: UIViewRepresentable {
  
     let webView: WKWebView
     var link : String
+    var on3DSSuccessAction : () -> () = {}
     
     init(link: String) {
         webView = WKWebView(frame: .zero)

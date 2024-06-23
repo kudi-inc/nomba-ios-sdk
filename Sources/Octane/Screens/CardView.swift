@@ -13,7 +13,7 @@ struct CardView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var parentPresentationMode : PresentationMode
     @State var isLoading = false
-    @State var cardPaymentStatus : CardPaymentStatus = .CARD_LOADING
+    @State var cardPaymentStatus : CardPaymentStatus = .DETAILS
     @State var isSuccessViewShowing = false
     @State var isShowingCancelDialog = false
     @State var creditCardNumber : String = ""

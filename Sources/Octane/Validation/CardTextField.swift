@@ -15,7 +15,7 @@ public enum CardTextField {
   var mask: String {
     switch self {
     case .cardNumber:
-      return "XXXX XXXX XXXX XXXX"
+      return "XXXX XXXX XXXX XXXX XXXX"
     case .cvv:
       return "XXX"
     case .cardHolder:

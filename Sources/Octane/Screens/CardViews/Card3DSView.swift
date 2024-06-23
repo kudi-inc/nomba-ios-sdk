@@ -15,14 +15,16 @@ struct Card3DSView: View {
     @Binding var md : String
     @Binding var termUrl : String
     var callback : String = "https://checkout.nomba.com/callback/"
-    
     var on3DSSuccessAction : () -> () = {}
     
     var body: some View {
         WebView(link: acsUrl, on3DSSuccessAction: on3DSSuccessAction, jwtToken: jwtToken, md: md, callbackUrl: callback).ignoresSafeArea().frame(maxWidth: .infinity)
     }
     
-    
+}
+
+#Preview {
+    Card3DSView(acsUrl: .constant("https://knightbenax.dev"), jwtToken: .constant(""), md: .constant(""), termUrl: .constant(""))
 }
 
 struct WebView: UIViewRepresentable {
@@ -44,10 +46,11 @@ struct WebView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> WKWebView {
-        //return webView
-        let wKWebView = WKWebView()
-        wKWebView.navigationDelegate = context.coordinator
-        return wKWebView
+        webView.navigationDelegate = context.coordinator
+        return webView
+//        let wKWebView = WKWebView()
+//        //wKWebView.navigationDelegate = context.coordinator
+//        return wKWebView
     }
     func updateUIView(_ uiView: WKWebView, context: Context) {
         var urlRequest = URLRequest(url: URL(string: link)!)
@@ -69,9 +72,7 @@ struct WebView: UIViewRepresentable {
             
             func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
                 webView.evaluateJavaScript("javascript:document.body.style.margin='8%'; void 0")
-                //if (!Util.isPreview){
                     webView.evaluateJavaScript("(function(){ document.addEventListener('DOMContentLoaded', function() { var iframe = document.getElementsByTagName('iframe')[0]; var innerFrame = iframe.contentWindow.document; var element = innerFrame.getElementById('ExitLink');element.style.display = 'none';});})();")
-                //}
             }
             
             func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -84,6 +85,4 @@ struct WebView: UIViewRepresentable {
         }
 }
 
-#Preview {
-    Card3DSView(acsUrl: .constant("https://knightbenax.dev"), jwtToken: .constant(""), md: .constant(""), termUrl: .constant(""))
-}
+

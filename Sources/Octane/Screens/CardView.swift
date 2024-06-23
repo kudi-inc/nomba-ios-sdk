@@ -119,10 +119,10 @@ struct CardView: View {
                     cardPaymentStatus = .CARD_OTP
                 } else if (data.code == "00" && data.data.responseCode == "S0"){
                     // 3DS
-                    acsUrl = data.data.secureAuthenticationData.acsURL
-                    jwtToken = data.data.secureAuthenticationData.jwt
-                    md = data.data.secureAuthenticationData.md
-                    termUrl = data.data.secureAuthenticationData.termURL
+                    acsUrl = data.data.secureAuthenticationData?.acsURL ?? ""
+                    jwtToken = data.data.secureAuthenticationData?.jwt ?? ""
+                    md = data.data.secureAuthenticationData?.md ?? ""
+                    termUrl = data.data.secureAuthenticationData?.termURL ?? ""
                     cardPaymentStatus = .CARD_3DS
                 }
             case .failure(let error):

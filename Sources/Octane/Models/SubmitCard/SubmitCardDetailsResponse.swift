@@ -17,7 +17,7 @@ struct SubmitCardDetailsResponse: Codable {
 struct SubmitCardDataClass: Codable {
     let message, responseCode, transactionID: String
     let status : Bool
-    let secureAuthenticationData: SecureAuthenticationData
+    let secureAuthenticationData: SecureAuthenticationData?
 
     enum CodingKeys: String, CodingKey {
         case status, message, responseCode

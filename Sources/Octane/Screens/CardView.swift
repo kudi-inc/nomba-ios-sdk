@@ -40,7 +40,7 @@ struct CardView: View {
                 case .CARD_LOADING:
                     CardLoadingView()
                 case .CARD_PIN:
-                    CardPinView(cardPin: $cardPin)
+                    CardPinView(cardPin: $cardPin, onPinEnteredAction: onPinEnteredAction)
                 case .CARD_OTP:
                     CardOTPView(otpMessage: $otpMessage)
                 case .CARD_3DS:
@@ -99,6 +99,7 @@ struct CardView: View {
     }
     
     func onPinEnteredAction() {
+        hideKeyboard()
         cardPaymentStatus = .CARD_LOADING
         let year = Util.getDateComponents(isoDate: creditCardExpDate).year ?? 2024
         let month = Util.getDateComponents(isoDate: creditCardExpDate).month ?? 12

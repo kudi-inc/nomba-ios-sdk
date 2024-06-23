@@ -21,6 +21,16 @@ struct Card3DSView: View {
     var body: some View {
         ZStack{
             WebView(link: acsUrl, on3DSSuccessAction: on3DSSuccessAction, jwtToken: jwtToken, md: md, callbackUrl: callback, isLoading: $isLoading).ignoresSafeArea().frame(maxWidth: .infinity)
+            if (isLoading){
+                VStack{
+                    VStack{
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color("Button Primary", bundle: .module)))
+                              .scaleEffect(2.0, anchor: .center)
+                        Text("Please wait").font(.custom(FontsManager.fontRegular, size: 14)).offset(y: 24)
+                    }.offset(y: -80).padding(.top, 220)
+                }.foregroundStyle(Color("Text Primary", bundle: .module))
+            }
         }
     }
     

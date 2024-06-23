@@ -14,6 +14,7 @@ struct CardPinView: View {
     @State var pinTwo: String = ""
     @State var pinThree: String = ""
     @State var pinFour: String = ""
+    @Binding var cardPin : String
     
     var body: some View {
         VStack(spacing: 30){
@@ -65,6 +66,8 @@ struct CardPinView: View {
                     .onChange(of:pinFour){newVal in
                         if (newVal.count == 0) {
                             pinFocusState = .pinThree
+                        } else {
+                            // doActionHere
                         }
                     }
                     .focused($pinFocusState, equals: .pinFour)
@@ -80,5 +83,5 @@ struct CardPinView: View {
 }
 
 #Preview {
-    CardPinView()
+    CardPinView(cardPin: .constant(""))
 }

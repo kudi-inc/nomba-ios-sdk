@@ -22,57 +22,71 @@ class Util {
         )
     }
     
+    static func getDateComponents(isoDate: String) -> DateComponents{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "MM/YY"
+        let date = dateFormatter.date(from:isoDate)!
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+        return components
+    }
+    
 }
 
 extension View {
-  @ViewBuilder
-  func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {
-    if #available(iOS 14.0, tvOS 14.0, macOS 11.0, watchOS 7.0, *) {
-      self.onChange(of: value, perform: onChange)
-    } else {
-      self.onReceive(Just(value)) { value in
-        onChange(value)
-      }
+    @ViewBuilder
+    func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {
+        if #available(iOS 14.0, tvOS 14.0, macOS 11.0, watchOS 7.0, *) {
+            self.onChange(of: value, perform: onChange)
+        } else {
+            self.onReceive(Just(value)) { value in
+                onChange(value)
+            }
+        }
     }
-  }
 }
 
 extension String {
-  
-  func onlyNumbers() -> String {
-      return components(separatedBy: CharacterSet.decimalDigits.inverted)
-          .joined()
-  }
-  
-  var formattedCreditCard: String {
-    return format(with: CardTextField.cardNumber, phone: self)
-  }
-  
-  var formattedExpiredDate: String {
-    return format(with: CardTextField.dateExpiration, phone: self)
-  }
-  
-  var formattedCvv: String {
-    return format(with: CardTextField.cvv, phone: self)
-  }
-  
-  func format(with maskType: CardTextField, phone: String) -> String {
-    let mask = maskType.mask
-    let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-    var result = ""
-    var index = numbers.startIndex
-    for ch in mask where index < numbers.endIndex {
-      if ch == "X" {
-        result.append(numbers[index])
-        index = numbers.index(after: index)
-        
-      } else {
-        result.append(ch)
-      }
+    
+    func onlyNumbers() -> String {
+        return components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .joined()
     }
-    return result
-  }
+    
+    var formattedCreditCard: String {
+        return format(with: CardTextField.cardNumber, phone: self)
+    }
+    
+    var formattedExpiredDate: String {
+        return format(with: CardTextField.dateExpiration, phone: self)
+    }
+    
+    var formattedCvv: String {
+        return format(with: CardTextField.cvv, phone: self)
+    }
+    
+    func format(with maskType: CardTextField, phone: String) -> String {
+        let mask = maskType.mask
+        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        var result = ""
+        var index = numbers.startIndex
+        for ch in mask where index < numbers.endIndex {
+            if ch == "X" {
+                result.append(numbers[index])
+                index = numbers.index(after: index)
+                
+            } else {
+                result.append(ch)
+            }
+        }
+        return result
+    }
 }
+
+
+
+
 
 #if canImport(UIKit)
 extension View {

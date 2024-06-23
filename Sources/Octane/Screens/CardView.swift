@@ -104,7 +104,7 @@ struct CardView: View {
         cardPaymentStatus = .CARD_LOADING
         let year = Util.getDateComponents(isoDate: creditCardExpDate).year ?? 2024
         let month = Util.getDateComponents(isoDate: creditCardExpDate).month ?? 12
-        paymentOptionsViewModel.submitcardDetails(cardNumber: creditCardNumber.trimmingCharacters(in: CharacterSet.whitespaces),
+        paymentOptionsViewModel.submitcardDetails(cardNumber: creditCardNumber.trimmingCharacters(in: CharacterSet.whitespaces).replacingOccurrences(of: " ", with: ""),
                                                   cardExpMonth: String(describing: month),
                                                   cardExpYear: String(describing: year),
                                                   cvv: creditCardCCV,

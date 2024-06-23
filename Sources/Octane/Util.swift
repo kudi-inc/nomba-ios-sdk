@@ -25,7 +25,7 @@ class Util {
     static func getDateComponents(isoDate: String) -> DateComponents{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-        dateFormatter.dateFormat = "MM/YY"
+        dateFormatter.dateFormat = "MM/yy"
         let date = dateFormatter.date(from:isoDate)!
         print("Date Gotten \(isoDate)")
         print("Date Gotten \(date)")

@@ -44,7 +44,7 @@ struct CardView: View {
                 case .CARD_PIN:
                     CardPinView(cardPin: $cardPin, onPinEnteredAction: onPinEnteredAction)
                 case .CARD_OTP:
-                    CardOTPView(otpMessage: $otpMessage, otpPin: $otpPin)
+                    CardOTPView(otpMessage: $otpMessage, otpPin: $otpPin, onOtpEnteredAction: onOTPEnteredAction)
                 case .CARD_3DS:
                     Card3DSView(acsUrl: $acsUrl, jwtToken: $jwtToken, md: $md, termUrl: $termUrl, on3DSSuccessAction: on3DSSuccessAction)
                 }

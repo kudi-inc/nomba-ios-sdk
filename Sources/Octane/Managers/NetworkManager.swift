@@ -143,9 +143,11 @@ class NetworkManager{
                     let response = try JSONDecoder().decode(CheckTransactionStatusResponse.self, from: data)
                     completion(.success(response))
                 } catch {
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(String(describing: error))
                 completion(.failure(error))
             }
         })
@@ -163,9 +165,11 @@ class NetworkManager{
                     let response = try JSONDecoder().decode(RequestCardOTPResponse.self, from: data)
                     completion(.success(response))
                 } catch {
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(String(describing: error))
                 completion(.failure(error))
             }
         })
@@ -182,9 +186,11 @@ class NetworkManager{
                     let response = try JSONDecoder().decode(RequestCardOTPResponse.self, from: data)
                     completion(.success(response))
                 } catch {
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(String(describing: error))
                 completion(.failure(error))
             }
         })
@@ -202,9 +208,11 @@ class NetworkManager{
                     let response = try JSONDecoder().decode(FlashAccountResponse.self, from: data)
                     completion(.success(response))
                 } catch {
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(String(describing: error))
                 completion(.failure(error))
             }
         })

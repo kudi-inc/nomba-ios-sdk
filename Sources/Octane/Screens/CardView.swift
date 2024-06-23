@@ -13,13 +13,15 @@ struct CardView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var parentPresentationMode : PresentationMode
     @State var isLoading = false
-    @State var cardPaymentStatus : CardPaymentStatus = .DETAILS
+    @State var cardPaymentStatus : CardPaymentStatus = .CARD_LOADING
     @State var isSuccessViewShowing = false
     @State var isShowingCancelDialog = false
     @State var creditCardNumber : String = ""
     @State var creditCardExpDate : String = ""
     @State var creditCardCCV : String = ""
+    @State var cardPin : String = ""
     @State var saveCard = false
+    @State var otpMessage : String = "Enter the One Time Password (OTP)\n sent to **** *** **87 to verify it"
     
     var body: some View {
         ZStack{
@@ -33,7 +35,7 @@ struct CardView: View {
                 case .CARD_PIN:
                     CardPinView()
                 case .CARD_OTP:
-                    CardOTPView()
+                    CardOTPView(otpMessage: $otpMessage)
                 }
                 Spacer()
                 FooterView()

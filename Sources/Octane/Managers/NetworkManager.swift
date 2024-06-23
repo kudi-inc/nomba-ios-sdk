@@ -67,6 +67,62 @@ class NetworkManager{
     }
     
     
+    func submitCardDetails(cardNumber: String, cardExpMonth: String, cardExpYear : String, cvv: String, cardPin: String, orderReference: String, saveCard : Bool, completion: @escaping (Result<SubmitCardDetailsResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/checkout-card-detail")!
+        
+        //    {
+        //      "cardDetails": "{\"cardCVV\": 11,\"cardExpiryMonth\": 3,\"cardExpiryYear\": 2050,\"cardNumber\": \"5190752909999995\",\"cardPin\": 1111}",
+        //      "key": "<string>",
+        //      "orderReference": "c4307d58-2513-41d8-b7f7-dfecd5f9fdbe",
+        //      "saveCard": "true",
+        //      "deviceInformation": {
+        //        "httpBrowserLanguage": "en-GB",
+        //        "httpBrowserJavaEnabled": "true",
+        //        "httpBrowserJavaScriptEnabled": "true",
+        //        "httpBrowserColorDepth": "30",
+        //        "httpBrowserScreenHeight": "900",
+        //        "httpBrowserScreenWidth": "1500",
+        //        "httpBrowserTimeDifference": "-60",
+        //        "userAgentBrowserValue": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+        //        "deviceChannel": "Browser"
+        //      }
+        //    }
+    
+        let parameters : [String: Any] = ["cardDetails": "{\"cardCVV\": \(cvv), \"cardExpiryMonth\": \(cardExpMonth), \"cardExpiryYear\": \(cardExpYear), \"cardNumber\": \"\(cardNumber)\",\"cardPin\": \(cardPin)}",
+                                           "key": "",
+                                          "orderReference": "\(orderReference)",
+                                          "saveCard": "\(String(describing: saveCard))",
+                                          "deviceInformation": ["httpBrowserLanguage": "en-GB",
+                                                                "httpBrowserJavaEnabled": "true",
+                                                                "httpBrowserJavaScriptEnabled": "true",
+                                                                "httpBrowserColorDepth": "30",
+                                                                "httpBrowserScreenHeight": "900",
+                                                                "httpBrowserScreenWidth": "1500",
+                                                                "httpBrowserTimeDifference": "-60",
+                                                                "userAgentBrowserValue": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+                                                                "deviceChannel": "Browser"
+                                                               ]
+        ]
+        
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: parameters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let jsonResponse = try JSONDecoder().decode(SubmitCardDetailsResponse.self, from: data)
+                    completion(.success(jsonResponse))
+                } catch ((let error)) {
+                    print(String(describing: error))
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(String(describing: error))
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    
     func checkTransactionOrderStatus(orderReference: String, completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/confirm-transaction-receipt/")!
         let paramaters : [String: Any] = ["orderReference": orderReference]

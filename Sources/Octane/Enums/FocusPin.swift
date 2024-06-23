@@ -10,3 +10,7 @@ import Foundation
 enum FocusPin {
     case  pinOne, pinTwo, pinThree, pinFour
 }
+
+enum FocusPinSix {
+    case  pinOne, pinTwo, pinThree, pinFour, pinFive, pinSix
+}

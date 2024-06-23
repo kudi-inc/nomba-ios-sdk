@@ -19,6 +19,7 @@ struct CardPinView: View {
         VStack(spacing: 30){
             Image("lock", bundle: .module)
             Text("Please enter your 4-digit card PIN to\n complete transaction")
+                .lineSpacing(2)
                 .multilineTextAlignment(.center)
                 .font(.custom(FontsManager.fontRegular, size: 16))
             HStack(spacing:15, content: {

@@ -15,7 +15,7 @@ struct CardLoadingView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: Color("Button Primary", bundle: .module)))
                       .scaleEffect(2.0, anchor: .center)
                 Text("Please wait").font(.custom(FontsManager.fontRegular, size: 14)).offset(y: 24)
-            }.offset(y: -80)
+            }.offset(y: -80).padding(.top, 220)
         }.foregroundStyle(Color("Text Primary", bundle: .module))
     }
 }

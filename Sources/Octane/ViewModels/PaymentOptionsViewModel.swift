@@ -47,6 +47,11 @@ class PaymentOptionsViewModel : ObservableObject {
         })
     }
     
+    func submitcardDetails(cardNumber: String, cardExpMonth: String, cardExpYear : String, cvv: String, cardPin: String, saveCard : Bool, completion: @escaping (Result<SubmitCardDetailsResponse, Error>) -> Void){
+        networkManager.submitCardDetails(cardNumber: cardNumber, cardExpMonth: cardExpMonth, cardExpYear: cardExpYear, cvv: cvv, cardPin: cardPin, orderReference: orderReference, saveCard: saveCard, completion: { result in
+            completion(result)
+        })
+    }
     
     func checkTransactionOrderStatus(completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
         networkManager.checkTransactionOrderStatus(orderReference: orderReference, completion: { result in

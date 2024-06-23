@@ -151,11 +151,11 @@ struct CardView: View {
                         let errorString = data.data.message + "Try again"
                         Drops.show(Util.getDrop(message: errorString))
                         cardPaymentStatus = .CARD_PIN
-                    } else if (data.data.status == "true") {
+                    } else if (data.data.status == true) {
                         isSuccessViewShowing = true
                     } else {
                         cardPaymentStatus = .CARD_OTP
-                        let errorString = data.data.message + "Try again"
+                        let errorString = data.data.message + ". Try again"
                         Drops.show(Util.getDrop(message: errorString))
                     }
                 } else if (data.code == "400") {

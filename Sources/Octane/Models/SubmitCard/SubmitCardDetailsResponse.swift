@@ -15,7 +15,8 @@ struct SubmitCardDetailsResponse: Codable {
 
 // MARK: - DataClass
 struct SubmitCardDataClass: Codable {
-    let status, message, responseCode, transactionID: String
+    let message, responseCode, transactionID: String
+    let status : Bool
     let secureAuthenticationData: SecureAuthenticationData
 
     enum CodingKeys: String, CodingKey {

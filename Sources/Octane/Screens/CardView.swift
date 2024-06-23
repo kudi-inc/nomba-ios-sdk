@@ -40,7 +40,7 @@ struct CardView: View {
                     Card3DSView()
                 }
                 Spacer()
-                //FooterView()
+                FooterView()
             }
             .padding(roundPadding)
             .font(.custom(FontsManager.fontRegular, size: 14))

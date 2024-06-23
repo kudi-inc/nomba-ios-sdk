@@ -110,9 +110,11 @@ struct CardDetailsView: View {
                     }.padding(.horizontal, 5)
                 }.toolbar {
                     ToolbarItem(placement: .keyboard) {
-                           Button("Done") {
-                              hideKeyboard()
-                           }
+                        Button(action: {
+                            hideKeyboard()
+                        }) {
+                            Text("Done").padding().foregroundStyle(Color("Text Primary", bundle: .module))
+                        }
                     }
                 }.frame(maxWidth: .infinity, alignment: .leading)
                 Spacer().frame(height: 30)

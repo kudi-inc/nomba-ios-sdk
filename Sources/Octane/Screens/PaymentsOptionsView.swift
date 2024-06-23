@@ -80,7 +80,7 @@ struct PaymentsOptionsView: View {
             TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, paymentOptionsViewModel: $paymentOptionsViewModel, parentPresentationMode: presentationMode)
                 .interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCard) {
-            CardView(logo: logo).interactiveDismissDisabled(true)
+            CardView(logo: logo, parentPresentationMode: presentationMode).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])

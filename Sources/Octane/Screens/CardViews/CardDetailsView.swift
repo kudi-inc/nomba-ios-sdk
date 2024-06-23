@@ -37,7 +37,7 @@ struct CardDetailsView: View {
                               isValid: $isCardValid,
                               bankCardType: $cardType,
                               tfType: .cardNumber,
-                              tfFont: .custom(FontsManager.fontRegular, size: 18),
+                              tfFont: .custom(FontsManager.fontRegular, size: 16),
                               tfColor: Color("Text Primary", bundle: .module),
                               prompt: Text("0000 0000 0000 0000").foregroundColor(Color("Neutral Four", bundle: .module))
                               )
@@ -63,7 +63,7 @@ struct CardDetailsView: View {
                                   isValid: $isDateValid,
                                   bankCardType: $cardType,
                                   tfType: .dateExpiration,
-                                  tfFont: .custom(FontsManager.fontRegular, size: 18),
+                                  tfFont: .custom(FontsManager.fontRegular, size: 16),
                                   tfColor: Color("Text Primary", bundle: .module),
                                   prompt: Text("MM/YY").foregroundColor(Color("Neutral Four", bundle: .module))
                                   )
@@ -86,7 +86,7 @@ struct CardDetailsView: View {
                                   isValid: $isCVVValid,
                                   bankCardType: $cardType,
                                   tfType: .cvv,
-                                  tfFont: .custom(FontsManager.fontRegular, size: 18),
+                                  tfFont: .custom(FontsManager.fontRegular, size: 16),
                                   tfColor: Color("Text Primary", bundle: .module),
                                   prompt: Text("None").foregroundColor(Color("Neutral Four", bundle: .module))
                                   )

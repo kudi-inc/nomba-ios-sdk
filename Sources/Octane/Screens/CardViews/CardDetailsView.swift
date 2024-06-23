@@ -113,7 +113,9 @@ struct CardDetailsView: View {
                         Button(action: {
                             hideKeyboard()
                         }) {
-                            Text("Done").padding().foregroundStyle(Color("Text Primary", bundle: .module))
+                            HStack{
+                                Text("Done").padding().foregroundStyle(Color("Text Primary", bundle: .module))
+                            }.frame(maxWidth: .infinity).background(Color("Button Primary", bundle: .module))
                         }
                     }
                 }.frame(maxWidth: .infinity, alignment: .leading)

@@ -84,7 +84,7 @@ extension CardValidationTF {
       return false
     }
     let number = cardNumber.onlyNumbers()
-    guard number.count >= 14 && number.count <= 19 else {
+    guard number.count >= 14 && number.count <= 24 else {
       return false
     }
     

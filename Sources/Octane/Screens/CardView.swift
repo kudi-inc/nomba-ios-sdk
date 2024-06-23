@@ -25,6 +25,7 @@ struct CardView: View {
     @State var saveCard = false
     @State var otpMessage : String = "Enter the One Time Password (OTP)\n sent to **** *** **87 to verify it"
     
+    @State var transactionID : String = ""
     @State var acsUrl : String = ""
     @State var jwtToken : String = ""
     @State var md : String = ""
@@ -103,7 +104,7 @@ struct CardView: View {
         cardPaymentStatus = .CARD_LOADING
         let year = Util.getDateComponents(isoDate: creditCardExpDate).year ?? 2024
         let month = Util.getDateComponents(isoDate: creditCardExpDate).month ?? 12
-        paymentOptionsViewModel.submitcardDetails(cardNumber: creditCardNumber,
+        paymentOptionsViewModel.submitcardDetails(cardNumber: creditCardNumber.trimmingCharacters(in: CharacterSet.whitespaces),
                                                   cardExpMonth: String(describing: month),
                                                   cardExpYear: String(describing: year),
                                                   cvv: creditCardCCV,
@@ -113,6 +114,8 @@ struct CardView: View {
             case .success(let data):
                 if (data.code == "00" && data.data.responseCode == "T0"){
                     // regular OTP
+                    otpMessage = data.data.message
+                    transactionID = data.data.transactionID
                     cardPaymentStatus = .CARD_OTP
                 } else if (data.code == "00" && data.data.responseCode == "S0"){
                     // 3DS

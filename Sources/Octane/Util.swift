@@ -27,8 +27,10 @@ class Util {
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
         dateFormatter.dateFormat = "MM/YY"
         let date = dateFormatter.date(from:isoDate)!
+        print("Date Gotten \(date)")
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+        print(components)
         return components
     }
     

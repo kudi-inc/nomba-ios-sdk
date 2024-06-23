@@ -15,5 +15,6 @@ struct SubmitOTPResponse: Codable {
 
 // MARK: - DataClass
 struct SubmitOTPDataClass: Codable {
-    let status, message: String
+    let message: String
+    let status : Bool
 }

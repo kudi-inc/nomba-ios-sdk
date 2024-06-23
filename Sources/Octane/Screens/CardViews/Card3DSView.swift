@@ -84,8 +84,9 @@ struct WebView: UIViewRepresentable {
             }
             
             func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                webView.evaluateJavaScript("(function toggleViewport(){let viewport = document.querySelector('meta[name=viewport]');if (!viewport){viewport=document.createElement('meta');viewport.name = 'viewport';document.getElementsByTagName('head')[0].appendChild(viewport);}viewport.setAttribute('content','width=device-width, initial-scale=1.0, user-scalable=yes');})();")
                 webView.evaluateJavaScript("javascript:document.body.style.margin='8%';void 0")
-                    webView.evaluateJavaScript("(function(){ document.addEventListener('DOMContentLoaded', function() { var iframe = document.getElementsByTagName('iframe')[0]; var innerFrame = iframe.contentWindow.document; var element = innerFrame.getElementById('ExitLink');element.style.display = 'none';});})();")
+                webView.evaluateJavaScript("(function(){ document.addEventListener('DOMContentLoaded', function() { var iframe = document.getElementsByTagName('iframe')[0]; var innerFrame = iframe.contentWindow.document; var element = innerFrame.getElementById('ExitLink');element.style.display = 'none';});})();")
                 parent.isLoading.wrappedValue = false
             }
             

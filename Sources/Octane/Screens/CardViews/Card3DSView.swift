@@ -29,6 +29,7 @@ struct Card3DSView: View {
                               .scaleEffect(2.0, anchor: .center)
                         Text("Please wait").font(.custom(FontsManager.fontRegular, size: 14)).offset(y: 24)
                     }.offset(y: -80).padding(.top, 220)
+                    Spacer()
                 }.foregroundStyle(Color("Text Primary", bundle: .module))
             }
         }

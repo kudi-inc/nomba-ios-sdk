@@ -101,6 +101,7 @@ struct CardSuccessOTPView: View {
                     timeRemaining -= 1
                     resendMessage = "Resend OTP in \(printSecondsToHoursMinutesSeconds(timeRemaining)) secs"
                 } else {
+                    resendMessage = "Resend OTP"
                     resendOTP = true
                 }
             }.onChange(of: scenePhase){ value in

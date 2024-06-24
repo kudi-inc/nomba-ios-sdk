@@ -50,6 +50,7 @@ struct CardSuccessView: View {
     }
     
     func requestOTPForCardSaving(){
+        hideKeyboard()
         isLoading = true
         paymentOptionsViewModel.requestOTPForCardSaving(phoneNumber: otpPhoneNumber, completion: { result in
             switch result {
@@ -75,6 +76,7 @@ struct CardSuccessView: View {
     }
     
     func submitOTPForCardSaving(){
+        hideKeyboard()
         isLoading = true
         paymentOptionsViewModel.submitOTPForCardSaving(phoneNumber: otpPhoneNumber, otp: OTP, completion: { result in
             switch result {

@@ -47,7 +47,7 @@ struct CardSuccessMainView: View {
                             .multilineTextAlignment(.center)
                         Spacer().frame(height: 15)
                         HStack{
-                            TextField("", text: $otpPhoneNumber, prompt: Text("08012345678"))
+                            TextField("", text: $otpPhoneNumber, prompt: Text("08012345678")).keyboardType(.numberPad)
                         }.padding().background(Color.white)
                     }.padding(.vertical, 20).padding(.horizontal, 20)
                         .frame(maxWidth: .infinity, alignment: .center)

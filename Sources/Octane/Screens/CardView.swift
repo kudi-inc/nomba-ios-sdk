@@ -93,9 +93,6 @@ struct CardView: View {
         paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
             switch result {
             case .success(let data):
-                print(data.code)
-                print(data)
-                print(data.data.status)
                 if (data.code == "00" && data.data.status == true){
                     //show success
                     //isLoading = false

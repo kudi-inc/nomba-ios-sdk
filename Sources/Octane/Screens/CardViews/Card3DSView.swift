@@ -30,7 +30,7 @@ struct Card3DSView: View {
                         Text("Please wait").font(.custom(FontsManager.fontRegular, size: 14)).offset(y: 24)
                     }.offset(y: -80).padding(.top, 220)
                     Spacer()
-                }.foregroundStyle(Color("Text Primary", bundle: .module))
+                }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.white.ignoresSafeArea()).foregroundStyle(Color("Text Primary", bundle: .module))
             }
         }
     }
@@ -89,6 +89,10 @@ struct WebView: UIViewRepresentable {
                 webView.evaluateJavaScript("javascript:document.body.style.margin='8%';void 0")
                 webView.evaluateJavaScript("(function(){ document.addEventListener('DOMContentLoaded', function() { var iframe = document.getElementsByTagName('iframe')[0]; var innerFrame = iframe.contentWindow.document; var element = innerFrame.getElementById('ExitLink');element.style.display = 'none';});})();")
                 parent.isLoading.wrappedValue = false
+            }
+            
+            func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+                parent.isLoading.wrappedValue = true
             }
             
             func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

@@ -26,7 +26,8 @@ struct CheckTransactionDataClass: Codable {
 struct Order: Codable {
     let orderID, orderReference, customerID, accountID: String
     let callbackURL, customerEmail, amount, currency: String
-    let businessName, businessEmail, businessLogo: String
+    let businessName, businessEmail : String
+    let businessLogo: String?
 
     enum CodingKeys: String, CodingKey {
         case orderID = "orderId"

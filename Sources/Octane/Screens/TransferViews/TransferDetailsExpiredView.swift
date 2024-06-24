@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TransferExpiredView: View {
+struct TransferDetailsExpiredView: View {
     
     var tryAgainAction : () -> () = {}
     var sentMoneyAction : () -> () = {}
@@ -46,5 +46,5 @@ struct TransferExpiredView: View {
 }
 
 #Preview {
-    TransferExpiredView()
+    TransferDetailsExpiredView()
 }

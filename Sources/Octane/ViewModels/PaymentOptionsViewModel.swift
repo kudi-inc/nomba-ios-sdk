@@ -18,6 +18,7 @@ class PaymentOptionsViewModel : ObservableObject {
     var bankName : String = "Amucha MFB"
     var accountName : String = "Abdullahi Abodunrin"
     
+    
     func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
         networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: selectedPaymentOption, completion: { result in
             completion(result)
@@ -46,6 +47,35 @@ class PaymentOptionsViewModel : ObservableObject {
         })
     }
     
+    func submitCardDetails(cardNumber: String, cardExpMonth: String, cardExpYear : String, cvv: String, cardPin: String, saveCard : Bool, completion: @escaping (Result<SubmitCardDetailsResponse, Error>) -> Void){
+        networkManager.submitCardDetails(cardNumber: cardNumber, cardExpMonth: cardExpMonth, cardExpYear: cardExpYear, cvv: cvv, cardPin: cardPin, orderReference: orderReference, saveCard: saveCard, completion: { result in
+            completion(result)
+        })
+    }
+    
+    func submitOTP(otpText : String, transactionID : String, completion: @escaping (Result<SubmitOTPResponse, Error>) -> Void){
+        networkManager.submitOTPDetails(orderReference: orderReference, otpText: otpText, transactionID: transactionID, completion:{ result in
+            completion(result)
+        })
+    }
+    
+    func checkTransactionOrderStatus(completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
+        networkManager.checkTransactionOrderStatus(orderReference: orderReference, completion: { result in
+            completion(result)
+        })
+    }
+    
+    func requestOTPForCardSaving(phoneNumber: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        networkManager.requestOTPForCardSaving(orderReference: orderReference, phoneNumber: phoneNumber, completion: { result in
+            completion(result)
+        })
+    }
+    
+    func submitOTPForCardSaving(phoneNumber: String, otp: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        networkManager.submitOTPForCardSaving(orderReference: orderReference, phoneNumber: phoneNumber, otp: otp, completion: { result in
+            completion(result)
+        })
+    }
     
     func fetchBankForTransfer(completion: @escaping (Result<Bool, Error>) -> Void){
         networkManager.getFlashAccount(orderReference: orderReference, completion: { [self] result in

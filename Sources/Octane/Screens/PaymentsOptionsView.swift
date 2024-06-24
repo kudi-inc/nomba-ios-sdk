@@ -20,7 +20,7 @@ struct PaymentsOptionsView: View {
     @State var isShowingCard = false
     @State var isShowingCancelDialog = false
     @Environment(\.presentationMode) var presentationMode
-    var paymentOptionsViewModel = PaymentOptionsViewModel()
+    @State var paymentOptionsViewModel = PaymentOptionsViewModel()
     
     @State var accountNumber : String = "98762371891"
     @State var bankName : String = "Amucha MFB"
@@ -66,7 +66,6 @@ struct PaymentsOptionsView: View {
                 Spacer().frame(height: 50)
                 BorderButton(buttonText: "Cancel Payment", action: {
                     isShowingCancelDialog = true
-                    // presentationMode.wrappedValue.dismiss()
                 })
                 Spacer()
                 FooterView()
@@ -78,9 +77,10 @@ struct PaymentsOptionsView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isShowingTransfer){
-            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName).interactiveDismissDisabled(true)
+            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, paymentOptionsViewModel: $paymentOptionsViewModel, parentPresentationMode: presentationMode)
+                .interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCard) {
-            CardView(logo: logo).interactiveDismissDisabled(true)
+            CardView(logo: logo, parentPresentationMode: presentationMode, paymentOptionsViewModel: $paymentOptionsViewModel).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])

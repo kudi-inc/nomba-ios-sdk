@@ -17,7 +17,11 @@ struct TransferView: View {
     @State var bankName : String
     @State var accountName : String
     @State var transferPaymentStatus : TransferPaymentStatus = .DETAILS
-   
+    @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
+    @Binding var parentPresentationMode : PresentationMode
+    @State var isSuccessViewShowing = false
+    @Environment(\.presentationMode) var presentationMode
+    @State var isShowingCancelDialog = false
     
     var body: some View {
         ZStack{
@@ -25,11 +29,22 @@ struct TransferView: View {
                 TopView(logo: logo)
                 switch transferPaymentStatus {
                 case .DETAILS:
-                    TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished)
+                    TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent, cancelPayment: cancelPayment)
                 case .ACCOUNT_EXPIRED:
-                    TransferExpiredView()
+                    TransferDetailsExpiredView(tryAgainAction: onFetchTransferAgain, sentMoneyAction: onTransferSent)
                 case .CONFIRMATION_WAITING:
-                    TransferConfirmationView()
+                    TransferConfirmationView(onTimerEndedAction: onTransferConfirmationFailed,
+                                             onHelpAction: onHelpAction,
+                                             onCheckTransactionStatus: checkTransactionStatus)
+                case .CONFIRMATION_WAITING_FAILED:
+                    TransferConfirmationFailedView(onHelpAction: onHelpAction, onTryAgainAction: showConfirmationTryAgainView)
+                case .CONFIRMATION_TRY_AGAIN:
+                    TransferConfirmationTryAgainView(onHelpAction: onHelpAction, onTryAgainAction: checkTransactionStatus)
+                case .GET_HELP:
+                    GetHelpView(keepWaitingAction: onTransferSent, closeCheckoutAction: {
+                        // presentationMode.wrappedValue.dismiss()
+                        parentPresentationMode.dismiss()
+                    })
                 }
                 Spacer()
                 FooterView()
@@ -40,6 +55,18 @@ struct TransferView: View {
             if (isLoading){
                 LoaderView()
             }
+        }.sheet(isPresented: $isSuccessViewShowing){
+            TransferSuccessView(parentPresentationMode: $parentPresentationMode).interactiveDismissDisabled(true)
+        }.sheet(isPresented: $isShowingCancelDialog){
+            if #available(iOS 16.4, *) {
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+                    .presentationCornerRadius(21)
+            } else {
+                // Fallback on earlier versions
+                CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
+                    .presentationDragIndicator(.hidden)
+            }
         }
     }
     
@@ -48,13 +75,79 @@ struct TransferView: View {
         transferPaymentStatus = .ACCOUNT_EXPIRED
     }
     
+    func cancelPayment(){
+        isShowingCancelDialog = true
+    }
+    
+    func onFetchTransferAgain(){
+        isLoading = true
+        paymentOptionsViewModel.fetchBankForTransfer(completion: { result in
+            switch result {
+            case .success(let data):
+                if (data) {
+                    accountName = paymentOptionsViewModel.accountName
+                    accountNumber = paymentOptionsViewModel.accountNumber
+                    bankName = paymentOptionsViewModel.bankName
+                    transferPaymentStatus = .DETAILS
+                    isLoading = false
+                } else {
+                    if (Octane.errorString.isEmpty) {
+                        Drops.show("Something went wrong. Try again")
+                    } else {
+                        let errorString = Octane.errorString
+                        Drops.show(Util.getDrop(message: errorString))
+                    }
+                }
+            case .failure(let error):
+                isLoading = false
+                if (Octane.errorString.isEmpty) {
+                    let errorString = "Something went wrong. Try again" + error.localizedDescription
+                    Drops.show(Util.getDrop(message: errorString))
+                } else {
+                    let errorString = Octane.errorString
+                    Drops.show(Util.getDrop(message: errorString))
+                }
+            }
+        })
+        
+    }
+    
     func onTransferSent(){
         transferPaymentStatus = .CONFIRMATION_WAITING
     }
+    
+    func onTransferConfirmationFailed(){
+        transferPaymentStatus = .CONFIRMATION_WAITING_FAILED
+    }
+    
+    func onHelpAction() {
+        transferPaymentStatus = .GET_HELP
+    }
+    
+    func showConfirmationTryAgainView(){
+        transferPaymentStatus = .CONFIRMATION_TRY_AGAIN
+    }
+    
+    func checkTransactionStatus() {
+        paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
+            switch result {
+            case .success(let data):
+                if (data.code == "00" && data.data.status == true){
+                    //show success
+                    isSuccessViewShowing = true
+                }
+            case .failure(_): 
+                break
+            }
+        })
+    }
+    
+    
     
    
 }
 
 #Preview {
-    TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin")
+    @Environment(\.presentationMode) var presentationMode
+    return TransferView(accountNumber: "98762371891", bankName: "Amucha MFB", accountName: "Abdullahi Abodunrin", paymentOptionsViewModel: .constant(PaymentOptionsViewModel()), parentPresentationMode: presentationMode)
 }

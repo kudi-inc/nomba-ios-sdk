@@ -9,6 +9,8 @@ import SwiftUI
 
 struct YellowButton: View {
     @State var buttonText : String
+    @State var icon : Image?
+    
     var action : () -> () = {}
     
     var body: some View {
@@ -16,6 +18,9 @@ struct YellowButton: View {
             action()
         }){
             HStack{
+                if ((icon) != nil){
+                    icon
+                }
                 Text(buttonText)
             }.padding(.vertical, 14).frame(maxWidth: .infinity)
                 .background(Color("Button Primary", bundle: .module))
@@ -26,5 +31,5 @@ struct YellowButton: View {
 }
 
 #Preview {
-    YellowButton(buttonText: "I have sent the money")
+    YellowButton(buttonText: "I have sent the money", icon: Image("refresh", bundle: .module))
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct NoBorderButton: View {
     @State var buttonText : String
     @State var color : Color?
+    @State var icon : Image?
     var action : () -> () = {}
     
     var body: some View {
@@ -17,6 +18,9 @@ struct NoBorderButton: View {
             action()
         }){
             HStack{
+                if ((icon) != nil){
+                    icon
+                }
                 Text(buttonText)
             }.padding(.vertical, 14).frame(maxWidth: .infinity)
             
@@ -27,4 +31,31 @@ struct NoBorderButton: View {
 
 #Preview {
     NoBorderButton(buttonText: "Cancel Payment")
+}
+
+
+struct NoBorderBindingButton: View {
+    @Binding var buttonText : String
+    @State var color : Color?
+    @State var icon : Image?
+    var action : () -> () = {}
+    
+    var body: some View {
+        Button(action: {
+            action()
+        }){
+            HStack{
+                if ((icon) != nil){
+                    icon
+                }
+                Text(buttonText)
+            }.padding(.vertical, 14).frame(maxWidth: .infinity)
+            
+            .foregroundStyle(color ?? Color("Text Primary", bundle: .module))
+        }.font(.custom(FontsManager.fontRegular, size: 14))
+    }
+}
+
+#Preview {
+    NoBorderBindingButton(buttonText: .constant("Cancel Payment"))
 }

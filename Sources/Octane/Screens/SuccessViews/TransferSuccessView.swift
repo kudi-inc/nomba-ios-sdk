@@ -8,10 +8,10 @@
 import SwiftUI
 import Drops
 
-struct SuccessView: View {
+struct TransferSuccessView: View {
     @State var logo : Image?
     var roundPadding : CGFloat = 15
-    @Environment(\.presentationMode) var presentationMode
+    @Binding var parentPresentationMode : PresentationMode
     @State var isLoading = false
     @State private var progessAmount = 30.0
     @State private var progessTotal = 50.0
@@ -30,8 +30,8 @@ struct SuccessView: View {
                         .padding(.vertical, 10)
                     Spacer().frame(height: 15)
                     HStack{
-                        Text("Your payment of ₦ 80,400 to Kurukuru sweets has been confirmed. You will now be redirected to your merchant’s site. Thank you")
-                            .lineSpacing(3)
+                        Text("Your payment of \(Octane.shared.getAmountFormatedWithCurrency()) to \(Octane.customer) has been confirmed. You will now be redirected to your merchant’s site. Thank you")
+                            .lineSpacing(2)
                             .multilineTextAlignment(.center)
                             
                     }.padding(.vertical, 24).padding(.horizontal, 20)
@@ -41,6 +41,10 @@ struct SuccessView: View {
                         .foregroundStyle(Color("Neutral Eight", bundle: .module))
                     
                 }.frame(maxWidth: .infinity, alignment: .leading)
+                Spacer().frame(height: 10)
+                BorderButton(buttonText: "Close checkout", action: {
+                    parentPresentationMode.dismiss()
+                })
                 Spacer()
                 FooterView()
             }
@@ -55,5 +59,6 @@ struct SuccessView: View {
 }
 
 #Preview {
-    SuccessView()
+    @Environment(\.presentationMode) var presentationMode
+    return TransferSuccessView(parentPresentationMode: presentationMode)
 }

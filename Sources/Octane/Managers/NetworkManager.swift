@@ -64,8 +64,139 @@ class NetworkManager{
                 completion(.failure(error))
             }
         })
+    }
+    
+    
+    func submitCardDetails(cardNumber: String, cardExpMonth: String, cardExpYear : String, cvv: String, cardPin: String, orderReference: String, saveCard : Bool, completion: @escaping (Result<SubmitCardDetailsResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/checkout-card-detail")!
+    
+        let parameters : [String: Any] = ["cardDetails": "{\"cardCVV\": \(cvv), \"cardExpiryMonth\": \(cardExpMonth), \"cardExpiryYear\": \(cardExpYear), \"cardNumber\": \"\(cardNumber)\",\"cardPin\": \(cardPin)}",
+                                           "key": "",
+                                          "orderReference": "\(orderReference)",
+                                          "saveCard": "\(String(describing: saveCard))",
+                                          "deviceInformation": ["httpBrowserLanguage": "en-GB",
+                                                                "httpBrowserJavaEnabled": "true",
+                                                                "httpBrowserJavaScriptEnabled": "true",
+                                                                "httpBrowserColorDepth": "30",
+                                                                "httpBrowserScreenHeight": "900",
+                                                                "httpBrowserScreenWidth": "1500",
+                                                                "httpBrowserTimeDifference": "-60",
+                                                                "userAgentBrowserValue": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+                                                                "deviceChannel": "Browser"
+                                                               ]
+        ]
+        
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: parameters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let jsonResponse = try JSONDecoder().decode(SubmitCardDetailsResponse.self, from: data)
+                    completion(.success(jsonResponse))
+                } catch ((let error)) {
+                    print(String(describing: error))
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(String(describing: error))
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    
+    func submitOTPDetails(orderReference: String, otpText : String, transactionID : String, completion: @escaping (Result<SubmitOTPResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/checkout-card-otp")!
+    
+        let parameters : [String: Any] = ["otp": "\(otpText)",
+                                          "orderReference": "\(orderReference)",
+                                          "transactionId": "\(transactionID)"
+        ]
+        
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: parameters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let jsonResponse = try JSONDecoder().decode(SubmitOTPResponse.self, from: data)
+                    completion(.success(jsonResponse))
+                } catch ((let error)) {
+                    print(String(describing: error))
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(String(describing: error))
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    
+    func checkTransactionOrderStatus(orderReference: String, completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/confirm-transaction-receipt/")!
+        let paramaters : [String: Any] = ["orderReference": orderReference]
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let response = try JSONDecoder().decode(CheckTransactionStatusResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    print(String(describing: error))
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(String(describing: error))
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    
+    func requestOTPForCardSaving(orderReference: String, phoneNumber: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/user-card/auth/")!
+        let paramaters : [String: Any] = ["orderReference": orderReference, "phoneNumber": phoneNumber]
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    // Parse the JSON data
+                    let response = try JSONDecoder().decode(RequestCardOTPResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    print(String(describing: error))
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(String(describing: error))
+                completion(.failure(error))
+            }
+        })
+    }
+    
+    
+    func submitOTPForCardSaving(orderReference: String, phoneNumber: String, otp: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
+        let url = URL(string:  "\(Constants.base_url)/checkout/user-card/auth/")!
+        let paramaters : [String: Any] = ["orderReference": orderReference, "phoneNumber": phoneNumber, "otp" : otp]
+        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let response = try JSONDecoder().decode(RequestCardOTPResponse.self, from: data)
+                    completion(.success(response))
+                } catch {
+                    print(String(describing: error))
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(String(describing: error))
+                completion(.failure(error))
+            }
+        })
         
     }
+    
     
     func getFlashAccount(orderReference: String, completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/get-checkout-kta/\(orderReference)")!
@@ -77,9 +208,11 @@ class NetworkManager{
                     let response = try JSONDecoder().decode(FlashAccountResponse.self, from: data)
                     completion(.success(response))
                 } catch {
+                    print(String(describing: error))
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print(String(describing: error))
                 completion(.failure(error))
             }
         })

@@ -123,6 +123,10 @@ struct CardDetailsView: View {
                     cancelPayment()
                 })
                 Spacer().frame(height: 50)
+            }.onAppear{
+                creditCardNumber = ""
+                creditCardExpDate = ""
+                creditCardCCV = ""
             }
         }
     }

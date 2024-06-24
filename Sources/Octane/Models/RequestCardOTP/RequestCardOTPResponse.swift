@@ -15,5 +15,6 @@ struct RequestCardOTPResponse: Codable {
 
 // MARK: - DataClass
 struct RequestCardDataClass: Codable {
-    let success, message: String
+    let message: String
+    let success: Bool
 }

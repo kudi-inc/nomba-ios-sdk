@@ -42,7 +42,7 @@ struct CardSuccessView: View {
             if (isLoading){
                 LoaderView()
             }
-        }
+        }.background(Color.white.ignoresSafeArea())
     }
     
     func onChangePhoneNumber(){

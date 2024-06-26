@@ -54,7 +54,7 @@ struct TransferSuccessView: View {
             if (isLoading){
                 LoaderView()
             }
-        }
+        }.background(Color.white.ignoresSafeArea())
     }
 }
 

@@ -55,7 +55,8 @@ struct TransferView: View {
             if (isLoading){
                 LoaderView()
             }
-        }.sheet(isPresented: $isSuccessViewShowing){
+        }.background(Color.white.ignoresSafeArea())
+        .sheet(isPresented: $isSuccessViewShowing){
             TransferSuccessView(parentPresentationMode: $parentPresentationMode).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {

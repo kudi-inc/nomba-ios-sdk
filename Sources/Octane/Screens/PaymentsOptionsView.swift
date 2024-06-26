@@ -91,7 +91,7 @@ struct PaymentsOptionsView: View {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
                     .presentationDragIndicator(.hidden)
             }
-        }
+        }.background(Color.white.ignoresSafeArea())
     }
     
     private func showTransferView(){

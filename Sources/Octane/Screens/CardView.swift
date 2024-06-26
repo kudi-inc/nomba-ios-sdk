@@ -59,7 +59,8 @@ struct CardView: View {
             if (isLoading){
                 LoaderView()
             }
-        }.sheet(isPresented: $isSuccessViewShowing){
+        }.background(Color.white.ignoresSafeArea())
+            .sheet(isPresented: $isSuccessViewShowing){
             CardSuccessView(parentPresentationMode: $parentPresentationMode, saveCard: $saveCard, paymentOptionsViewModel: $paymentOptionsViewModel).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {

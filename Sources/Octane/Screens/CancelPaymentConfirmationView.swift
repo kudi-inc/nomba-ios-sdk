@@ -37,7 +37,7 @@ struct CancelPaymentConfirmationView: View {
                     presentationMode.wrappedValue.dismiss()
                 })
             }.padding()
-        }.foregroundStyle(Color("Text Primary", bundle: .module))
+        }.background(Color.white.ignoresSafeArea()).foregroundStyle(Color("Text Primary", bundle: .module))
     }
 }
 

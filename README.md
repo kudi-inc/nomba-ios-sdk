@@ -1,6 +1,3 @@
-Nomba iOS SDK
-
-
 # Octane: Nomba iOS SDK
 
 The Nomba iOS SDK allows you bring the same great Nomba Checkout experience natively to your iOS apps using UIKit or SwiftUI 
@@ -28,72 +25,105 @@ Accept payments in your app by bank transfer or card
 
 ## 🚀 Getting Started
 
-Add to your root build.gradle, the JitPack Repository
+Use Xcode's built-in Swift Package Manager:
 
-```
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-```
+* Open Xcode
+* Click File -> Swift Packages -> Add Package Dependency
+* Paste package repository https://github.com/kudi-inc/nomba-ios-sdk.git and press return
+* Import module to any file using `import Octane`
 
-Add to your project build.gradle file, the Nomba Android SDK
-
-```
-implementation("com.github.kudi-inc:nomba-android-sdk:v1.0.3")
-```
 <br>
 
 
 
 ## 📖 Documentation
 
-All of your interactions with the Nomba Android SDK is done through a singleton, the NombaManager. 
-Initialise it as early as you can, pass the activity (for Context), your Nomba accountID, your Nomba ClientID, 
-your Nomba ClientKey (you can get this values from your Nomba Dashboard)
-and the main ViewGroup which would house the NombaManager UI. The ViewGroup should be a constraintLayout or extend from it.    
+All of your interactions with the Nomba iOS SDK is done through a singleton, ```Octane.shared```. 
+Initialise it as early as you can passing in your Nomba accountID, your Nomba ClientID and
+your Nomba ClientKey (you can get this values from your Nomba Dashboard). 
+
+### UIKit   
 
 ```
-val nombaManager = NombaManager.getInstance(activity, "accountId",  clientId = "clientId", 
-clientKey = "clientKey", viewGroup)
+import UIKit
+import Octane
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Octane.shared.configure(clientId: "clientId", accountId: "accountId", clientKey: "clientKey")
+        return true
+    }
+    ...
+}
+
 ```
 
-NombaManager handles it's own back stack, managing views and UI when it's presented and the back button or back gesture is 
-triggered. You need to include in your application's onbackpressed callback, NombaManager's backstack handler. An example below
+### SwiftUI   
 
 ```
- val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            // call this in your backstack management handling code,
-            // to enable the back button response to Wraith's DisplayStates
-            nombaManager.handleBackStack()
+import SwiftUI
+import Octane
+
+struct ContentView: View {
+    init() {
+        Octane.shared.configure(clientId: "clientId", accountId: "accountId", clientKey: "clientKey")
+    }
+  
+    ...
+}
+
+```
+
+
+Before presenting the PaymentView, pass in details for the current payment session 
+
+```
+Octane.shared.setPaymentDetails(email: "knightbenax@gmail.com", amount: 1000, customerName: "Emeka Bond")
+```
+
+
+Present the PaymentView when you are ready for payment to occur
+
+### UIKit   
+
+```
+import UIKit
+import Octane
+
+class CartViewController: UIViewController {
+    ...
+  
+    @objc func paymentButtonTapped() {
+        present(Octane.shared.viewController, animated: true)  
+    }
+}
+
+```
+
+### SwiftUI   
+
+```
+import SwiftUI
+import Octane
+
+struct ContentView: View {
+    @State var isShowingPayment : Bool = false
+    
+    var body: some View {
+        VStack{
+            Button(action: {
+                isShowingPayment = true
+            }) {
+                Text("Make Payment")
+            }
+        }.sheet(isPresented: $isShowingPayment){
+            Octane.shared.view
         }
+    }
 }
-onBackPressedDispatcher.addCallback(callback)
-```
 
-Before presenting the NombaManger PaymentView, pass in details for the current payment session 
-
-```
-nombaManager.paymentAmount = 10.0
-nombaManager.customerEmail = "knightbenax@gmail.com"
-nombaManager.customerName = "Emeka Bond"
-nombaManager.orderReference = "7dc1558f-dcc3-4cc8-b4cd-6ba8603efcee"
-nombaManager.customerId = "58530bfe-e1f9-405f-b1b0-249910e6a09f"
-nombaManager.logo = R.drawable.logo
-```
-
-
-When you are ready for payment to occur, simple present the NombaManger payment view
-
-```
-// show the SDK when you want to make a purchase
-button.setOnClickListener {
-    nombaManager.showPaymentView()
-}
 ```
 <br>
 

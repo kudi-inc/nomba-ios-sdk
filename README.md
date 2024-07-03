@@ -101,8 +101,8 @@ button.setOnClickListener {
 
 ## 📱 Projects
 
-If you use the Nomba Android SDK in your project and would like it listed here, simply create a new issue with the title of your app, link to it on the PlayStore and tag it
-with the label 'project'. It would get added here afterwards.
+If you use the Nomba iOS SDK in your project and would like it listed here, simply create a new issue with the title of your app, link to it on the AppStore and tag it
+with the label 'project'. It would be added here afterwards.
 
 <br>
 
@@ -110,18 +110,17 @@ with the label 'project'. It would get added here afterwards.
 
 ## 👨‍💻 Contributing
 
-Pull requests with bugfixes and new features are much appreciated. We'll be happy to review them and merge them once they're ready, as long as they contain change that fit within the vision of Nomba's Android SDK and provide generally useful functionality.
+Pull requests with bugfixes and new features are much appreciated. We'll be happy to review them and merge them once they're ready, as long as they contain change that fit within the vision of Nomba's iOS SDK and provide generally useful functionality.
 
 Clone the repository to get started working on the project.
 
 ```bash
-git clone https://github.com/kudi-inc/nomba-android-sdk
+git clone https://github.com/kudi-inc/nomba-ios-sdk
 ```
 <br>
 
 
 ## ❤️ Acknowledgments
 
-- [PinView](https://github.com/ChaosLeung/PinView) is used to provide the otp and pin textfields.
-- [Retrofit](https://github.com/square/retrofit) is used for network request management.
+- [Drops](https://github.com/omaralbeik/Drops) is used for showing the top alerts
 

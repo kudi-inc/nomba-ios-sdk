@@ -7,7 +7,6 @@ The Nomba iOS SDK allows you bring the same great Nomba Checkout experience nati
 Accept payments in your app by bank transfer or card
 
 [![Platform](/platform.svg)]()
-[![JitPack](https://jitpack.io/v/kudi-inc/nomba-android-sdk.svg)](https://jitpack.io/#kudi-inc/nomba-android-sdk)
 <br><br>
 
 <p float="left">

@@ -43,7 +43,19 @@ struct CardSuccessView: View {
             if (isLoading){
                 LoaderView()
             }
-        }.background(Color.white.ignoresSafeArea())
+        }.background(Color.white.ignoresSafeArea()).onChange(of: cardSucessStatus){ value in
+            if (value == .SUCCESS_OTP){
+                showBackArrow = true
+            } else {
+                showBackArrow = false
+            }
+        }
+    }
+    
+    private func backAction(){
+        if  (cardSucessStatus == .SUCCESS_OTP){
+            cardSucessStatus = .SUCCESS
+        }
     }
     
     func onChangePhoneNumber(){

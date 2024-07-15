@@ -80,7 +80,7 @@ struct CardView: View {
             if (value == .CARD_OTP || value == .CARD_PIN || value == .CARD_3DS){
                 showBackArrow = true
             } else {
-                showBackArrow = true
+                showBackArrow = false
             }
         }
     }

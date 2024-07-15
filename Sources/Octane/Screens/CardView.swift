@@ -78,9 +78,13 @@ struct CardView: View {
             }
         }.onChange(of: cardPaymentStatus){ value in
             if (value == .CARD_OTP || value == .CARD_PIN || value == .CARD_3DS){
-                showBackArrow = true
+                withAnimation{
+                    showBackArrow = true
+                }
             } else {
-                showBackArrow = false
+                withAnimation{
+                    showBackArrow = false
+                }
             }
         }
     }

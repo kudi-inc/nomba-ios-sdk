@@ -45,9 +45,13 @@ struct CardSuccessView: View {
             }
         }.background(Color.white.ignoresSafeArea()).onChange(of: cardSucessStatus){ value in
             if (value == .SUCCESS_OTP){
-                showBackArrow = true
+                withAnimation{
+                    showBackArrow = true
+                }
             } else {
-                showBackArrow = false
+                withAnimation{
+                    showBackArrow = false
+                }
             }
         }
     }

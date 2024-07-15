@@ -8,15 +8,26 @@
 import SwiftUI
 
 struct TopView: View {
+    @Binding var showBackArrow : Bool
     @State var logo : Image?
+    var onBackAction : () -> () = {}
     
     var body: some View {
         VStack{
             HStack(alignment: .center){
-                if let logo = logo {
-                    logo.resizable().frame(width: 42, height: 42)
-                } else {
-                    RoundedRectangle(cornerRadius: 4).frame(width: 42, height: 42)
+                HStack(alignment: .center, spacing: 15){
+                    if (showBackArrow) {
+                        Image(systemName: "arrow.backward")
+                    }
+                    if let logo = logo {
+                        logo.resizable().frame(width: 42, height: 42)
+                    } else {
+                        RoundedRectangle(cornerRadius: 4).frame(width: 42, height: 42)
+                    }
+                }.onTapGesture {
+                    if (showBackArrow){
+                        onBackAction()
+                    }
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4){
@@ -33,5 +44,5 @@ struct TopView: View {
 }
 
 #Preview {
-    TopView()
+    TopView(showBackArrow: .constant(true))
 }

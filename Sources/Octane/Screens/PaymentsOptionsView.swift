@@ -25,11 +25,12 @@ struct PaymentsOptionsView: View {
     @State var accountNumber : String = "98762371891"
     @State var bankName : String = "Amucha MFB"
     @State var accountName : String = "Abdullahi Abodunrin"
+    @State var showBackArrow = false
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo)
                 VStack(spacing: 0){
                     VStack{
                         Text("Choose any of the payment methods\nbelow to pay").lineSpacing(2)

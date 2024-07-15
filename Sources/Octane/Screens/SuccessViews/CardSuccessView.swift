@@ -20,11 +20,12 @@ struct CardSuccessView: View {
     @State var OTP : String = ""
     @State var cardSucessStatus : CardSuccessStatus = .SUCCESS
     @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
+    @State var showBackArrow = false
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo)
                 switch (cardSucessStatus){
                 case .SUCCESS:
                     CardSuccessMainView(saveCard: $saveCard, otpPhoneNumber: $otpPhoneNumber, parentPresentationMode: $parentPresentationMode, sendOTPAction: requestOTPForCardSaving)
@@ -42,7 +43,23 @@ struct CardSuccessView: View {
             if (isLoading){
                 LoaderView()
             }
-        }.background(Color.white.ignoresSafeArea())
+        }.background(Color.white.ignoresSafeArea()).onChange(of: cardSucessStatus){ value in
+            if (value == .SUCCESS_OTP){
+                withAnimation{
+                    showBackArrow = true
+                }
+            } else {
+                withAnimation{
+                    showBackArrow = false
+                }
+            }
+        }
+    }
+    
+    private func backAction(){
+        if  (cardSucessStatus == .SUCCESS_OTP){
+            cardSucessStatus = .SUCCESS
+        }
     }
     
     func onChangePhoneNumber(){

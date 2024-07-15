@@ -10,6 +10,7 @@ import SwiftUI
 struct TopView: View {
     @Binding var showBackArrow : Bool
     @State var logo : Image?
+    var onBackAction : () -> () = {}
     
     var body: some View {
         VStack{
@@ -25,7 +26,7 @@ struct TopView: View {
                     }
                 }.onTapGesture {
                     if (showBackArrow){
-                        
+                        onBackAction()
                     }
                 }
                 Spacer()

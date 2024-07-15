@@ -33,12 +33,14 @@ struct CardView: View {
     @State var termUrl : String = ""
     
     @State var otpPhoneNumber : String = ""
-    @State var showBackArrow = true
+    @State var showBackArrow = false
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(showBackArrow: $showBackArrow, logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo, onBackAction: {
+                    backAction()
+                })
                 switch (cardPaymentStatus) {
                 case .DETAILS:
                     CardDetailsView(creditCardNumber: $creditCardNumber, creditCardExpDate: $creditCardExpDate, creditCardCCV: $creditCardCCV, saveCard: $saveCard, cancelPayment: cancelPayment, onPayButtonAction: onPayButtonAction)
@@ -74,7 +76,17 @@ struct CardView: View {
                     .presentationDetents([.height(340)])
                     .presentationDragIndicator(.hidden)
             }
+        }.onChange(of: cardPaymentStatus){ value in
+            if (value == .CARD_OTP || value == .CARD_PIN || value == .CARD_3DS){
+                showBackArrow = true
+            } else {
+                showBackArrow = true
+            }
         }
+    }
+    
+    private func backAction(){
+        cardPaymentStatus = .DETAILS
     }
     
     func cancelPayment(){

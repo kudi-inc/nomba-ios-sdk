@@ -22,7 +22,7 @@ struct TransferView: View {
     @State var isSuccessViewShowing = false
     @Environment(\.presentationMode) var presentationMode
     @State var isShowingCancelDialog = false
-    @State var showBackArrow = true
+    @State var showBackArrow = false
     
     var body: some View {
         ZStack{
@@ -72,12 +72,17 @@ struct TransferView: View {
         }
     }
     
-    func onDetailsTimerFinished() {
+    
+    private func backAction(){
+        
+    }
+    
+    private func onDetailsTimerFinished() {
         //show expired account
         transferPaymentStatus = .ACCOUNT_EXPIRED
     }
     
-    func cancelPayment(){
+    private func cancelPayment(){
         isShowingCancelDialog = true
     }
     

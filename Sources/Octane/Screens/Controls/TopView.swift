@@ -14,10 +14,19 @@ struct TopView: View {
     var body: some View {
         VStack{
             HStack(alignment: .center){
-                if let logo = logo {
-                    logo.resizable().frame(width: 42, height: 42)
-                } else {
-                    RoundedRectangle(cornerRadius: 4).frame(width: 42, height: 42)
+                HStack(alignment: .center, spacing: 15){
+                    if (showBackArrow) {
+                        Image(systemName: "arrow.backward")
+                    }
+                    if let logo = logo {
+                        logo.resizable().frame(width: 42, height: 42)
+                    } else {
+                        RoundedRectangle(cornerRadius: 4).frame(width: 42, height: 42)
+                    }
+                }.onTapGesture {
+                    if (showBackArrow){
+                        
+                    }
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4){
@@ -34,5 +43,5 @@ struct TopView: View {
 }
 
 #Preview {
-    TopView(showBackArrow: .constant(false))
+    TopView(showBackArrow: .constant(true))
 }

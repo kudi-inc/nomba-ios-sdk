@@ -20,11 +20,12 @@ struct CardSuccessView: View {
     @State var OTP : String = ""
     @State var cardSucessStatus : CardSuccessStatus = .SUCCESS
     @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
+    @State var showBackArrow = false
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo)
                 switch (cardSucessStatus){
                 case .SUCCESS:
                     CardSuccessMainView(saveCard: $saveCard, otpPhoneNumber: $otpPhoneNumber, parentPresentationMode: $parentPresentationMode, sendOTPAction: requestOTPForCardSaving)

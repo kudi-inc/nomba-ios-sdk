@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TopView: View {
+    @Binding var showBackArrow : Bool
     @State var logo : Image?
     
     var body: some View {
@@ -33,5 +34,5 @@ struct TopView: View {
 }
 
 #Preview {
-    TopView()
+    TopView(showBackArrow: .constant(false))
 }

@@ -22,11 +22,12 @@ struct TransferView: View {
     @State var isSuccessViewShowing = false
     @Environment(\.presentationMode) var presentationMode
     @State var isShowingCancelDialog = false
+    @State var showBackArrow = true
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo)
                 switch transferPaymentStatus {
                 case .DETAILS:
                     TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent, cancelPayment: cancelPayment)

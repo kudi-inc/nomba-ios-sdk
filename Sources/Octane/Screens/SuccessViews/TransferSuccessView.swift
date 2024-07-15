@@ -15,11 +15,12 @@ struct TransferSuccessView: View {
     @State var isLoading = false
     @State private var progessAmount = 30.0
     @State private var progessTotal = 50.0
+    @State var showBackArrow = false
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo)
                 VStack(spacing: 0){
                     Image("success", bundle: .module)
                     Text("Your Payment has been \nconfirmed successfully")

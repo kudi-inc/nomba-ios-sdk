@@ -33,11 +33,12 @@ struct CardView: View {
     @State var termUrl : String = ""
     
     @State var otpPhoneNumber : String = ""
+    @State var showBackArrow = true
     
     var body: some View {
         ZStack{
             VStack{
-                TopView(logo: logo)
+                TopView(showBackArrow: $showBackArrow, logo: logo)
                 switch (cardPaymentStatus) {
                 case .DETAILS:
                     CardDetailsView(creditCardNumber: $creditCardNumber, creditCardExpDate: $creditCardExpDate, creditCardCCV: $creditCardCCV, saveCard: $saveCard, cancelPayment: cancelPayment, onPayButtonAction: onPayButtonAction)

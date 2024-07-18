@@ -23,6 +23,7 @@ struct TransferView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var isShowingCancelDialog = false
     @State var showBackArrow = false
+    @State var transactionResponse: CheckTransactionStatusResponse? = nil
     
     var body: some View {
         ZStack{
@@ -58,7 +59,7 @@ struct TransferView: View {
             }
         }.background(Color.white.ignoresSafeArea())
         .sheet(isPresented: $isSuccessViewShowing){
-            TransferSuccessView(parentPresentationMode: $parentPresentationMode).interactiveDismissDisabled(true)
+            TransferSuccessView(parentPresentationMode: $parentPresentationMode, transactionResponse: $transactionResponse).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
@@ -121,6 +122,9 @@ struct TransferView: View {
     
     func onTransferSent(){
         transferPaymentStatus = .CONFIRMATION_WAITING
+        if transactionResponse != nil {
+            Octane.onTransactionComplete?(transactionResponse!)
+        }
     }
     
     func onTransferConfirmationFailed(){
@@ -139,6 +143,7 @@ struct TransferView: View {
         paymentOptionsViewModel.checkTransactionOrderStatus(completion: { result in
             switch result {
             case .success(let data):
+                transactionResponse = data
                 if (data.code == "00" && data.data.status == true){
                     //show success
                     isSuccessViewShowing = true

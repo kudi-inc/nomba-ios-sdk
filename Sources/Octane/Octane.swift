@@ -17,6 +17,7 @@ public class Octane{
     static var amount : Double = 10.00
     static var colorTheme = ColorTheme.LIGHT
     static var errorString = ""
+    static var onTransactionComplete: ((CheckTransactionStatusResponse) -> Void)?
     
     public static let shared = Octane()
     
@@ -36,10 +37,11 @@ public class Octane{
         registerAllFonts()
     }
     
-    public func setPaymentDetails(email: String, amount: Double, customerName: String){
+    func setPaymentDetails(email: String, amount: Double, customerName: String, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
         Octane.email = email
         Octane.customer = customerName
         Octane.amount = amount
+        Octane.onTransactionComplete = onTransactionComplete
     }
     
     func getAmountFormated() -> String {

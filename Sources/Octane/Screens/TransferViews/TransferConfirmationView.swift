@@ -18,7 +18,7 @@ struct TransferConfirmationView: View {
     var onTimerEndedAction : () -> () = {}
     var onHelpAction : () -> () = {}
     var onCheckTransactionStatus : () -> () = {}
-    var secondsToCheck = [540, 480, 420, 360, 300, 240, 180, 120, 60]
+    var secondsToCheck = [570, 540, 480, 420, 360, 300, 240, 180, 120, 60]
     
     var body: some View {
         VStack(spacing: 20){

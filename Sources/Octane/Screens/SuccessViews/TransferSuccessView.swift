@@ -16,6 +16,7 @@ struct TransferSuccessView: View {
     @State private var progessAmount = 30.0
     @State private var progessTotal = 50.0
     @State var showBackArrow = false
+    @Binding var transactionResponse: CheckTransactionStatusResponse?
     
     var body: some View {
         ZStack{
@@ -45,6 +46,10 @@ struct TransferSuccessView: View {
                 Spacer().frame(height: 10)
                 BorderButton(buttonText: "Close checkout", action: {
                     parentPresentationMode.dismiss()
+                    if transactionResponse != nil {
+                        Octane.onTransactionComplete?(transactionResponse!)
+                    }
+                    
                 })
                 Spacer()
                 FooterView()
@@ -61,5 +66,5 @@ struct TransferSuccessView: View {
 
 #Preview {
     @Environment(\.presentationMode) var presentationMode
-    return TransferSuccessView(parentPresentationMode: presentationMode)
+//    return TransferSuccessView(parentPresentationMode: presentationMode,transactionResponse: nil)
 }

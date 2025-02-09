@@ -28,7 +28,7 @@ struct CardSuccessView: View {
                 TopView(showBackArrow: $showBackArrow, logo: logo)
                 switch (cardSucessStatus){
                 case .SUCCESS:
-                    CardSuccessMainView(saveCard: $saveCard, otpPhoneNumber: $otpPhoneNumber, parentPresentationMode: $parentPresentationMode, sendOTPAction: requestOTPForCardSaving)
+                    CardSuccessMainView(saveCard: $saveCard, otpPhoneNumber: $otpPhoneNumber, parentPresentationMode: $parentPresentationMode, paymentOptionsViewModel: $paymentOptionsViewModel, sendOTPAction: requestOTPForCardSaving)
                 case .SUCCESS_OTP:
                     CardSuccessOTPView(otpPhoneNumber: $otpPhoneNumber, OTP: $OTP, onChangePhoneNumber: onChangePhoneNumber, onOTPEnteredAction: submitOTPForCardSaving, sendOTPAction: requestOTPForCardSaving)
                 case .SUCCESS_OTP_SUCCESS:

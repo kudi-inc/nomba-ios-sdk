@@ -38,7 +38,7 @@ public class Octane{
         registerAllFonts()
     }
     
-    func setPaymentDetails(email: String, amount: Double, customerName: String, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
+    public func setPaymentDetails(email: String, amount: Double, customerName: String, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
         Octane.email = email
         Octane.customer = customerName
         Octane.amount = amount

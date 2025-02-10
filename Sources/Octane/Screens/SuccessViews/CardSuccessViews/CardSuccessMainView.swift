@@ -77,5 +77,5 @@ struct CardSuccessMainView: View {
 
 #Preview {
     @Environment(\.presentationMode) var presentationMode
-//    return CardSuccessMainView(saveCard: .constant(true), otpPhoneNumber: .constant(""), parentPresentationMode: presentationMode)
+    return CardSuccessMainView(saveCard: .constant(true), otpPhoneNumber: .constant(""), parentPresentationMode: presentationMode, paymentOptionsViewModel: .constant(PaymentOptionsViewModel()))
 }

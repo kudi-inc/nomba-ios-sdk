@@ -66,5 +66,5 @@ struct TransferSuccessView: View {
 
 #Preview {
     @Environment(\.presentationMode) var presentationMode
-//    return TransferSuccessView(parentPresentationMode: presentationMode,transactionResponse: nil)
+    return TransferSuccessView(parentPresentationMode: presentationMode,transactionResponse: .constant(nil))
 }

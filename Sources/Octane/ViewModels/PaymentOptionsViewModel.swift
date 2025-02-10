@@ -17,6 +17,7 @@ class PaymentOptionsViewModel : ObservableObject {
     var accountNumber : String = "98762371891"
     var bankName : String = "Amucha MFB"
     var accountName : String = "Abdullahi Abodunrin"
+    var transactionResponse: CheckTransactionStatusResponse? = nil
     
     
     func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
@@ -60,8 +61,15 @@ class PaymentOptionsViewModel : ObservableObject {
     }
     
     func checkTransactionOrderStatus(completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
-        networkManager.checkTransactionOrderStatus(orderReference: orderReference, completion: { result in
-            completion(result)
+        networkManager.checkTransactionOrderStatus(orderReference: orderReference, completion: { [self] result in
+            switch result {
+            case .success(let data):
+                transactionResponse = data
+                completion(result)
+            case .failure(_):
+                completion(result)
+            }
+            
         })
     }
     

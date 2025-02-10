@@ -11,6 +11,7 @@ struct CardSuccessMainView: View {
     @Binding var saveCard : Bool
     @Binding var otpPhoneNumber : String
     @Binding var parentPresentationMode : PresentationMode
+    @Binding var paymentOptionsViewModel : PaymentOptionsViewModel
     
     var sendOTPAction : () -> () = {}
     
@@ -65,6 +66,9 @@ struct CardSuccessMainView: View {
             Spacer().frame(height: 10)
             BorderButton(buttonText: "Close checkout", action: {
                 parentPresentationMode.dismiss()
+                if paymentOptionsViewModel.transactionResponse != nil {
+                    Octane.onTransactionComplete?(paymentOptionsViewModel.transactionResponse!)
+                }
             })
             Spacer().frame(height: 60)
         }
@@ -73,5 +77,5 @@ struct CardSuccessMainView: View {
 
 #Preview {
     @Environment(\.presentationMode) var presentationMode
-    return CardSuccessMainView(saveCard: .constant(true), otpPhoneNumber: .constant(""), parentPresentationMode: presentationMode)
+//    return CardSuccessMainView(saveCard: .constant(true), otpPhoneNumber: .constant(""), parentPresentationMode: presentationMode)
 }

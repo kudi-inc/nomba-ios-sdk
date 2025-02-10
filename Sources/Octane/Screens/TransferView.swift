@@ -58,7 +58,7 @@ struct TransferView: View {
             }
         }.background(Color.white.ignoresSafeArea())
         .sheet(isPresented: $isSuccessViewShowing){
-            TransferSuccessView(parentPresentationMode: $parentPresentationMode).interactiveDismissDisabled(true)
+            TransferSuccessView(parentPresentationMode: $parentPresentationMode, transactionResponse: $paymentOptionsViewModel.transactionResponse).interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCancelDialog){
             if #available(iOS 16.4, *) {
                 CancelPaymentConfirmationView(parentPresentationMode: presentationMode).presentationDetents([.height(340)])
@@ -121,6 +121,9 @@ struct TransferView: View {
     
     func onTransferSent(){
         transferPaymentStatus = .CONFIRMATION_WAITING
+        if paymentOptionsViewModel.transactionResponse != nil {
+            Octane.onTransactionComplete?(paymentOptionsViewModel.transactionResponse!)
+        }
     }
     
     func onTransferConfirmationFailed(){

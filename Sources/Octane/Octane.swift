@@ -17,6 +17,8 @@ public class Octane{
     static var amount : Double = 10.00
     static var colorTheme = ColorTheme.LIGHT
     static var errorString = ""
+    static var logo :Image?
+    static var onTransactionComplete: ((CheckTransactionStatusResponse) -> Void)?
     
     public static let shared = Octane()
     
@@ -36,10 +38,12 @@ public class Octane{
         registerAllFonts()
     }
     
-    public func setPaymentDetails(email: String, amount: Double, customerName: String){
+    func setPaymentDetails(email: String, amount: Double, customerName: String, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
         Octane.email = email
         Octane.customer = customerName
         Octane.amount = amount
+        Octane.logo = logo
+        Octane.onTransactionComplete = onTransactionComplete
     }
     
     func getAmountFormated() -> String {
@@ -50,16 +54,17 @@ public class Octane{
         return String(format: "₦ %.02f", Octane.amount)
     }
     
+    
     /// (SwiftUI) The Changelog view.
     public var view: some View {
-        return PaymentsOptionsView(accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey)
+        return PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey)
             .preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark)
     }
     
     #if canImport(UIKit) && !os(visionOS)
     /// (UIKit) The Changelog viewcontroller.
     public var viewController: UIViewController {
-        UIHostingController(rootView: PaymentsOptionsView(accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey).preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
+        UIHostingController(rootView: PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey).preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
     }
     #endif
     

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - CheckTransactionStatusResponse
-struct CheckTransactionStatusResponse: Codable {
+public struct CheckTransactionStatusResponse: Codable {
     let code, description: String
     let data: CheckTransactionDataClass
 }

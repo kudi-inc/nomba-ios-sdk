@@ -8,7 +8,7 @@ import SwiftUI
 
 public class Octane{
     
-    let fontsManager = FontsManager()
+    var  fontsManager: FontsManager?
     static var clientId = "my-fancy-public-key"
     static var accountId = "my-fancy-widget-key"
     static var clientKey = "my-fancy-widget-key"
@@ -22,13 +22,19 @@ public class Octane{
     
     public static let shared = Octane()
     
-    private init() {}
+    private init() {
+        fontsManager=FontsManager()
+    }
     
     func registerAllFonts(){
-        try! fontsManager.registerFont(named: FontsManager.fontRegular)
-        try! fontsManager.registerFont(named: FontsManager.fontBold)
-        try! fontsManager.registerFont(named: FontsManager.fontBlack)
-        try! fontsManager.registerFont(named: FontsManager.fontMedium)
+        try! fontsManager?.registerFont(named: FontsManager.fontRegular)
+        try! fontsManager?.registerFont(named: FontsManager.fontBold)
+        try! fontsManager?.registerFont(named: FontsManager.fontBlack)
+        try! fontsManager?.registerFont(named: FontsManager.fontMedium)
+    }
+    
+    public func endManager(){
+        fontsManager = nil
     }
     
     public func configure(clientId: String, accountId: String, clientKey: String) {

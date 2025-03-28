@@ -11,9 +11,10 @@ public class Octane{
     var  fontsManager: FontsManager?
     static var clientId = "my-fancy-public-key"
     static var accountId = "my-fancy-widget-key"
-    static var clientKey = "my-fancy-widget-key"
     static var email = "me@nomba.com"
     static var customer = "Emeka Bond"
+    static var orderReference:String? =  null
+    static var customerId:String? =  null
     static var amount : Double = 10.00
     static var colorTheme = ColorTheme.LIGHT
     static var errorString = ""
@@ -37,18 +38,19 @@ public class Octane{
         fontsManager = nil
     }
     
-    public func configure(clientId: String, accountId: String, clientKey: String) {
+    public func configure(clientId: String, accountId: String) {
         Octane.clientId = clientId
         Octane.accountId = accountId
-        Octane.clientKey = clientKey
         registerAllFonts()
     }
     
-    public func setPaymentDetails(email: String, amount: Double, customerName: String, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
+    public func setPaymentDetails(email: String, amount: Double, customerName: String,orderReference: String?, customerId: String?, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
         Octane.email = email
         Octane.customer = customerName
         Octane.amount = amount
         Octane.logo = logo
+        Octane.orderReference = orderReference
+        Octane.customerId = customerId
         Octane.onTransactionComplete = onTransactionComplete
     }
     
@@ -63,14 +65,14 @@ public class Octane{
     
     /// (SwiftUI) The Changelog view.
     public var view: some View {
-        return PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey)
+        return PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId)
             .preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark)
     }
     
     #if canImport(UIKit) && !os(visionOS)
     /// (UIKit) The Changelog viewcontroller.
     public var viewController: UIViewController {
-        UIHostingController(rootView: PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId, clientKey: Octane.clientKey).preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
+        UIHostingController(rootView: PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId, ).preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
     }
     #endif
     

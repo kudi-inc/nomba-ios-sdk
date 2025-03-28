@@ -10,24 +10,19 @@ import Foundation
 class PaymentOptionsViewModel : ObservableObject {
     
     var callbackURL : String = "https://octane/ios.sdk/callback"
-    var customerId = UUID().uuidString
+    var customerId = Octane.customerId ?? UUID().uuidString
     var networkManager = NetworkManager.shared
-    var orderReference : String = UUID().uuidString
+    var orderReference : String = Octane.orderReference ?? UUID().uuidString
     
     var accountNumber : String = "98762371891"
-    var bankName : String = "Amucha MFB"
+    var bankName : String = "Nombank MFB"
     var accountName : String = "Abdullahi Abodunrin"
     var transactionResponse: CheckTransactionStatusResponse? = nil
     
     
-    func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
-        networkManager.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: selectedPaymentOption, completion: { result in
-            completion(result)
-        })
-    }
     
-    func createOrder(accountId: String, amount: String, customerEmail: String, currency : String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
-        networkManager.createOrder(orderReference: orderReference, customerId: customerId, customerEmail: customerEmail, callbackURL: callbackURL, amount: amount, currency: currency, accountId: accountId, selectedPaymentOption: selectedPaymentOption, completion: { [self] result in
+    func createOrder(accountId: String,clientId: String, amount: String, customerEmail: String, currency : String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
+        networkManager.createOrder(orderReference: orderReference, customerId: customerId, customerEmail: customerEmail, callbackURL: callbackURL, amount: amount, currency: currency, accountId: accountId,clientId: clientId, selectedPaymentOption: selectedPaymentOption, completion: { [self] result in
             switch result {
             case .success(let response):
                 orderReference = response.data.orderReference

@@ -12,7 +12,6 @@ struct PaymentsOptionsView: View {
     @State var logo : Image?
     @State var accountId : String
     @State var clientId : String
-    @State var clientKey : String
     var roundPadding : CGFloat = 15
     
     @State var isLoading = false
@@ -97,36 +96,16 @@ struct PaymentsOptionsView: View {
     
     private func showTransferView(){
         isLoading = true
-        paymentOptionsViewModel.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: .TRANSFER, completion: { result in
+        paymentOptionsViewModel.createOrder(accountId: accountId,clientId: clientId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .TRANSFER, completion: { result in
             switch result {
             case .success(let data):
                 if (data){
-                    paymentOptionsViewModel.createOrder(accountId: accountId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .TRANSFER, completion: { result in
-                        switch result {
-                        case .success(let data):
-                            if (data){
-                                isLoading = false
-                                accountName = paymentOptionsViewModel.accountName
-                                accountNumber = paymentOptionsViewModel.accountNumber
-                                bankName = paymentOptionsViewModel.bankName
-                                isShowingTransfer = true
-                            } else {
-                                if (Octane.errorString.isEmpty) {
-                                    Drops.show("Something went wrong. Try again")
-                                } else {
-                                    let errorString = Octane.errorString
-                                    Drops.show(Util.getDrop(message: errorString))
-                                }
-                                isLoading = false
-                            }
-                        case .failure(let error):
-                            let errorString : String = error.localizedDescription
-                            Drops.show(Util.getDrop(message: errorString))
-                            isLoading = false
-                        }
-                    })
+                    isLoading = false
+                    accountName = paymentOptionsViewModel.accountName
+                    accountNumber = paymentOptionsViewModel.accountNumber
+                    bankName = paymentOptionsViewModel.bankName
+                    isShowingTransfer = true
                 } else {
-                    print("Token Gotten False \(data)")
                     if (Octane.errorString.isEmpty) {
                         Drops.show("Something went wrong. Try again")
                     } else {
@@ -137,13 +116,7 @@ struct PaymentsOptionsView: View {
                 }
             case .failure(let error):
                 let errorString : String = error.localizedDescription
-                let drop = Drop(
-                    title: errorString,
-                    action: .init {
-                        Drops.hideCurrent()
-                    }
-                )
-                Drops.show(drop)
+                Drops.show(Util.getDrop(message: errorString))
                 isLoading = false
             }
         })
@@ -151,34 +124,15 @@ struct PaymentsOptionsView: View {
     
     private func showCardView(){
         isLoading = true
-        paymentOptionsViewModel.getAccessToken(accountId: accountId, clientId: clientId, clientKey: clientKey, selectedPaymentOption: .CARD, completion: { result in
+        paymentOptionsViewModel.createOrder(accountId: accountId,clientId: clientId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .CARD, completion: { result in
             switch result {
             case .success(let data):
                 if (data){
-                    paymentOptionsViewModel.createOrder(accountId: accountId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .CARD, completion: { result in
-                        switch result {
-                        case .success(let data):
-                            if (data){
-                                isLoading = false
-                                accountName = paymentOptionsViewModel.accountName
-                                accountNumber = paymentOptionsViewModel.accountNumber
-                                bankName = paymentOptionsViewModel.bankName
-                                isShowingCard = true
-                            } else {
-                                if (Octane.errorString.isEmpty) {
-                                    Drops.show("Something went wrong. Try again")
-                                } else {
-                                    let errorString = Octane.errorString
-                                    Drops.show(Util.getDrop(message: errorString))
-                                }
-                                isLoading = false
-                            }
-                        case .failure(let error):
-                            let errorString : String = error.localizedDescription
-                            Drops.show(Util.getDrop(message: errorString))
-                            isLoading = false
-                        }
-                    })
+                    isLoading = false
+                    accountName = paymentOptionsViewModel.accountName
+                    accountNumber = paymentOptionsViewModel.accountNumber
+                    bankName = paymentOptionsViewModel.bankName
+                    isShowingCard = true
                 } else {
                     if (Octane.errorString.isEmpty) {
                         Drops.show("Something went wrong. Try again")
@@ -200,7 +154,7 @@ struct PaymentsOptionsView: View {
 }
 
 #Preview {
-    PaymentsOptionsView(accountId: "", clientId: "", clientKey: "").onAppear{
+    PaymentsOptionsView(accountId: "", clientId: "").onAppear{
         //Octane.shared.configure(clientId: "", accountId: "", clientKey: "")
     }
     

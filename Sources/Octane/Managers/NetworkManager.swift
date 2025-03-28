@@ -16,39 +16,13 @@ class NetworkManager{
     
     private init() {}
     
-    func getAccessToken(accountId: String, clientId: String, clientKey: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
-        if (accessToken != nil || refreshToken != nil){
-            completion(.success(true))
-        } else {
-            let url = URL(string:  "\(Constants.base_url)/auth/token/issue")!
-            let body : [String : Any] = ["grant_type": "client_credentials", "client_id": "\(clientId)", "client_secret": "\(clientKey)"]
-            pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId], bodyValues: body, completion: { [self] result in
-                switch result {
-                case .success(let data):
-                    do {
-                        let accessTokenResult = try JSONDecoder().decode(AccessTokenResponse.self, from: data)
-                        accessToken = accessTokenResult.data.accessToken
-                        refreshToken = accessTokenResult.data.refreshToken
-                        completion(.success(true))
-                    } catch (let error) {
-                        print(String(describing: error))
-                        completion(.success(false))
-                    }
-                case .failure(let error):
-                    print(String(describing: error))
-                    completion(.failure(error))
-                }
-            })
-        }
-    }
     
-    
-    func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
+    func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, clientId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
     
         let order : [String: Any] = ["tokenizeCard": "true", "order": ["orderReference": "\(orderReference)", "customerId": "\(customerId)", "callbackUrl": "\(callbackURL)", "customerEmail": "\(customerEmail)", "amount": "\(amount)", "currency": "\(currency)"]]
         
-        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "Authorization": accessToken!], bodyValues: order, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "public_key": clientId], bodyValues: order, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -86,7 +60,7 @@ class NetworkManager{
                                                                ]
         ]
         
-        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: parameters, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers:  [:], bodyValues: parameters, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -113,7 +87,7 @@ class NetworkManager{
                                           "transactionId": "\(transactionID)"
         ]
         
-        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: parameters, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers:  [:], bodyValues: parameters, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -135,7 +109,7 @@ class NetworkManager{
     func checkTransactionOrderStatus(orderReference: String, completion: @escaping (Result<CheckTransactionStatusResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/confirm-transaction-receipt/")!
         let paramaters : [String: Any] = ["orderReference": orderReference]
-        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers: [:], bodyValues: paramaters, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -157,7 +131,7 @@ class NetworkManager{
     func requestOTPForCardSaving(orderReference: String, phoneNumber: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/user-card/auth/")!
         let paramaters : [String: Any] = ["orderReference": orderReference, "phoneNumber": phoneNumber]
-        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers:  [:], bodyValues: paramaters, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -179,7 +153,7 @@ class NetworkManager{
     func submitOTPForCardSaving(orderReference: String, phoneNumber: String, otp: String, completion: @escaping (Result<RequestCardOTPResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/user-card/auth/")!
         let paramaters : [String: Any] = ["orderReference": orderReference, "phoneNumber": phoneNumber, "otp" : otp]
-        pingPonger(url: url, httpMethod: .POST, headers: ["Authorization": accessToken!], bodyValues: paramaters, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers: [:], bodyValues: paramaters, completion: { result in
             switch result {
             case .success(let data):
                 do {
@@ -200,7 +174,7 @@ class NetworkManager{
     
     func getFlashAccount(orderReference: String, completion: @escaping (Result<FlashAccountResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/get-checkout-kta/\(orderReference)")!
-        pingPonger(url: url, headers: ["Authorization": accessToken!], completion: { result in
+        pingPonger(url: url, headers:  [:], completion: { result in
             switch result {
             case .success(let data):
                 do {

@@ -13,8 +13,8 @@ public class Octane{
     static var accountId = "my-fancy-widget-key"
     static var email = "me@nomba.com"
     static var customer = "Emeka Bond"
-    static var orderReference:String? =  null
-    static var customerId:String? =  null
+    static var orderReference:String?
+    static var customerId:String?
     static var amount : Double = 10.00
     static var colorTheme = ColorTheme.LIGHT
     static var errorString = ""
@@ -72,7 +72,7 @@ public class Octane{
     #if canImport(UIKit) && !os(visionOS)
     /// (UIKit) The Changelog viewcontroller.
     public var viewController: UIViewController {
-        UIHostingController(rootView: PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId, ).preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
+        UIHostingController(rootView: PaymentsOptionsView(logo:Octane.logo, accountId: Octane.accountId, clientId: Octane.clientId ).preferredColorScheme(Octane.colorTheme == .AUTO ? .none : Octane.colorTheme == .LIGHT ? .light : .dark))
     }
     #endif
     

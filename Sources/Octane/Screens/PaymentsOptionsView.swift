@@ -124,7 +124,7 @@ struct PaymentsOptionsView: View {
     
     private func showCardView(){
         isLoading = true
-        paymentOptionsViewModel.createOrder(accountId: accountId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .CARD, completion: { result in
+        paymentOptionsViewModel.createOrder(accountId: accountId,clientId: clientId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .CARD, completion: { result in
             switch result {
             case .success(let data):
                 if (data){

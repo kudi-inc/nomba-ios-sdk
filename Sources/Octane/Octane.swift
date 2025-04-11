@@ -41,9 +41,6 @@ public class Octane{
     public func configure(clientId: String, accountId: String) {
         Octane.clientId = clientId
         Octane.accountId = accountId
-        if fontsManager == nil {
-            fontsManager = FontsManager()
-        }
         registerAllFonts()
     }
     

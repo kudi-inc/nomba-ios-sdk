@@ -22,7 +22,7 @@ class NetworkManager{
     
         let order : [String: Any] = ["tokenizeCard": "true", "order": ["orderReference": "\(orderReference)", "customerId": "\(customerId)", "callbackUrl": "\(callbackURL)", "customerEmail": "\(customerEmail)", "amount": "\(amount)", "currency": "\(currency)"]]
         
-        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "public_key": clientId], bodyValues: order, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "public_key": clientId,"X-Nomba-Integration":"ios-flutter-sdk"], bodyValues: order, completion: { result in
             switch result {
             case .success(let data):
                 do {

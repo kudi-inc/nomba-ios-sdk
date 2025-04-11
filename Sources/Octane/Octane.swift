@@ -24,7 +24,7 @@ public class Octane{
     public static let shared = Octane()
     
     private init() {
-        fontsManager=FontsManager()
+        fontsManager = FontsManager()
     }
     
     func registerAllFonts(){
@@ -41,6 +41,9 @@ public class Octane{
     public func configure(clientId: String, accountId: String) {
         Octane.clientId = clientId
         Octane.accountId = accountId
+        if fontsManager == nil {
+            fontsManager = FontsManager()
+        }
         registerAllFonts()
     }
     

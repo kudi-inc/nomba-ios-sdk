@@ -13,8 +13,8 @@ public class Octane{
     static var accountId = "my-fancy-widget-key"
     static var email = "me@nomba.com"
     static var customer = "Emeka Bond"
-    static var orderReference:String?
-    static var customerId:String?
+    static var orderReference: String?
+    static var customerId: String?
     static var amount : Double = 10.00
     static var colorTheme = ColorTheme.LIGHT
     static var errorString = ""
@@ -44,7 +44,7 @@ public class Octane{
         registerAllFonts()
     }
     
-    public func setPaymentDetails(email: String, amount: Double, customerName: String,orderReference: String?, customerId: String?, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
+    public func setPaymentDetails(email: String, amount: Double, customerName: String, orderReference: String?, customerId: String?, logo:Image?, onTransactionComplete: @escaping (CheckTransactionStatusResponse) -> Void){
         Octane.email = email
         Octane.customer = customerName
         Octane.amount = amount

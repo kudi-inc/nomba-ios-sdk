@@ -25,28 +25,12 @@ class FontsManager {
        case failedToRegisterFont
     }
 
-    func registerFont(named name: String) {
-        do {
-            guard let asset = NSDataAsset(name: "Fonts/\(name)", bundle: Bundle.module) else {
-                throw FontError.failedToRegisterFont
-            }
-
-            guard let provider = CGDataProvider(data: asset.data as NSData) else {
-                throw FontError.failedToRegisterFont
-            }
-
-            guard let font = CGFont(provider) else {
-                throw FontError.failedToRegisterFont
-            }
-
-            if !CTFontManagerRegisterGraphicsFont(font, nil) {
-                throw FontError.failedToRegisterFont
-            }
-
-            print("✅ Font \(name) registered successfully.")
-
-        } catch {
-            print("❌ Failed to register font '\(name)': \(error)")
+    func registerFont(named name: String) throws {
+        guard let asset = NSDataAsset(name: "Fonts/\(name)", bundle: Bundle.module),
+              let provider = CGDataProvider(data: asset.data as NSData),
+              let font = CGFont(provider),
+              CTFontManagerRegisterGraphicsFont(font, nil) else {
+            throw FontError.failedToRegisterFont
         }
     }
 

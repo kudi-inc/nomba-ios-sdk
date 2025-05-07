@@ -13,6 +13,7 @@ public class Octane{
     static var accountId = "my-fancy-widget-key"
     static var email = "me@nomba.com"
     static var customer = "Emeka Bond"
+    static var source = "ios-sdk"
     static var orderReference: String?
     static var customerId: String?
     static var amount : Double = 10.00
@@ -38,9 +39,12 @@ public class Octane{
         fontsManager = nil
     }
     
-    public func configure(clientId: String, accountId: String) {
+    public func configure(clientId: String, accountId: String, source:String?) {
         Octane.clientId = clientId
         Octane.accountId = accountId
+        if source != nil {
+            Octane.source = source!
+        }
         registerAllFonts()
     }
     

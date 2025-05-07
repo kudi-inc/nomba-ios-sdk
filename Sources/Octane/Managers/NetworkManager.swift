@@ -17,12 +17,12 @@ class NetworkManager{
     private init() {}
     
     
-    func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String, accountId: String, clientId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
+    func createOrder(orderReference: String, customerId: String, customerEmail: String, callbackURL : String, amount: String, currency : String,source : String, accountId: String, clientId: String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<CreateOrderResponse, Error>) -> Void){
         let url = URL(string:  "\(Constants.base_url)/checkout/order")!
     
         let order : [String: Any] = ["tokenizeCard": "true", "order": ["orderReference": "\(orderReference)", "customerId": "\(customerId)", "callbackUrl": "\(callbackURL)", "customerEmail": "\(customerEmail)", "amount": "\(amount)", "currency": "\(currency)"]]
         
-        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "public_key": clientId, "X-Nomba-Integration":"ios-flutter-sdk"], bodyValues: order, completion: { result in
+        pingPonger(url: url, httpMethod: .POST, headers: ["accountId": accountId, "public_key": clientId, "X-Nomba-Integration":source], bodyValues: order, completion: { result in
             switch result {
             case .success(let data):
                 do {

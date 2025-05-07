@@ -22,7 +22,7 @@ class PaymentOptionsViewModel : ObservableObject {
     
     
     func createOrder(accountId: String,clientId: String, amount: String, customerEmail: String, currency : String, selectedPaymentOption: PaymentOption, completion: @escaping (Result<Bool, Error>) -> Void){
-        networkManager.createOrder(orderReference: orderReference, customerId: customerId, customerEmail: customerEmail, callbackURL: callbackURL, amount: amount, currency: currency, accountId: accountId,clientId: clientId, selectedPaymentOption: selectedPaymentOption, completion: { [self] result in
+        networkManager.createOrder(orderReference: orderReference, customerId: customerId, customerEmail: customerEmail, callbackURL: callbackURL, amount: amount, currency: currency, source: Octane.source, accountId: accountId,clientId: clientId, selectedPaymentOption: selectedPaymentOption, completion: { [self] result in
             switch result {
             case .success(let response):
                 orderReference = response.data.orderReference

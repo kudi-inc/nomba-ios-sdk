@@ -29,6 +29,8 @@ struct TransferView: View {
             VStack{
                 TopView(showBackArrow: $showBackArrow, logo: logo)
                 switch transferPaymentStatus {
+                case .ERROR:
+                    Text("Cannot generate account details. Please try again")
                 case .DETAILS:
                     TransferDetailsView(accountNumber: $accountNumber, bankName: $bankName, accountName: $accountName, onTimerFinished: onDetailsTimerFinished, sentMoneyAction: onTransferSent, cancelPayment: cancelPayment)
                 case .ACCOUNT_EXPIRED:

@@ -14,5 +14,6 @@ enum TransferPaymentStatus: Int {
     case CONFIRMATION_WAITING_FAILED = 3
     case CONFIRMATION_TRY_AGAIN = 4
     case GET_HELP = 5
+    case ERROR = 6
     
 }

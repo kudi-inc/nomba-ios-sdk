@@ -10,13 +10,13 @@ import Foundation
 class PaymentOptionsViewModel : ObservableObject {
     
     var callbackURL : String = "https://octane/ios.sdk/callback"
-    var customerId = Octane.customerId ?? UUID().uuidString
+    var customerId = Octane.customerId ?? ""
     var networkManager = NetworkManager.shared
-    var orderReference : String = Octane.orderReference ?? UUID().uuidString
+    var orderReference : String = Octane.orderReference
     
-    var accountNumber : String = "98762371891"
-    var bankName : String = "Nombank MFB"
-    var accountName : String = "Abdullahi Abodunrin"
+    var accountNumber : String = ""
+    var bankName : String = ""
+    var accountName : String = ""
     var transactionResponse: CheckTransactionStatusResponse? = nil
     
     

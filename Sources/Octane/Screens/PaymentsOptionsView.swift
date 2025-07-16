@@ -21,9 +21,9 @@ struct PaymentsOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var paymentOptionsViewModel = PaymentOptionsViewModel()
     
-    @State var accountNumber : String = "98762371891"
-    @State var bankName : String = "Amucha MFB"
-    @State var accountName : String = "Abdullahi Abodunrin"
+    @State var accountNumber : String = ""
+    @State var bankName : String = "Nombank MFB"
+    @State var accountName : String = ""
     @State var showBackArrow = false
     
     var body: some View {
@@ -77,7 +77,7 @@ struct PaymentsOptionsView: View {
                 LoaderView()
             }
         }.sheet(isPresented: $isShowingTransfer){
-            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, paymentOptionsViewModel: $paymentOptionsViewModel, parentPresentationMode: presentationMode)
+            TransferView(logo: logo, accountNumber: accountNumber, bankName: bankName, accountName: accountName, transferPaymentStatus: accountNumber.isEmpty ? .ERROR:.DETAILS, paymentOptionsViewModel: $paymentOptionsViewModel, parentPresentationMode: presentationMode )
                 .interactiveDismissDisabled(true)
         }.sheet(isPresented: $isShowingCard) {
             CardView(logo: logo, parentPresentationMode: presentationMode, paymentOptionsViewModel: $paymentOptionsViewModel).interactiveDismissDisabled(true)
@@ -95,6 +95,10 @@ struct PaymentsOptionsView: View {
     }
     
     private func showTransferView(){
+        if Octane.orderReference.isEmpty {
+            Drops.show("Order reference cannot be empty. Please try again")
+            return
+        }
         isLoading = true
         paymentOptionsViewModel.createOrder(accountId: accountId,clientId: clientId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .TRANSFER, completion: { result in
             switch result {
@@ -123,6 +127,10 @@ struct PaymentsOptionsView: View {
     }
     
     private func showCardView(){
+        if Octane.orderReference.isEmpty {
+            Drops.show("Order reference cannot be empty. Please try again")
+            return
+        }
         isLoading = true
         paymentOptionsViewModel.createOrder(accountId: accountId,clientId: clientId, amount: "\(Octane.shared.getAmountFormated())", customerEmail: Octane.email, currency: "NGN", selectedPaymentOption: .CARD, completion: { result in
             switch result {

@@ -29,6 +29,7 @@ struct CardPinView: View {
                 HStack(spacing:15, content: {
                     TextField("", text: $pinOne)
                         .modifier(OtpModifer(pin:$pinOne, onChanged: {_ in }))
+                        .keyboardType(.numberPad)
                         .onChange(of:pinOne){newVal in
                             if (newVal.count == 1) {
                                 pinFocusState = .pinTwo
@@ -38,6 +39,7 @@ struct CardPinView: View {
                     
                     TextField("", text:  $pinTwo)
                         .modifier(OtpModifer(pin:$pinTwo, onChanged: {_ in }))
+                        .keyboardType(.numberPad)
                         .onChange(of:pinTwo){newVal in
                             if (newVal.count == 1) {
                                 pinFocusState = .pinThree
@@ -52,6 +54,7 @@ struct CardPinView: View {
                     
                     TextField("", text:$pinThree)
                         .modifier(OtpModifer(pin:$pinThree, onChanged: {_ in }))
+                        .keyboardType(.numberPad)
                         .onChange(of:pinThree){newVal in
                             if (newVal.count == 1) {
                                 pinFocusState = .pinFour
@@ -66,6 +69,7 @@ struct CardPinView: View {
                     
                     TextField("", text:$pinFour)
                         .modifier(OtpModifer(pin:$pinFour, onChanged: {_ in }))
+                        .keyboardType(.numberPad)
                         .onChange(of:pinFour){newVal in
                             if (newVal.count == 0) {
                                 pinFocusState = .pinThree

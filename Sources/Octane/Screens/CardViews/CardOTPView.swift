@@ -31,7 +31,6 @@ struct CardOTPView: View {
                 HStack(spacing:8, content: {
                     TextField("", text: $pinOne)
                         .modifier(OtpModifer(pin:$pinOne, onChanged: {_ in }))
-                        .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .onChange(of:pinOne){ newVal in
                             if newVal.count > 1 {
@@ -46,7 +45,6 @@ struct CardOTPView: View {
                     
                     TextField("", text:  $pinTwo)
                         .modifier(OtpModifer(pin:$pinTwo, onChanged: {_ in }))
-                        .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .onChange(of:pinTwo){ newVal in
                             if newVal.count > 1 {
@@ -66,7 +64,6 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinThree)
                         .modifier(OtpModifer(pin:$pinThree, onChanged: {_ in }))
-                        .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .onChange(of:pinThree){ newVal in
                             if newVal.count > 1 {
@@ -86,7 +83,6 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinFour)
                         .modifier(OtpModifer(pin:$pinFour, onChanged: {_ in }))
-                        .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .onChange(of:pinFour){ newVal in
                             if newVal.count > 1 {
@@ -105,7 +101,6 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinFive)
                         .modifier(OtpModifer(pin:$pinFive, onChanged: {_ in }))
-                        .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .onChange(of:pinFive){ newVal in
                             if newVal.count > 1 {
@@ -124,7 +119,6 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinSix)
                         .modifier(OtpModifer(pin:$pinSix, onChanged: {_ in }))
-                        .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .onChange(of:pinSix){ newVal in
                             if newVal.count > 1 {

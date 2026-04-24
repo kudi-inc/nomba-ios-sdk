@@ -32,6 +32,8 @@ struct OtpModifer: ViewModifier {
         content
             .multilineTextAlignment(.center)
             .keyboardType(.numberPad)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled(true)
             //.onReceive(Just(pin)) {_ in limitText(textLimt)}
             .onReceive(Just(editableInt)) { newValue in
                             let editableInt = newValue.filter { "0123456789".contains($0) }
@@ -50,3 +52,4 @@ struct OtpModifer: ViewModifier {
             .onAppear { self.editableInt = self.intString }
     }
 }
+

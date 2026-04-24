@@ -99,9 +99,11 @@ struct CardSuccessOTPView: View {
                             if newVal.count == 0 {
                                 pinFocusState = .pinThree
                             } else {
-                                OTP = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)"
-                                // doActionHere
-                                onOTPEnteredAction()
+                                let newOtp = "\(pinOne)\(pinTwo)\(pinThree)\(newVal)"
+                                if OTP != newOtp {
+                                    OTP = newOtp
+                                    onOTPEnteredAction()
+                                }
                             }
                         }
                         .focused($pinFocusState, equals: .pinFour)
@@ -144,6 +146,7 @@ struct CardSuccessOTPView: View {
         pinFour = chars.count > 3 ? String(chars[3]) : ""
         if chars.count >= 4 {
             OTP = String(chars.prefix(4))
+            onOTPEnteredAction()
         } else {
             if pinOne.isEmpty { pinFocusState = .pinOne }
             else if pinTwo.isEmpty { pinFocusState = .pinTwo }

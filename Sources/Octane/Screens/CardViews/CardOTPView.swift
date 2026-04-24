@@ -128,8 +128,11 @@ struct CardOTPView: View {
                             if newVal.count == 0 {
                                 pinFocusState = .pinFive
                             } else {
-                                otpPin = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)\(pinFive)\(pinSix)"
-                                onOtpEnteredAction()
+                                let newOtp = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)\(pinFive)\(newVal)"
+                                if otpPin != newOtp {
+                                    otpPin = newOtp
+                                    onOtpEnteredAction()
+                                }
                             }
                         }
                         .focused($pinFocusState, equals: .pinSix)
@@ -156,6 +159,7 @@ struct CardOTPView: View {
         pinSix = chars.count > 5 ? String(chars[5]) : ""
         if chars.count >= 6 {
             otpPin = String(chars)
+            onOtpEnteredAction()
         } else {
             if pinOne.isEmpty { pinFocusState = .pinOne }
             else if pinTwo.isEmpty { pinFocusState = .pinTwo }

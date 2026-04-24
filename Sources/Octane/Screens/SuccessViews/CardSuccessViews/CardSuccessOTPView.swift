@@ -143,8 +143,7 @@ struct CardSuccessOTPView: View {
         pinThree = chars.count > 2 ? String(chars[2]) : ""
         pinFour = chars.count > 3 ? String(chars[3]) : ""
         if chars.count >= 4 {
-            OTP = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)"
-            onOTPEnteredAction()
+            OTP = String(chars.prefix(4))
         } else {
             if pinOne.isEmpty { pinFocusState = .pinOne }
             else if pinTwo.isEmpty { pinFocusState = .pinTwo }

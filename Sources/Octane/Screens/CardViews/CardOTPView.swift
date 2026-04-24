@@ -147,7 +147,7 @@ struct CardOTPView: View {
     private func applyPastedCode(_ string: String) {
         let digits = string.filter { $0.isNumber }
         guard !digits.isEmpty else { return }
-        let chars = Array(digits)
+        let chars = Array(digits.prefix(6))
         pinOne = chars.count > 0 ? String(chars[0]) : ""
         pinTwo = chars.count > 1 ? String(chars[1]) : ""
         pinThree = chars.count > 2 ? String(chars[2]) : ""
@@ -155,8 +155,7 @@ struct CardOTPView: View {
         pinFive = chars.count > 4 ? String(chars[4]) : ""
         pinSix = chars.count > 5 ? String(chars[5]) : ""
         if chars.count >= 6 {
-            otpPin = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)\(pinFive)\(pinSix)"
-            onOtpEnteredAction()
+            otpPin = String(chars)
         } else {
             if pinOne.isEmpty { pinFocusState = .pinOne }
             else if pinTwo.isEmpty { pinFocusState = .pinTwo }

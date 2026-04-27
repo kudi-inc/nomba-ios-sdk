@@ -31,8 +31,13 @@ struct CardOTPView: View {
                 HStack(spacing:8, content: {
                     TextField("", text: $pinOne)
                         .modifier(OtpModifer(pin:$pinOne, onChanged: {_ in }))
-                        .onChange(of:pinOne){newVal in
-                            if (newVal.count == 1) {
+                        .textContentType(.oneTimeCode)
+                        .onChange(of:pinOne){ newVal in
+                            if newVal.count > 1 {
+                                applyPastedCode(newVal)
+                                return
+                            }
+                            if newVal.count == 1 {
                                 pinFocusState = .pinTwo
                             }
                         }
@@ -40,11 +45,16 @@ struct CardOTPView: View {
                     
                     TextField("", text:  $pinTwo)
                         .modifier(OtpModifer(pin:$pinTwo, onChanged: {_ in }))
-                        .onChange(of:pinTwo){newVal in
-                            if (newVal.count == 1) {
+                        .textContentType(.oneTimeCode)
+                        .onChange(of:pinTwo){ newVal in
+                            if newVal.count > 1 {
+                                applyPastedCode(newVal)
+                                return
+                            }
+                            if newVal.count == 1 {
                                 pinFocusState = .pinThree
-                            }else {
-                                if (newVal.count == 0) {
+                            } else {
+                                if newVal.count == 0 {
                                     pinFocusState = .pinOne
                                 }
                             }
@@ -54,11 +64,16 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinThree)
                         .modifier(OtpModifer(pin:$pinThree, onChanged: {_ in }))
-                        .onChange(of:pinThree){newVal in
-                            if (newVal.count == 1) {
+                        .textContentType(.oneTimeCode)
+                        .onChange(of:pinThree){ newVal in
+                            if newVal.count > 1 {
+                                applyPastedCode(newVal)
+                                return
+                            }
+                            if newVal.count == 1 {
                                 pinFocusState = .pinFour
-                            }else {
-                                if (newVal.count == 0) {
+                            } else {
+                                if newVal.count == 0 {
                                     pinFocusState = .pinTwo
                                 }
                             }
@@ -68,11 +83,16 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinFour)
                         .modifier(OtpModifer(pin:$pinFour, onChanged: {_ in }))
-                        .onChange(of:pinFour){newVal in
-                            if (newVal.count == 1) {
+                        .textContentType(.oneTimeCode)
+                        .onChange(of:pinFour){ newVal in
+                            if newVal.count > 1 {
+                                applyPastedCode(newVal)
+                                return
+                            }
+                            if newVal.count == 1 {
                                 pinFocusState = .pinFive
-                            }else {
-                                if (newVal.count == 0) {
+                            } else {
+                                if newVal.count == 0 {
                                     pinFocusState = .pinThree
                                 }
                             }
@@ -81,11 +101,16 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinFive)
                         .modifier(OtpModifer(pin:$pinFive, onChanged: {_ in }))
-                        .onChange(of:pinFive){newVal in
-                            if (newVal.count == 1) {
+                        .textContentType(.oneTimeCode)
+                        .onChange(of:pinFive){ newVal in
+                            if newVal.count > 1 {
+                                applyPastedCode(newVal)
+                                return
+                            }
+                            if newVal.count == 1 {
                                 pinFocusState = .pinSix
-                            }else {
-                                if (newVal.count == 0) {
+                            } else {
+                                if newVal.count == 0 {
                                     pinFocusState = .pinFour
                                 }
                             }
@@ -94,12 +119,20 @@ struct CardOTPView: View {
                     
                     TextField("", text:$pinSix)
                         .modifier(OtpModifer(pin:$pinSix, onChanged: {_ in }))
-                        .onChange(of:pinSix){newVal in
-                            if (newVal.count == 0) {
+                        .textContentType(.oneTimeCode)
+                        .onChange(of:pinSix){ newVal in
+                            if newVal.count > 1 {
+                                applyPastedCode(newVal)
+                                return
+                            }
+                            if newVal.count == 0 {
                                 pinFocusState = .pinFive
                             } else {
-                                otpPin = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)\(pinFive)\(pinSix)"
-                                onOtpEnteredAction()
+                                let newOtp = "\(pinOne)\(pinTwo)\(pinThree)\(pinFour)\(pinFive)\(newVal)"
+                                if otpPin != newOtp {
+                                    otpPin = newOtp
+                                    onOtpEnteredAction()
+                                }
                             }
                         }
                         .focused($pinFocusState, equals: .pinSix)
@@ -111,6 +144,29 @@ struct CardOTPView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .stroke(Color("Neutral Two", bundle: .module), lineWidth: 1)
             }
+        }
+    }
+    
+    private func applyPastedCode(_ string: String) {
+        let digits = string.filter { $0.isNumber }
+        guard !digits.isEmpty else { return }
+        let chars = Array(digits.prefix(6))
+        pinOne = chars.count > 0 ? String(chars[0]) : ""
+        pinTwo = chars.count > 1 ? String(chars[1]) : ""
+        pinThree = chars.count > 2 ? String(chars[2]) : ""
+        pinFour = chars.count > 3 ? String(chars[3]) : ""
+        pinFive = chars.count > 4 ? String(chars[4]) : ""
+        pinSix = chars.count > 5 ? String(chars[5]) : ""
+        if chars.count >= 6 {
+            otpPin = String(chars)
+            onOtpEnteredAction()
+        } else {
+            if pinOne.isEmpty { pinFocusState = .pinOne }
+            else if pinTwo.isEmpty { pinFocusState = .pinTwo }
+            else if pinThree.isEmpty { pinFocusState = .pinThree }
+            else if pinFour.isEmpty { pinFocusState = .pinFour }
+            else if pinFive.isEmpty { pinFocusState = .pinFive }
+            else { pinFocusState = .pinSix }
         }
     }
 }
